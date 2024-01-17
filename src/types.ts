@@ -22,6 +22,7 @@ export type Song = {
 
 export type HomeStackNavigatorParamList = {
   SongList: undefined;
+  NewSong: undefined;
   Profile: {
     name: string;
     birthYear: string;
