@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splashscreen.png",
       "resizeMode": "contain",
-      "backgroundColor": "#666666"
+      "backgroundColor": "#AAAAAA"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -18,8 +18,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#666666"
-      }
+        "backgroundColor": "#AAAAAA"
+      },
+      "package": "click.belinde.meistru"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -28,6 +29,12 @@
       "eas": {
         "projectId": "c4bb382c-6aaf-40e0-a2bb-75897ffdee8a"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/c4bb382c-6aaf-40e0-a2bb-75897ffdee8a"
     }
   }
 }

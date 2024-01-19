@@ -1,4 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { SECTIONS } from "./constants";
 
 export type Alteration = "#" | "b";
 
@@ -8,8 +9,11 @@ export type Note = {
   octave: number;
 };
 
+export type Section = (typeof SECTIONS)[number];
+
 export type InitialNote = {
-  section: string;
+  section: Section;
+  subsection: number;
   note: Note;
 };
 
