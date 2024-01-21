@@ -1,45 +1,58 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FC } from "react";
-import { MD3DarkTheme, PaperProvider, useTheme } from "react-native-paper";
-import { NewSong } from "./src/NewSong";
-import { SongList } from "./src/SongList";
-import { HomeStackNavigatorParamList } from "./src/types";
+import * as NavigationBar from "expo-navigation-bar";
+import { StatusBar } from "expo-status-bar";
+import { FC, useEffect, useMemo, useState } from "react";
+import {
+  BottomNavigation,
+  MD3DarkTheme,
+  PaperProvider,
+  useTheme,
+} from "react-native-paper";
+import { BaseRoute } from "react-native-paper/lib/typescript/components/BottomNavigation/BottomNavigation";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Library } from "./src/pages/Library";
 
-const Stack = createNativeStackNavigator<HomeStackNavigatorParamList>();
+const ROUTES: BaseRoute[] = [
+  {
+    key: "Library",
+    title: "Libreria",
+    focusedIcon: "folder-music",
+    unfocusedIcon: "folder-music-outline",
+  },
+  {
+    key: "Concert",
+    title: "Concerto",
+    focusedIcon: "account-music",
+    unfocusedIcon: "account-music-outline",
+  },
+];
 
 const ThemedNavigationContainer: FC = () => {
   const theme = useTheme();
+  const [index, setIndex] = useState(0);
+  const routes = useMemo(() => ROUTES, []);
 
+  useEffect(() => {
+    NavigationBar.setBackgroundColorAsync(theme.colors.elevation.level2);
+    NavigationBar.setVisibilityAsync("hidden");
+    NavigationBar.setBehaviorAsync("overlay-swipe");
+  }, [theme]);
+
+  const renderScene = BottomNavigation.SceneMap({
+    Library,
+    Concert: Library,
+  });
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          animation: "none",
-          headerStyle: {
-            backgroundColor: theme.colors.surfaceVariant,
-          },
-          headerTintColor: theme.colors.onSurfaceVariant,
-          headerTitleStyle: {
-            color: theme.colors.onSurfaceVariant,
-          },
-          contentStyle: {
-            backgroundColor: theme.colors.background,
-          },
+      <BottomNavigation
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        navigationState={{
+          index,
+          routes,
         }}
-      >
-        <Stack.Screen
-          name="SongList"
-          component={SongList}
-          options={{ title: "Elenco cante" }}
-        />
-        <Stack.Screen
-          name="NewSong"
-          component={NewSong}
-          options={{ title: "Nuova canta" }}
-        />
-        <Stack.Screen name="Profile" component={SongList} />
-      </Stack.Navigator>
+      />
+      <StatusBar backgroundColor={theme.colors.elevation.level2} />
     </NavigationContainer>
   );
 };
@@ -93,7 +106,9 @@ export default function App() {
         },
       }}
     >
-      <ThemedNavigationContainer />
+      <SafeAreaProvider>
+        <ThemedNavigationContainer />
+      </SafeAreaProvider>
     </PaperProvider>
   );
 }

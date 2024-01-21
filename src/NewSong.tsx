@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { FC, useState } from "react";
-import { View } from "react-native";
 import { Button, TextInput } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useSongList } from "./hooks/useSongList";
 import { HomeScreenNavigationProp } from "./types";
 
@@ -12,12 +12,23 @@ export const NewSong: FC = () => {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   return (
-    <View>
-      <TextInput label="Titolo" value={title} onChangeText={setTitle} />
-      <TextInput label="Artista" value={artist} onChangeText={setArtist} />
+    <SafeAreaView>
+      <TextInput
+        mode="outlined"
+        label="Titolo"
+        value={title}
+        onChangeText={setTitle}
+      />
+      <TextInput
+        mode="outlined"
+        label="Artista"
+        value={artist}
+        onChangeText={setArtist}
+      />
       <Button
         icon="content-save"
         mode="contained"
+        disabled={!title || !artist}
         onPress={() => {
           addSong({
             id: new Date().toString(),
@@ -29,6 +40,6 @@ export const NewSong: FC = () => {
       >
         Salva
       </Button>
-    </View>
+    </SafeAreaView>
   );
 };

@@ -1,27 +1,25 @@
 import { useNavigation } from "@react-navigation/native";
 import { FC } from "react";
-import { Text, View } from "react-native";
 import { Button } from "react-native-paper";
-import { SongRow } from "./components/SongRow";
-import { useSongList } from "./hooks/useSongList";
-import { HomeScreenNavigationProp } from "./types";
+import { Page } from "../components/Page";
+import { SongList } from "../components/SongList";
+import { useSongList } from "../hooks/useSongList";
+import { HomeScreenNavigationProp } from "../types";
 
-export const SongList: FC = () => {
+export const Library: FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { songs } = useSongList();
 
   return (
-    <View>
-      <Text>Elenco</Text>
-      {songs.map((song) => (
-        <SongRow key={song.id} song={song} />
-      ))}
+    <Page>
       <Button
         icon="music-note-plus"
+        mode="contained"
         onPress={() => navigation.navigate("NewSong")}
       >
         Aggiungi
       </Button>
-    </View>
+      <SongList songs={songs} />
+    </Page>
   );
 };
