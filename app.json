@@ -1,29 +1,38 @@
 {
   "expo": {
     "name": "Meistru",
+    "version": "1.0.1",
+    "description": "Meistru permette ai direttori di coro di salvare le note iniziali di ogni reparto, organizzare i concerti ed eseguire l'accordo iniziale.",
     "slug": "meistru",
-    "version": "1.0.0",
+    "owner": "belinde",
+    "privacy": "unlisted",
+    "platforms": ["android"],
     "orientation": "portrait",
+    "githubUrl": "https://github.com/belinde/meistru",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
+    "backgroundColor": "#242B1F",
+    "primaryColor": "#386b01",
+    "androidStatusBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#242B1F"
+    },
+    "androidNavigationBar": {
+      "barStyle": "dark-content",
+      "backgroundColor": "#242B1F"
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#242B1F"
     },
     "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#242B1F"
       },
       "package": "click.belinde.meistru"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {

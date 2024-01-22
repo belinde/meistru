@@ -2,13 +2,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { MD3DarkTheme, PaperProvider } from "react-native-paper";
+import { MD3DarkTheme, MD3Theme, PaperProvider } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { Library } from "./src/pages/Library";
 
 const Tab = createMaterialBottomTabNavigator();
 
-const THEME = {
+const THEME: MD3Theme = {
   ...MD3DarkTheme,
   colors: {
     primary: "#9cd769",
@@ -62,18 +62,9 @@ export default function App() {
 
   return (
     <PaperProvider theme={THEME}>
+      <StatusBar backgroundColor={THEME.colors.elevation.level2} />
       <NavigationContainer>
-        <Tab.Navigator
-          initialRouteName="Library"
-          activeColor={THEME.colors.primary}
-          inactiveColor={THEME.colors.onSurface}
-          barStyle={{
-            backgroundColor: THEME.colors.elevation.level2,
-            borderTopColor: THEME.colors.primary,
-            borderBottomColor: THEME.colors.primary,
-            borderTopWidth: 1,
-          }}
-        >
+        <Tab.Navigator initialRouteName="Library" theme={THEME}>
           <Tab.Screen
             name="Library"
             component={Library}
@@ -89,23 +80,6 @@ export default function App() {
             }}
           />
         </Tab.Navigator>
-        {/* <BottomNavigation
-          compact
-          barStyle={{
-            backgroundColor: THEME.colors.elevation.level2,
-            borderTopColor: THEME.colors.primary,
-            borderTopWidth: 1,
-            paddingBottom: 0,
-            marginBottom: 0,
-          }}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          navigationState={{
-            index,
-            routes: ROUTES,
-          }}
-        /> */}
-        <StatusBar backgroundColor={THEME.colors.elevation.level2} />
       </NavigationContainer>
     </PaperProvider>
   );

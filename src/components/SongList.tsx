@@ -14,6 +14,7 @@ export const SongList: FC<{ songs: Song[]; onPress: (song: Song) => void }> = (
           title={row.item.title}
           description={row.item.artist}
           left={() => <List.Icon icon="music" />}
+          right={() => <List.Icon icon="chevron-right" />}
           onPress={() => props.onPress(row.item)}
         />
       )}
