@@ -9,6 +9,8 @@ export const Page: FC<{ children: ReactNode }> = (props) => {
     <View
       style={{
         flex: 1,
+        rowGap: 16,
+        flexDirection: "column",
         paddingTop: insets.top,
         paddingBottom: insets.bottom,
         paddingLeft: insets.left,

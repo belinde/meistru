@@ -1,54 +1,52 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
-import {
-  BottomNavigation,
-  MD3DarkTheme,
-  PaperProvider,
-} from "react-native-paper";
-import { BaseRoute } from "react-native-paper/lib/typescript/components/BottomNavigation/BottomNavigation";
+import { useEffect } from "react";
+import { MD3DarkTheme, PaperProvider } from "react-native-paper";
+import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { Library } from "./src/pages/Library";
+
+const Tab = createMaterialBottomTabNavigator();
 
 const THEME = {
   ...MD3DarkTheme,
   colors: {
-    primary: "rgb(156, 215, 105)",
-    onPrimary: "rgb(26, 55, 0)",
-    primaryContainer: "rgb(40, 80, 0)",
-    onPrimaryContainer: "rgb(183, 244, 129)",
-    secondary: "rgb(190, 203, 174)",
-    onSecondary: "rgb(41, 52, 31)",
-    secondaryContainer: "rgb(63, 74, 52)",
-    onSecondaryContainer: "rgb(218, 231, 201)",
-    tertiary: "rgb(160, 207, 205)",
-    onTertiary: "rgb(0, 55, 54)",
-    tertiaryContainer: "rgb(30, 78, 77)",
-    onTertiaryContainer: "rgb(187, 236, 233)",
-    error: "rgb(255, 180, 171)",
-    onError: "rgb(105, 0, 5)",
-    errorContainer: "rgb(147, 0, 10)",
-    onErrorContainer: "rgb(255, 180, 171)",
-    background: "rgb(26, 28, 24)",
-    onBackground: "rgb(227, 227, 220)",
-    surface: "rgb(26, 28, 24)",
-    onSurface: "rgb(227, 227, 220)",
-    surfaceVariant: "rgb(68, 72, 62)",
-    onSurfaceVariant: "rgb(196, 200, 186)",
-    outline: "rgb(142, 146, 134)",
-    outlineVariant: "rgb(68, 72, 62)",
-    shadow: "rgb(0, 0, 0)",
-    scrim: "rgb(0, 0, 0)",
-    inverseSurface: "rgb(227, 227, 220)",
-    inverseOnSurface: "rgb(47, 49, 44)",
-    inversePrimary: "rgb(56, 107, 1)",
+    primary: "#9cd769",
+    onPrimary: "#1a3700",
+    primaryContainer: "#285000",
+    onPrimaryContainer: "#b7f481",
+    secondary: "#becbae",
+    onSecondary: "#29341f",
+    secondaryContainer: "#3f4a34",
+    onSecondaryContainer: "#dae7c9",
+    tertiary: "#a0cfcd",
+    onTertiary: "#003736",
+    tertiaryContainer: "#1e4e4d",
+    onTertiaryContainer: "#bbece9",
+    error: "#ffb4ab",
+    onError: "#690005",
+    errorContainer: "#93000a",
+    onErrorContainer: "#ffb4ab",
+    background: "#1a1c18",
+    onBackground: "#e3e3dc",
+    surface: "#1a1c18",
+    onSurface: "#e3e3dc",
+    surfaceVariant: "#44483e",
+    onSurfaceVariant: "#c4c8ba",
+    outline: "#8e9286",
+    outlineVariant: "#44483e",
+    shadow: "#000000",
+    scrim: "#000000",
+    inverseSurface: "#e3e3dc",
+    inverseOnSurface: "#2f312c",
+    inversePrimary: "#386b01",
     elevation: {
       level0: "transparent",
-      level1: "rgb(33, 37, 28)",
-      level2: "rgb(36, 43, 31)",
-      level3: "rgb(40, 49, 33)",
-      level4: "rgb(42, 50, 34)",
-      level5: "rgb(44, 54, 35)",
+      level1: "#21251c",
+      level2: "#242b1f",
+      level3: "#283121",
+      level4: "#2a3222",
+      level5: "#2c3623",
     },
     surfaceDisabled: "rgba(227, 227, 220, 0.12)",
     onSurfaceDisabled: "rgba(227, 227, 220, 0.38)",
@@ -56,39 +54,42 @@ const THEME = {
   },
 };
 
-const ROUTES: BaseRoute[] = [
-  {
-    key: "Library",
-    title: "Libreria",
-    focusedIcon: "folder-music",
-    unfocusedIcon: "folder-music-outline",
-  },
-  {
-    key: "Concert",
-    title: "Concerto",
-    focusedIcon: "account-music",
-    unfocusedIcon: "account-music-outline",
-  },
-];
-
 export default function App() {
-  const [index, setIndex] = useState(0);
-
   useEffect(() => {
     NavigationBar.setBackgroundColorAsync(THEME.colors.elevation.level2);
-    // NavigationBar.setVisibilityAsync("hidden");
-    // NavigationBar.setBehaviorAsync("overlay-swipe");
+    NavigationBar.setButtonStyleAsync("dark");
   }, []);
-
-  const renderScene = BottomNavigation.SceneMap({
-    Library,
-    Concert: Library,
-  });
 
   return (
     <PaperProvider theme={THEME}>
       <NavigationContainer>
-        <BottomNavigation
+        <Tab.Navigator
+          initialRouteName="Library"
+          activeColor={THEME.colors.primary}
+          inactiveColor={THEME.colors.onSurface}
+          barStyle={{
+            backgroundColor: THEME.colors.elevation.level2,
+            borderTopColor: THEME.colors.primary,
+            borderBottomColor: THEME.colors.primary,
+            borderTopWidth: 1,
+          }}
+        >
+          <Tab.Screen
+            name="Library"
+            component={Library}
+            options={{
+              tabBarIcon: "folder-music",
+            }}
+          />
+          <Tab.Screen
+            name="Concert"
+            component={Library}
+            options={{
+              tabBarIcon: "account-music",
+            }}
+          />
+        </Tab.Navigator>
+        {/* <BottomNavigation
           compact
           barStyle={{
             backgroundColor: THEME.colors.elevation.level2,
@@ -103,7 +104,7 @@ export default function App() {
             index,
             routes: ROUTES,
           }}
-        />
+        /> */}
         <StatusBar backgroundColor={THEME.colors.elevation.level2} />
       </NavigationContainer>
     </PaperProvider>
