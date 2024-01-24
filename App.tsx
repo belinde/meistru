@@ -1,20 +1,24 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import * as NavigationBar from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
-import { MD3DarkTheme, MD3Theme, PaperProvider } from "react-native-paper";
+import { MD3DarkTheme, PaperProvider } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
-import { Library } from "./src/pages/Library";
+import { Concert } from "./src/pages/Concert";
+import { LibraryStack } from "./src/pages/Library/LibraryStack";
+import { RootStackRoutes } from "./src/pages/types";
+const Tab = createMaterialBottomTabNavigator<RootStackRoutes>();
 
-const Tab = createMaterialBottomTabNavigator();
-
-const THEME: MD3Theme = {
+const THEME = {
   ...MD3DarkTheme,
+  ...DarkTheme,
   colors: {
-    primary: "#9cd769",
+    ...MD3DarkTheme.colors,
+    ...DarkTheme.colors,
+    primary: "#7eaa57",
     onPrimary: "#1a3700",
     primaryContainer: "#285000",
-    onPrimaryContainer: "#b7f481",
+    onPrimaryContainer: "#a1d573",
     secondary: "#becbae",
     onSecondary: "#29341f",
     secondaryContainer: "#3f4a34",
@@ -63,18 +67,18 @@ export default function App() {
   return (
     <PaperProvider theme={THEME}>
       <StatusBar backgroundColor={THEME.colors.elevation.level2} />
-      <NavigationContainer>
+      <NavigationContainer theme={THEME}>
         <Tab.Navigator initialRouteName="Library" theme={THEME}>
           <Tab.Screen
             name="Library"
-            component={Library}
+            component={LibraryStack}
             options={{
               tabBarIcon: "folder-music",
             }}
           />
           <Tab.Screen
             name="Concert"
-            component={Library}
+            component={Concert}
             options={{
               tabBarIcon: "account-music",
             }}

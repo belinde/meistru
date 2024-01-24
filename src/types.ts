@@ -1,10 +1,11 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { SECTIONS } from "./constants";
+import { NOTES, SECTIONS } from "./constants";
 
 export type Alteration = "#" | "b";
 
+export type NoteName = (typeof NOTES)[number];
+
 export type Note = {
-  note: string;
+  note: NoteName;
   alteration?: Alteration;
   octave: number;
 };
@@ -23,17 +24,3 @@ export type Song = {
   artist: string;
   initialNotes: InitialNote[];
 };
-
-export type HomeStackNavigatorParamList = {
-  SongList: undefined;
-  NewSong: undefined;
-  Profile: {
-    name: string;
-    birthYear: string;
-  };
-};
-
-export type HomeScreenNavigationProp = NativeStackNavigationProp<
-  HomeStackNavigatorParamList,
-  "SongList"
->;

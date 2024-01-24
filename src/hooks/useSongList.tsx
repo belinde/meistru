@@ -36,5 +36,17 @@ export const useSongList = () => {
     }
   };
 
-  return { songs, addSong, editSong };
+  const deleteSong = (id: string) => {
+    const index = songs.findIndex((s) => s.id === id);
+    if (index !== -1) {
+      songs.splice(index, 1);
+      return saveSongs();
+    }
+  };
+
+  const getSong = (id: string) => {
+    return songs.find((song) => song.id === id);
+  };
+
+  return { songs, addSong, editSong, getSong, deleteSong };
 };

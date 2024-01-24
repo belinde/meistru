@@ -11,10 +11,10 @@ export const Page: FC<{ children: ReactNode }> = (props) => {
         flex: 1,
         rowGap: 16,
         flexDirection: "column",
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
+        paddingTop: 10 + insets.top,
+        paddingBottom: 10 + insets.bottom,
+        paddingLeft: 10 + insets.left,
+        paddingRight: 10 + insets.right,
       }}
     >
       {props.children}
