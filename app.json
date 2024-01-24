@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Meistru",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "Meistru permette ai direttori di coro di salvare le note iniziali di ogni reparto, organizzare i concerti ed eseguire l'accordo iniziale.",
     "slug": "meistru",
     "owner": "belinde",
