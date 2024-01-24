@@ -21,7 +21,14 @@ export const DeleteButton: FC<Parameters<typeof Button>["0"]> = (props) => {
             <Text variant="bodyMedium">{props.children}</Text>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={props.onPress}>Elimina</Button>
+            <Button
+              onPress={(e) => {
+                props.onPress(e);
+                setVisible(false);
+              }}
+            >
+              Elimina
+            </Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>

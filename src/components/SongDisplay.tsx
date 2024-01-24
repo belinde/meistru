@@ -1,7 +1,8 @@
 import { FC } from "react";
 import { FlatList } from "react-native";
-import { Card, List } from "react-native-paper";
+import { Card } from "react-native-paper";
 import { useSongList } from "../hooks/useSongList";
+import { ListItemNote } from "./ListItemNote";
 
 export const SongDisplay: FC<{ song: string }> = (props) => {
   const { getSong } = useSongList();
@@ -17,16 +18,7 @@ export const SongDisplay: FC<{ song: string }> = (props) => {
       <Card.Content>
         <FlatList
           data={song.initialNotes}
-          renderItem={(row) => (
-            <List.Item
-              title={`${row.item.section}${
-                row.item.subsection ? ` ${row.item.subsection}` : ""
-              }`}
-              description={`${row.item.note.note}${
-                row.item.note.alteration || ""
-              } - ottava ${row.item.note.octave}`}
-            />
-          )}
+          renderItem={(row) => <ListItemNote note={row.item} />}
         />
       </Card.Content>
     </Card>
