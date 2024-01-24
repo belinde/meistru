@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { Button, Text } from "react-native-paper";
 import { Page } from "../components/Page";
-import { Pentagram } from "../components/Pentagram";
 import { NoteName, Section } from "../types";
 
 type Short = [Section, number, NoteName];
@@ -21,7 +20,7 @@ export const Concert = () => {
     <Page>
       <Text>Concert</Text>
       <Text>TO DO!</Text>
-      <Pentagram
+      {/* <Pentagram
         notes={convert(
           ["tenore", 5, "C"]
           // ["tenore", 4, "C"],
@@ -31,7 +30,7 @@ export const Concert = () => {
           // ["basso", 2, "C"],
           // ["basso", 1, "C"]
         )}
-      />
+      /> */}
       <Button onPress={() => aaa.navigate("Library" as unknown as never)}>
         Libreria
       </Button>

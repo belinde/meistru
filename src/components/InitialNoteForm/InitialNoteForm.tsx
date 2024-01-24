@@ -4,7 +4,6 @@ import { Button, Dialog, Portal, Text, ToggleButton } from "react-native-paper";
 import { NOTES } from "../../constants";
 import { Alteration, InitialNote, NoteName } from "../../types";
 import { DeleteButton } from "../DeleteButton";
-import { Pentagram } from "../Pentagram";
 import { ManageSection } from "./ManageSection";
 import { ManageSubsection } from "./ManageSubsection";
 
@@ -56,11 +55,11 @@ export const InitialNoteForm: FC<{
             <View style={{ flexGrow: 3, height: 500 }}>
               <Text>Anteprima</Text>
 
-              <Pentagram
+              {/* <Pentagram
                 notes={[
                   { section, subsection, note: { note, octave, alteration } },
                 ]}
-              />
+              /> */}
             </View>
             <View style={{ flexGrow: 1, height: 500, marginBottom: 30 }}>
               <Text>Nota</Text>
