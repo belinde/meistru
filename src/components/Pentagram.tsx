@@ -60,7 +60,7 @@ const SingleNote: FC<{ note: InitialNote }> = ({ note }) => {
           key={i}
           stroke={theme.colors.onSurface}
           strokeWidth={2}
-          d={`m132 ${400 - line}h38`}
+          d={`m133 ${400 - line}h35`}
         />
       ))}
       <Circle cx={150} cy={400 - y} r={10} fill={theme.colors.onSurface} />
