@@ -4,7 +4,7 @@ import { SongForm } from "../../components/SongForm";
 import { useSongList } from "../../hooks/useSongList";
 import { LibraryTabScreenProps } from "../types";
 
-export const Edit: FC<LibraryTabScreenProps<"Edit">> = (props) => {
+export const EditSong: FC<LibraryTabScreenProps<"Edit">> = (props) => {
   const { getSong, editSong } = useSongList();
   const song = getSong(props.route.params.song);
   if (!song) {

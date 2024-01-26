@@ -23,7 +23,7 @@ export const DeleteButton: FC<Parameters<typeof Button>["0"]> = (props) => {
           <Dialog.Actions>
             <Button
               onPress={(e) => {
-                props.onPress(e);
+                props.onPress && props.onPress(e);
                 setVisible(false);
               }}
             >

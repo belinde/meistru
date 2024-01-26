@@ -74,6 +74,7 @@ export default function App() {
             component={LibraryStack}
             options={{
               tabBarIcon: "folder-music",
+              title: "Repertorio",
             }}
           />
           <Tab.Screen
@@ -81,6 +82,7 @@ export default function App() {
             component={Concert}
             options={{
               tabBarIcon: "account-music",
+              title: "Concerti",
             }}
           />
         </Tab.Navigator>

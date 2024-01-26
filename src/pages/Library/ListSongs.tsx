@@ -5,7 +5,7 @@ import { SongList } from "../../components/SongList";
 import { useSongList } from "../../hooks/useSongList";
 import { LibraryTabScreenProps } from "../types";
 
-export const List: FC<LibraryTabScreenProps<"List">> = (props) => {
+export const ListSongs: FC<LibraryTabScreenProps<"List">> = (props) => {
   const { songs } = useSongList();
 
   return (

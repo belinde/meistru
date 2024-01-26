@@ -22,5 +22,6 @@ export type Song = {
   id: string;
   title: string;
   artist: string;
+  annotations: string;
   initialNotes: InitialNote[];
 };

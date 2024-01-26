@@ -7,11 +7,13 @@ import { SongDisplay } from "../../components/SongDisplay";
 import { useSongList } from "../../hooks/useSongList";
 import { LibraryTabScreenProps } from "../types";
 
-export const View: FC<LibraryTabScreenProps<"View">> = (props) => {
-  const { deleteSong } = useSongList();
+export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
+  const { deleteSong, getSong } = useSongList();
+  const song = getSong(props.route.params.song);
+  if (!song) return null;
   return (
     <Page>
-      <SongDisplay song={props.route.params.song} />
+      <SongDisplay song={song} />
       <EditButton
         onPress={() =>
           props.navigation.navigate("Library", {

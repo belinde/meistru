@@ -11,6 +11,7 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
 ) => {
   const [title, setTitle] = useState(() => props.song.title);
   const [artist, setArtist] = useState(() => props.song.artist);
+  const [annotations, setAnnotations] = useState(() => props.song.annotations);
   const [initialNotes, setInitialNotes] = useState(
     () => props.song.initialNotes
   );
@@ -29,6 +30,13 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
         label="Artista"
         value={artist}
         onChangeText={setArtist}
+      />
+      <TextInput
+        mode="outlined"
+        label="Annotazioni"
+        multiline
+        value={annotations}
+        onChangeText={setAnnotations}
       />
 
       <FlatList
@@ -85,6 +93,7 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
             id: props.song.id,
             title,
             artist,
+            annotations,
             initialNotes: initialNotes,
           })
         }

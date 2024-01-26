@@ -18,29 +18,29 @@ export const useSongList = () => {
     });
   });
 
-  const saveSongs = () => {
+  const saveSongs = async () => {
     setSongs([...songs.sort((a, b) => a.title.localeCompare(b.title))]);
-    return songsStorge.setItem(JSON.stringify(songs));
+    await songsStorge.setItem(JSON.stringify(songs));
   };
 
-  const addSong = (song: Song) => {
+  const addSong = async (song: Song) => {
     songs.push(song);
-    return saveSongs();
+    await saveSongs();
   };
 
-  const editSong = (song: Song) => {
+  const editSong = async (song: Song) => {
     const index = songs.findIndex((s) => s.id === song.id);
     if (index !== -1) {
       songs[index] = song;
-      return saveSongs();
+      await saveSongs();
     }
   };
 
-  const deleteSong = (id: string) => {
+  const deleteSong = async (id: string) => {
     const index = songs.findIndex((s) => s.id === id);
     if (index !== -1) {
       songs.splice(index, 1);
-      return saveSongs();
+      await saveSongs();
     }
   };
 

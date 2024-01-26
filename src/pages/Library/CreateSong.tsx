@@ -5,7 +5,7 @@ import { createIdentifier } from "../../functions";
 import { useSongList } from "../../hooks/useSongList";
 import { LibraryTabScreenProps } from "../types";
 
-export const Create: FC<LibraryTabScreenProps<"Create">> = (props) => {
+export const CreateSong: FC<LibraryTabScreenProps<"Create">> = (props) => {
   const { addSong } = useSongList();
   return (
     <Page>
@@ -14,6 +14,7 @@ export const Create: FC<LibraryTabScreenProps<"Create">> = (props) => {
           id: createIdentifier(),
           title: "",
           artist: "",
+          annotations: "",
           initialNotes: [],
         }}
         persister={(song) =>
