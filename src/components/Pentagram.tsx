@@ -6,12 +6,12 @@ import { InitialNote, NoteName, Section } from "../types";
 type Pentagram = "high" | "low";
 
 const PREFER: Record<Section, Pentagram> = {
-  soprano: "high",
-  "mezzo-soprano": "high",
-  contralto: "low",
-  tenore: "high",
-  baritono: "low",
-  basso: "low",
+  soprani: "high",
+  mezzosoprani: "high",
+  contralti: "low",
+  tenori: "high",
+  baritoni: "low",
+  bassi: "low",
 };
 
 const NOTE_MULTIPLIER: Record<NoteName, number> = {

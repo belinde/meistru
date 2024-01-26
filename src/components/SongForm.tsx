@@ -55,7 +55,7 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
         onPress={() => {
           const i = initialNotes.length;
           initialNotes.push({
-            section: "tenore",
+            section: "tenori",
             subsection: 0,
             note: { note: "C", octave: 4 },
           });

@@ -1,12 +1,9 @@
 import { FC, useState } from "react";
-import { View } from "react-native";
-import { Button, Dialog, Portal, Text, ToggleButton } from "react-native-paper";
-import { NOTES } from "../../constants";
-import { Alteration, InitialNote, NoteName } from "../../types";
+import { Button, Dialog, Portal, Text } from "react-native-paper";
+import { InitialNote } from "../../types";
 import { DeleteButton } from "../DeleteButton";
-import { Pentagram } from "../Pentagram";
-import { ManageSection } from "./ManageSection";
-import { ManageSubsection } from "./ManageSubsection";
+import { NoteSelector } from "./NoteSelector";
+import { SectionSelector } from "./SectionSelector";
 
 export const InitialNoteForm: FC<{
   initial: InitialNote;
@@ -23,100 +20,25 @@ export const InitialNoteForm: FC<{
 
   return (
     <Portal>
-      <Dialog
-        visible
-        dismissable={false}
-        style={{
-          height: "75%",
-        }}
-      >
+      <Dialog visible dismissable={false}>
         <Dialog.Title>Modifica nota:</Dialog.Title>
         <Dialog.ScrollArea>
-          <View
-            style={{
-              flex: 1,
-              rowGap: 5,
-            }}
-          >
-            <ManageSection section={section} setSection={setSection} />
-            <ManageSubsection
-              subsection={subsection}
-              setSubsection={setSubsection}
-            />
-          </View>
-
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              rowGap: 5,
-              height: 500,
-            }}
-          >
-            <View style={{ flexGrow: 3, height: 500 }}>
-              <Text>Anteprima</Text>
-
-              <Pentagram
-                notes={[
-                  { section, subsection, note: { note, octave, alteration } },
-                ]}
-              />
-            </View>
-            <View style={{ flexGrow: 1, height: 500, marginBottom: 30 }}>
-              <Text>Nota</Text>
-
-              <ToggleButton.Group
-                onValueChange={(val) => {
-                  const newVal = val as NoteName;
-                  setNote(newVal);
-                }}
-                value={note}
-              >
-                {NOTES.map((n) => (
-                  <ToggleButton
-                    key={n}
-                    icon={`alpha-${n.toLowerCase()}`}
-                    value={n}
-                  />
-                ))}
-              </ToggleButton.Group>
-            </View>
-            <View style={{ flexGrow: 1 }}>
-              <Text>Alter.</Text>
-
-              <ToggleButton.Group
-                onValueChange={(value) => {
-                  const newVal =
-                    value !== "-" ? (value as Alteration) : undefined;
-                  setAlteration(newVal);
-                }}
-                value={alteration || "-"}
-              >
-                <ToggleButton icon="minus" value="-" />
-                <ToggleButton icon="music-accidental-sharp" value="#" />
-                <ToggleButton icon="music-accidental-flat" value="b" />
-              </ToggleButton.Group>
-            </View>
-            <View style={{ flexGrow: 1 }}>
-              <Text>Ottava</Text>
-
-              <ToggleButton.Group
-                onValueChange={(value) => {
-                  const newVal = parseInt(value);
-                  setOctave(newVal);
-                }}
-                value={octave.toString()}
-              >
-                {[5, 4, 3, 2, 1].map((n) => (
-                  <ToggleButton
-                    key={n}
-                    icon={`numeric-${n}`}
-                    value={n.toString()}
-                  />
-                ))}
-              </ToggleButton.Group>
-            </View>
-          </View>
+          <SectionSelector
+            section={section}
+            subsection={subsection}
+            setSection={setSection}
+            setSubsection={setSubsection}
+          />
+          <NoteSelector
+            note={note}
+            octave={octave}
+            alteration={alteration}
+            section={section}
+            subsection={subsection}
+            setNote={setNote}
+            setOctave={setOctave}
+            setAlteration={setAlteration}
+          />
         </Dialog.ScrollArea>
 
         <Dialog.Actions>

@@ -13,7 +13,7 @@ const convert = (...notes: Short[]) =>
       note: {
         note,
         octave,
-        alteration: section === "tenore" ? "#" : "b",
+        alteration: section === "tenori" ? "#" : "b",
       },
     })
   );
@@ -26,9 +26,9 @@ export const Concert = () => {
       <Text>TO DO!</Text>
       <Pentagram
         notes={convert(
-          ["tenore", 4, "C"],
+          ["tenori", 4, "C"],
 
-          ["basso", 2, "A"]
+          ["bassi", 2, "A"]
           // ["basso", 3, "C"],
           // ["basso", 2, "C"],
           // ["basso", 1, "C"]
