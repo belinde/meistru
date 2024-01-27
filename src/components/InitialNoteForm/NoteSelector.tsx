@@ -42,7 +42,6 @@ export const NoteSelector: FC<{
 
       <View>
         <Text>Ottava</Text>
-
         <ToggleButton.Group
           onValueChange={(value) => {
             const newVal = parseInt(value);
@@ -55,9 +54,9 @@ export const NoteSelector: FC<{
           ))}
         </ToggleButton.Group>
       </View>
+
       <View>
         <Text>Nota</Text>
-
         <RadioButton.Group
           onValueChange={(val) => {
             const newVal = val as NoteName;
@@ -65,7 +64,7 @@ export const NoteSelector: FC<{
           }}
           value={props.note}
         >
-          {NOTES.map((n) => (
+          {[...NOTES].reverse().map((n) => (
             <Choice
               key={n}
               option={n}
@@ -75,9 +74,9 @@ export const NoteSelector: FC<{
           ))}
         </RadioButton.Group>
       </View>
+
       <View>
         <Text>Alter.</Text>
-
         <ToggleButton.Group
           onValueChange={(value) => {
             const newVal = value !== "-" ? (value as Alteration) : undefined;

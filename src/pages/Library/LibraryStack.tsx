@@ -4,7 +4,7 @@ import { useTheme } from "react-native-paper";
 import { CreateSong } from "./CreateSong";
 import { EditSong } from "./EditSong";
 import { ListSongs } from "./ListSongs";
-import { ViewSong } from "./ViewSong";
+import { ViewSong, ViewSongMenu } from "./ViewSong";
 import { LibraryStackParams } from "./types";
 
 const Stack = createNativeStackNavigator<LibraryStackParams>();
@@ -32,17 +32,22 @@ export const LibraryStack: FC = () => {
       <Stack.Screen
         name="Create"
         component={CreateSong}
-        options={{ title: "Nuova canta" }}
+        options={{ title: "Aggiungi" }}
       />
       <Stack.Screen
         name="Edit"
         component={EditSong}
-        options={{ title: "Modifica canta" }}
+        options={{
+          title: "Modifica",
+        }}
       />
       <Stack.Screen
         name="View"
         component={ViewSong}
-        options={{ title: "Visualizza canta" }}
+        options={{
+          title: "Visualizza",
+          headerRight: ViewSongMenu,
+        }}
       />
     </Stack.Navigator>
   );

@@ -19,3 +19,9 @@ export type LibraryTabScreenProps<T extends keyof LibraryStackParams> =
     NativeStackScreenProps<LibraryStackParams, T, "LibraryStack">,
     RootStackScreenProps<"Library">
   >;
+
+  declare global {
+    namespace ReactNavigation {
+      interface RootParamList extends RootStackRoutes {}
+    }
+  }
