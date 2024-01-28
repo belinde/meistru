@@ -2,9 +2,7 @@ import { FC } from "react";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { Song } from "../types";
-import { Pentagram } from "./Pentagram";
-import { TextualNote } from "./TextualNote";
-import { TextualSection } from "./TextualSection";
+import { InitialNotesList } from "./InitialNotesList";
 
 const style = StyleSheet.create({
   titleBar: {
@@ -23,22 +21,6 @@ const style = StyleSheet.create({
     textAlign: "right",
     fontStyle: "italic",
   },
-  display: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  initialNotes: {
-    flexGrow: 1,
-  },
-  noteRow: {
-    paddingBottom: 5,
-    paddingLeft: 10,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
 });
 
 export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
@@ -53,26 +35,14 @@ export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
         </Text>
       </View>
       <Image height={120} source={{ uri: "https://picsum.photos/700/120" }} />
-      <View style={style.display}>
-        <Pentagram notes={song.initialNotes} />
-        <View style={style.initialNotes}>
-          {song.initialNotes.map((initNote, i) => (
-            <View key={i} style={style.noteRow}>
-              <View>
-                <TextualSection
-                  section={initNote.section}
-                  subsection={initNote.subsection}
-                  variant="labelLarge"
-                />
-                <TextualNote note={initNote.note} />
-              </View>
-              <Button mode="outlined" icon="play-circle">
-                Suona
-              </Button>
-            </View>
-          ))}
-        </View>
-      </View>
+      <InitialNotesList
+        initialNotes={song.initialNotes}
+        renderAction={() => (
+          <Button mode="outlined" icon="play-circle">
+            Suona
+          </Button>
+        )}
+      />
       <Text>{song.annotations}</Text>
     </ScrollView>
   );
