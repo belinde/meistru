@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Image, ScrollView, StyleSheet, View } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { Song } from "../types";
 import { InitialNotesList } from "./InitialNotesList";
+import { PlayNote } from "./PlayNote";
 
 const style = StyleSheet.create({
   titleBar: {
@@ -37,11 +38,7 @@ export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
       <Image height={120} source={{ uri: "https://picsum.photos/700/120" }} />
       <InitialNotesList
         initialNotes={song.initialNotes}
-        renderAction={() => (
-          <Button mode="outlined" icon="play-circle">
-            Suona
-          </Button>
-        )}
+        renderAction={(initialNote) => <PlayNote note={initialNote.note} />}
       />
       <Text>{song.annotations}</Text>
     </ScrollView>
