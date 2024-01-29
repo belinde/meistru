@@ -1,8 +1,9 @@
-import { NOTES, SECTIONS } from "./constants";
+import { NOTEFILES, NOTES, SECTIONS } from "./constants";
 
 export type Alteration = "#" | "b";
 
 export type NoteName = (typeof NOTES)[number];
+export type NoteResourceName = keyof typeof NOTEFILES;
 
 export type Note = {
   note: NoteName;
