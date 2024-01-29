@@ -7,6 +7,7 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 import { Concert } from "./src/pages/Concert";
 import { LibraryStack } from "./src/pages/Library/LibraryStack";
 import { RootStackRoutes } from "./src/pages/types";
+
 const Tab = createMaterialBottomTabNavigator<RootStackRoutes>();
 
 const THEME = {
