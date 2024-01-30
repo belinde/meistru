@@ -65,6 +65,9 @@ const { exec } = require("child_process");
 
 for (let key in FREQUENCIES) {
   exec(
-    `sox -n ./assets/notes/${key}.mp3 -C 8 synth 5 trapezium ${FREQUENCIES[key]} vol 0.7`
+    `sox -n ./assets/notes/${key}.mp3 synth 3 sin ${FREQUENCIES[key]} trapezium ${FREQUENCIES[key]} channels 1`,
+    (err) => {
+      err && console.error(err);
+    }
   );
 }

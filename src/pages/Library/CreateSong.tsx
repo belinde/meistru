@@ -15,7 +15,7 @@ export const CreateSong: FC<LibraryTabScreenProps<"Create">> = (props) => {
           title: "",
           artist: "",
           annotations: "",
-          initialNotes: [],
+          initialNotes: {},
         }}
         persister={(song) =>
           addSong(song).then(() =>

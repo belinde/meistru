@@ -11,6 +11,7 @@ const Stack = createNativeStackNavigator<LibraryStackParams>();
 
 export const LibraryStack: FC = () => {
   const theme = useTheme();
+  console.log("LibraryStack");
   return (
     <Stack.Navigator
       id="LibraryStack"
@@ -40,6 +41,7 @@ export const LibraryStack: FC = () => {
         options={{
           title: "Modifica",
         }}
+        getId={({ params }) => params.song}
       />
       <Stack.Screen
         name="View"
@@ -48,6 +50,7 @@ export const LibraryStack: FC = () => {
           title: "Visualizza",
           headerRight: ViewSongMenu,
         }}
+        getId={({ params }) => params.song}
       />
     </Stack.Navigator>
   );

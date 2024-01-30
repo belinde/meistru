@@ -27,8 +27,8 @@ export const NoteSelector: FC<{
   return (
     <View style={style.container}>
       <Pentagram
-        notes={[
-          {
+        notes={{
+          [`${props.section}${props.subsection}`]: {
             section: props.section,
             subsection: props.subsection,
             note: {
@@ -37,7 +37,7 @@ export const NoteSelector: FC<{
               alteration: props.alteration,
             },
           },
-        ]}
+        }}
       />
 
       <View>

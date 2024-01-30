@@ -25,6 +25,7 @@ const style = StyleSheet.create({
 });
 
 export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
+  console.debug("Rendering SongDisplay");
   return (
     <ScrollView>
       <View style={style.titleBar}>
@@ -38,7 +39,7 @@ export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
       <Image height={120} source={{ uri: "https://picsum.photos/700/120" }} />
       <InitialNotesList
         initialNotes={song.initialNotes}
-        renderAction={(initialNote) => <PlayNote note={initialNote.note} />}
+        renderAction={(initial) => <PlayNote note={initial.note} />}
       />
       <Text>{song.annotations}</Text>
     </ScrollView>

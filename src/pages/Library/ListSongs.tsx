@@ -2,16 +2,14 @@ import { FC } from "react";
 import { Button } from "react-native-paper";
 import { Page } from "../../components/Page";
 import { SongList } from "../../components/SongList";
-import { useSongList } from "../../hooks/useSongList";
 import { LibraryTabScreenProps } from "../types";
 
 export const ListSongs: FC<LibraryTabScreenProps<"List">> = (props) => {
-  const { songs } = useSongList();
+  console.debug("Rendering ListSongs");
 
   return (
     <Page>
       <SongList
-        songs={songs}
         onPress={(song) =>
           props.navigation.navigate("Library", {
             screen: "View",

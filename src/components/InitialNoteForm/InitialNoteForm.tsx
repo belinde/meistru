@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import { Button, Dialog, Portal, Text } from "react-native-paper";
+import { Alert } from "react-native";
+import { Button, Dialog, Portal } from "react-native-paper";
 import { InitialNote } from "../../types";
-import { DeleteButton } from "../DeleteButton";
 import { NoteSelector } from "./NoteSelector";
 import { SectionSelector } from "./SectionSelector";
 
@@ -42,9 +42,30 @@ export const InitialNoteForm: FC<{
         </Dialog.ScrollArea>
 
         <Dialog.Actions>
-          <DeleteButton onPress={props.remove}>
-            <Text>Vuoi davvero rimuovere questa nota iniziale?</Text>
-          </DeleteButton>
+          <Button
+            icon="delete"
+            onPress={() => {
+              Alert.alert(
+                "Conferma cancellazione",
+                "Vuoi davvero eliminare questa nota iniziale?",
+                [
+                  {
+                    text: "Annulla",
+                    style: "cancel",
+                  },
+                  {
+                    text: "Elimina",
+                    style: "destructive",
+                    onPress: props.remove,
+                  },
+                ]
+              );
+              props.remove;
+            }}
+            mode="outlined"
+          >
+            Elimina
+          </Button>
           <Button
             icon="check-bold"
             mode="contained"

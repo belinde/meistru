@@ -1,52 +1,72 @@
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from "@react-navigation/native";
-import { useState } from "react";
+import { useCallback } from "react";
 import { Song } from "../types";
 
 export const useSongList = () => {
-  const songsStorge = useAsyncStorage("songs");
-  const [songs, setSongs] = useState<Song[]>([]);
+  const songsStorage = useAsyncStorage("songs");
 
-  useFocusEffect(() => {
-    songsStorge.getItem().then((value) => {
-      if (value) {
-        const parsed = JSON.parse(value);
-        if (Array.isArray(parsed)) {
-          setSongs(parsed);
+  const listSongs = useCallback(
+    (): Promise<Song[]> =>
+      songsStorage.getItem().then((value) => {
+        if (value) {
+          const parsed = JSON.parse(value);
+          if (Array.isArray(parsed)) {
+            return parsed;
+          }
         }
+        return [];
+      }),
+    [songsStorage]
+  );
+
+  const saveSongs = useCallback(
+    (songs: Song[]) =>
+      songsStorage.setItem(
+        JSON.stringify(songs.sort((a, b) => a.title.localeCompare(b.title)))
+      ),
+    [songsStorage]
+  );
+
+  const addSong = useCallback(
+    (song: Song) => listSongs().then((songs) => saveSongs([...songs, song])),
+    [listSongs, saveSongs]
+  );
+
+  const editSong = useCallback(
+    async (song: Song) => {
+      const updatedSongs = await listSongs();
+      const index = updatedSongs.findIndex((s) => s.id === song.id);
+      if (index !== -1) {
+        updatedSongs[index] = song;
+        await saveSongs(updatedSongs);
       }
-    });
-  });
+    },
+    [listSongs, saveSongs]
+  );
 
-  const saveSongs = async () => {
-    setSongs([...songs.sort((a, b) => a.title.localeCompare(b.title))]);
-    await songsStorge.setItem(JSON.stringify(songs));
+  const deleteSong = useCallback(
+    async (id: string) => {
+      const updatedSongs = await listSongs();
+      const index = updatedSongs.findIndex((s) => s.id === id);
+      if (index !== -1) {
+        updatedSongs.splice(index, 1);
+        await saveSongs(updatedSongs);
+      }
+    },
+    [listSongs, saveSongs]
+  );
+
+  const getSong = useCallback(
+    (id: string) =>
+      listSongs().then((songs) => songs.find((song) => song.id === id)),
+    [listSongs]
+  );
+
+  return {
+    listSongs,
+    addSong,
+    editSong,
+    getSong,
+    deleteSong,
   };
-
-  const addSong = async (song: Song) => {
-    songs.push(song);
-    await saveSongs();
-  };
-
-  const editSong = async (song: Song) => {
-    const index = songs.findIndex((s) => s.id === song.id);
-    if (index !== -1) {
-      songs[index] = song;
-      await saveSongs();
-    }
-  };
-
-  const deleteSong = async (id: string) => {
-    const index = songs.findIndex((s) => s.id === id);
-    if (index !== -1) {
-      songs.splice(index, 1);
-      await saveSongs();
-    }
-  };
-
-  const getSong = (id: string) => {
-    return songs.find((song) => song.id === id);
-  };
-
-  return { songs, addSong, editSong, getSong, deleteSong };
 };

@@ -1,10 +1,11 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { IconButton, Menu } from "react-native-paper";
 import { Page } from "../../components/Page";
 import { SongDisplay } from "../../components/SongDisplay";
 import { useSongList } from "../../hooks/useSongList";
+import { Song } from "../../types";
 import { LibraryTabScreenProps } from "../types";
 import { LibraryStackParams } from "./types";
 
@@ -69,12 +70,21 @@ export const ViewSongMenu: FC = () => {
 };
 
 export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
+  const [currentSong, setCurrentSong] = useState<Song>();
   const { getSong } = useSongList();
-  const song = getSong(props.route.params.song);
-  if (!song) return null;
+
+  useEffect(() => {
+    if (currentSong) return;
+    getSong(props.route.params.song).then(setCurrentSong);
+  }, [currentSong, getSong, props.route.params.song]);
+
+  if (!currentSong) return null;
+
+  console.log(currentSong.title);
+
   return (
     <Page>
-      <SongDisplay song={song} />
+      <SongDisplay song={currentSong} />
     </Page>
   );
 };

@@ -1,19 +1,24 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Page } from "../../components/Page";
 import { SongForm } from "../../components/SongForm";
 import { useSongList } from "../../hooks/useSongList";
+import { Song } from "../../types";
 import { LibraryTabScreenProps } from "../types";
 
 export const EditSong: FC<LibraryTabScreenProps<"Edit">> = (props) => {
   const { getSong, editSong } = useSongList();
-  const song = getSong(props.route.params.song);
-  if (!song) {
+  const [currentSong, setCurrentSong] = useState<Song>();
+  useEffect(() => {
+    if (currentSong) return;
+    getSong(props.route.params.song).then(setCurrentSong);
+  }, [getSong, props.route.params.song]);
+  if (!currentSong) {
     return null;
   }
   return (
     <Page>
       <SongForm
-        song={song}
+        song={currentSong}
         persister={(song) =>
           editSong(song).then(() =>
             props.navigation.navigate("Library", {

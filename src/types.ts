@@ -13,16 +13,22 @@ export type Note = {
 
 export type Section = (typeof SECTIONS)[number];
 
+export type Part = `${Section}${number}`;
+
 export type InitialNote = {
   section: Section;
   subsection: number;
   note: Note;
 };
 
+export type InitialNoteMap = Record<Part, InitialNote>;
+
 export type Song = {
   id: string;
   title: string;
   artist: string;
   annotations: string;
-  initialNotes: InitialNote[];
+  initialNotes: InitialNoteMap;
 };
+export type PentagramPreference = "high" | "low";
+

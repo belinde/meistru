@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button, IconButton, TextInput } from "react-native-paper";
-import { noteSorter } from "../functions";
-import { Song } from "../types";
+import { SECTIONS } from "../constants";
+import { InitialNoteMap, Part, Section, Song } from "../types";
 import { InitialNoteForm } from "./InitialNoteForm/InitialNoteForm";
 import { InitialNotesList } from "./InitialNotesList";
 
@@ -13,6 +13,20 @@ const style = StyleSheet.create({
   },
 });
 
+const findUnusedPart = (
+  initials: InitialNoteMap
+): { part: Part; section: Section; subsection: number } | undefined => {
+  for (let subsection = 0; subsection <= 4; subsection++) {
+    for (const section of SECTIONS) {
+      const part: Part = `${section}${subsection}`;
+      if (!initials[part]) {
+        return { part, section, subsection };
+      }
+    }
+  }
+  return;
+};
+
 export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
   props
 ) => {
@@ -22,7 +36,9 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
   const [initialNotes, setInitialNotes] = useState(
     () => props.song.initialNotes
   );
-  const [editing, setEditing] = useState<number>();
+  const [editing, setEditing] = useState<Part>();
+
+  console.debug("Rendering SongForm");
 
   return (
     <ScrollView>
@@ -48,13 +64,15 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
         >
           <Button
             onPress={() => {
-              const i = initialNotes.length;
-              initialNotes.push({
-                section: "tenori",
-                subsection: 0,
-                note: { note: "C", octave: 4 },
-              });
-              setEditing(i);
+              const found = findUnusedPart(initialNotes);
+              if (found) {
+                initialNotes[found.part] = {
+                  section: found.section,
+                  subsection: found.subsection,
+                  note: { note: "C", octave: 4 },
+                };
+                setEditing(found.part);
+              }
             }}
             mode="outlined"
             icon="plus"
@@ -75,13 +93,17 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
           <InitialNoteForm
             initial={initialNotes[editing]}
             save={(changed) => {
-              initialNotes[editing] = changed;
-              setInitialNotes(initialNotes.sort(noteSorter));
+              const newPart: Part = `${changed.section}${changed.subsection}`;
+              if (newPart !== editing) {
+                delete initialNotes[editing];
+              }
+              initialNotes[newPart] = changed;
+              setInitialNotes({ ...initialNotes });
               setEditing(undefined);
             }}
             remove={() => {
-              initialNotes.splice(editing, 1);
-              setInitialNotes(initialNotes.sort(noteSorter));
+              delete initialNotes[editing];
+              setInitialNotes({ ...initialNotes });
               setEditing(undefined);
             }}
           />

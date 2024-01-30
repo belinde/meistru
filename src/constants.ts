@@ -1,10 +1,12 @@
+import { PentagramPreference, Section } from "./types";
+
 export const SECTIONS = [
-  "soprani",
-  "mezzosoprani",
-  "contralti",
   "tenori",
   "baritoni",
   "bassi",
+  "soprani",
+  "mezzosoprani",
+  "contralti",
 ] as const;
 
 export const NOTES = ["C", "D", "E", "F", "G", "A", "B"] as const;
@@ -81,4 +83,11 @@ export const NOTEFILES = {
   "5AB": require("../assets/notes/5AB.mp3"),
   "5B": require("../assets/notes/5B.mp3"),
 } as const;
-
+export const PENTAGRAM_PREFERENCE: Record<Section, PentagramPreference> = {
+  soprani: "high",
+  mezzosoprani: "high",
+  contralti: "low",
+  tenori: "high",
+  baritoni: "low",
+  bassi: "low",
+};
