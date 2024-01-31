@@ -11,7 +11,6 @@ const Stack = createNativeStackNavigator<LibraryStackParams>();
 
 export const LibraryStack: FC = () => {
   const theme = useTheme();
-  console.log("LibraryStack");
   return (
     <Stack.Navigator
       id="LibraryStack"

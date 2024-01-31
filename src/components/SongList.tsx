@@ -21,8 +21,6 @@ export const SongList: FC<{ onPress: (song: Song) => void }> = (props) => {
 
   useEffectOnFocus(refresh);
 
-  console.debug("Rendering SongList");
-
   return (
     <FlatList
       data={songs}

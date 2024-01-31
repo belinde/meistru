@@ -5,6 +5,8 @@ import { SECTIONS } from "../constants";
 import { InitialNoteMap, Part, Section, Song } from "../types";
 import { InitialNoteForm } from "./InitialNoteForm/InitialNoteForm";
 import { InitialNotesList } from "./InitialNotesList";
+import { ScorePhoto } from "./ScorePhoto";
+import { ScorePhotoPicker } from "./ScorePhotoPicker";
 
 const style = StyleSheet.create({
   container: {
@@ -37,95 +39,100 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
     () => props.song.initialNotes
   );
   const [editing, setEditing] = useState<Part>();
-
-  console.debug("Rendering SongForm");
+  const [image, setImage] = useState(() => props.song.image);
 
   return (
-    <ScrollView>
-      <View style={style.container}>
-        <TextInput
-          mode="outlined"
-          label="Titolo"
-          value={title}
-          onChangeText={setTitle}
-        />
-        <TextInput
-          mode="outlined"
-          label="Artista"
-          value={artist}
-          onChangeText={setArtist}
-        />
-
-        <InitialNotesList
-          initialNotes={initialNotes}
-          renderAction={(note, i) => (
-            <IconButton icon="pencil" onPress={() => setEditing(i)} />
-          )}
-        >
-          <Button
-            onPress={() => {
-              const found = findUnusedPart(initialNotes);
-              if (found) {
-                initialNotes[found.part] = {
-                  section: found.section,
-                  subsection: found.subsection,
-                  note: { note: "C", octave: 4 },
-                };
-                setEditing(found.part);
-              }
-            }}
+    <>
+      <ScrollView>
+        <View style={style.container}>
+          <TextInput
             mode="outlined"
-            icon="plus"
-          >
-            Aggiungi nota iniziale
-          </Button>
-        </InitialNotesList>
-
-        <TextInput
-          mode="outlined"
-          label="Annotazioni"
-          multiline
-          value={annotations}
-          onChangeText={setAnnotations}
-        />
-
-        {editing !== undefined ? (
-          <InitialNoteForm
-            initial={initialNotes[editing]}
-            save={(changed) => {
-              const newPart: Part = `${changed.section}${changed.subsection}`;
-              if (newPart !== editing) {
-                delete initialNotes[editing];
-              }
-              initialNotes[newPart] = changed;
-              setInitialNotes({ ...initialNotes });
-              setEditing(undefined);
-            }}
-            remove={() => {
-              delete initialNotes[editing];
-              setInitialNotes({ ...initialNotes });
-              setEditing(undefined);
-            }}
+            label="Titolo"
+            value={title}
+            onChangeText={setTitle}
           />
-        ) : null}
+          <TextInput
+            mode="outlined"
+            label="Artista"
+            value={artist}
+            onChangeText={setArtist}
+          />
 
-        <Button
-          icon="content-save"
-          mode="contained"
-          disabled={!title || !artist}
-          onPress={() =>
-            props.persister({
-              id: props.song.id,
-              title,
-              artist,
-              annotations,
-              initialNotes,
-            })
-          }
-        >
-          Salva
-        </Button>
-      </View>
-    </ScrollView>
+          {image && <ScorePhoto source={{ uri: image }} />}
+          <ScorePhotoPicker getImageUrl={setImage} />
+
+          <TextInput
+            mode="outlined"
+            label="Annotazioni"
+            multiline
+            value={annotations}
+            onChangeText={setAnnotations}
+          />
+
+          <InitialNotesList
+            initialNotes={initialNotes}
+            renderAction={(note, i) => (
+              <IconButton icon="pencil" onPress={() => setEditing(i)} />
+            )}
+          >
+            <Button
+              onPress={() => {
+                const found = findUnusedPart(initialNotes);
+                if (found) {
+                  initialNotes[found.part] = {
+                    section: found.section,
+                    subsection: found.subsection,
+                    note: { note: "C", octave: 4 },
+                  };
+                  setEditing(found.part);
+                }
+              }}
+              mode="outlined"
+              icon="plus"
+            >
+              Aggiungi nota iniziale
+            </Button>
+          </InitialNotesList>
+
+          {editing !== undefined ? (
+            <InitialNoteForm
+              initial={initialNotes[editing]}
+              save={(changed) => {
+                const newPart: Part = `${changed.section}${changed.subsection}`;
+                if (newPart !== editing) {
+                  delete initialNotes[editing];
+                }
+                initialNotes[newPart] = changed;
+                setInitialNotes({ ...initialNotes });
+                setEditing(undefined);
+              }}
+              remove={() => {
+                delete initialNotes[editing];
+                setInitialNotes({ ...initialNotes });
+                setEditing(undefined);
+              }}
+            />
+          ) : null}
+        </View>
+      </ScrollView>
+
+      <Button
+        icon="content-save"
+        mode="contained"
+        disabled={!title || !artist}
+        onPress={() =>
+          props.persister({
+            id: props.song.id,
+            title,
+            artist,
+            annotations,
+            initialNotes,
+            image,
+          })
+        }
+      >
+        Salva
+      </Button>
+    </>
   );
 };

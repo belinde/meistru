@@ -29,6 +29,7 @@ export type Song = {
   artist: string;
   annotations: string;
   initialNotes: InitialNoteMap;
+  image?: string;
 };
 export type PentagramPreference = "high" | "low";
 

@@ -88,7 +88,6 @@ const SingleNote: FC<{ note: InitialNote }> = ({ note }) => {
 
 export const Pentagram: FC<{ notes: InitialNoteMap }> = (props) => {
   const theme = useTheme();
-  console.debug("Rendering Pentagram");
   return (
     <Svg viewBox="0 0 250 450" width={125} height={225}>
       <Path

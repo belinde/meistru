@@ -5,8 +5,6 @@ import { SongList } from "../../components/SongList";
 import { LibraryTabScreenProps } from "../types";
 
 export const ListSongs: FC<LibraryTabScreenProps<"List">> = (props) => {
-  console.debug("Rendering ListSongs");
-
   return (
     <Page>
       <SongList

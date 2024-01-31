@@ -82,8 +82,6 @@ export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
 
   if (!currentSong) return null;
 
-  console.log(currentSong.title);
-
   return (
     <Page>
       <SongDisplay song={currentSong} />

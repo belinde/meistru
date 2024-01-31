@@ -1,9 +1,10 @@
 import { FC } from "react";
-import { Image, ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
 import { Song } from "../types";
 import { InitialNotesList } from "./InitialNotesList";
 import { PlayNote } from "./PlayNote";
+import { ScorePhoto } from "./ScorePhoto";
 
 const style = StyleSheet.create({
   titleBar: {
@@ -25,7 +26,6 @@ const style = StyleSheet.create({
 });
 
 export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
-  console.debug("Rendering SongDisplay");
   return (
     <ScrollView>
       <View style={style.titleBar}>
@@ -36,7 +36,7 @@ export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
           {song.artist}
         </Text>
       </View>
-      <Image height={120} source={{ uri: "https://picsum.photos/700/120" }} />
+      {song.image && <ScorePhoto source={{ uri: song.image }} />}
       <InitialNotesList
         initialNotes={song.initialNotes}
         renderAction={(initial) => <PlayNote note={initial.note} />}

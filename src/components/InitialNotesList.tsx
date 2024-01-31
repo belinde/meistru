@@ -35,7 +35,6 @@ export const InitialNotesList: FC<{
   renderAction: (note: InitialNote, key: Part) => ReactNode;
   children?: ReactNode;
 }> = (props) => {
-  console.debug("Rendering InitialNotesList");
   return (
     <Card style={style.card}>
       <Card.Title title="Note iniziali" />
