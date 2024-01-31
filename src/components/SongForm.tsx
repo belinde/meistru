@@ -58,8 +58,8 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
             onChangeText={setArtist}
           />
 
-          {image && <ScorePhoto source={{ uri: image }} />}
-          <ScorePhotoPicker getImageUrl={setImage} />
+          {image && <ScorePhoto source={image} />}
+          <ScorePhotoPicker songId={props.song.id} getImageUrl={setImage} />
 
           <TextInput
             mode="outlined"

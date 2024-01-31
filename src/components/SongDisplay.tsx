@@ -36,7 +36,7 @@ export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
           {song.artist}
         </Text>
       </View>
-      {song.image && <ScorePhoto source={{ uri: song.image }} />}
+      {song.image && <ScorePhoto source={song.image} />}
       <InitialNotesList
         initialNotes={song.initialNotes}
         renderAction={(initial) => <PlayNote note={initial.note} />}

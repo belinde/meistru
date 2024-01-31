@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { Image, ImageSourcePropType, useWindowDimensions } from "react-native";
+import { Image, useWindowDimensions } from "react-native";
 
-export const ScorePhoto: FC<{ source: ImageSourcePropType }> = (props) => {
+export const ScorePhoto: FC<{ source: string }> = (props) => {
   const { width } = useWindowDimensions();
 
   return (
@@ -9,7 +9,7 @@ export const ScorePhoto: FC<{ source: ImageSourcePropType }> = (props) => {
       height={width / 4}
       width={width}
       resizeMode="contain"
-      source={props.source}
+      source={{ uri: `${props.source}?cache=${Date.now()}` }}
     />
   );
 };

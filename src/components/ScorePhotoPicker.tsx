@@ -7,11 +7,11 @@ import {
 } from "expo-image-picker";
 import { FC, useCallback } from "react";
 import { Button } from "react-native-paper";
-import { createIdentifier } from "../functions";
 
-export const ScorePhotoPicker: FC<{ getImageUrl: (url: string) => void }> = (
-  props
-) => {
+export const ScorePhotoPicker: FC<{
+  songId: string;
+  getImageUrl: (url: string) => void;
+}> = (props) => {
   const [permission, requestPermission] = useCameraPermissions();
 
   const pickImage = useCallback(async () => {
@@ -26,7 +26,7 @@ export const ScorePhotoPicker: FC<{ getImageUrl: (url: string) => void }> = (
     });
 
     if (!result.canceled) {
-      const filename = `${documentDirectory}score_${createIdentifier()}.jpeg`;
+      const filename = `${documentDirectory}score_${props.songId}.jpeg`;
       await moveAsync({
         from: result.assets[0].uri,
         to: filename,
