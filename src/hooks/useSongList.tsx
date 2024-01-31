@@ -1,5 +1,5 @@
 import { useAsyncStorage } from "@react-native-async-storage/async-storage";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Song } from "../types";
 
 export const useSongList = () => {
@@ -62,11 +62,14 @@ export const useSongList = () => {
     [listSongs]
   );
 
-  return {
-    listSongs,
-    addSong,
-    editSong,
-    getSong,
-    deleteSong,
-  };
+  return useMemo(
+    () => ({
+      listSongs,
+      addSong,
+      editSong,
+      getSong,
+      deleteSong,
+    }),
+    [listSongs, addSong, editSong, getSong, deleteSong]
+  );
 };

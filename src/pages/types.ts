@@ -4,11 +4,12 @@ import {
 } from "@react-navigation/native";
 import type { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { MaterialBottomTabScreenProps } from "react-native-paper/react-navigation";
-import { LibraryStackParams } from "./Library/types";
+import { ConcertStackParams } from "./Concert/ConcertStack";
+import { LibraryStackParams } from "./Library/LibraryStack";
 
 export type RootStackRoutes = {
   Library: NavigatorScreenParams<LibraryStackParams>;
-  Concert: undefined;
+  Concert: NavigatorScreenParams<ConcertStackParams>;
 };
 
 export type RootStackScreenProps<T extends keyof RootStackRoutes> =
@@ -18,6 +19,12 @@ export type LibraryTabScreenProps<T extends keyof LibraryStackParams> =
   CompositeScreenProps<
     NativeStackScreenProps<LibraryStackParams, T, "LibraryStack">,
     RootStackScreenProps<"Library">
+  >;
+
+export type ConcertTabScreenProps<T extends keyof ConcertStackParams> =
+  CompositeScreenProps<
+    NativeStackScreenProps<ConcertStackParams, T, "ConcertStack">,
+    RootStackScreenProps<"Concert">
   >;
 
   declare global {

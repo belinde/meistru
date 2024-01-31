@@ -1,29 +1,28 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC } from "react";
-import { useTheme } from "react-native-paper";
+import { useNativeStackNavigatorOptions } from "../../hooks/useNativeStackNavigatorOptions";
 import { CreateSong } from "./CreateSong";
 import { EditSong } from "./EditSong";
 import { ListSongs } from "./ListSongs";
 import { ViewSong, ViewSongMenu } from "./ViewSong";
-import { LibraryStackParams } from "./types";
+
+export type LibraryStackParams = {
+  List: undefined;
+  Create: undefined;
+  View: {
+    song: string;
+  };
+  Edit: {
+    song: string;
+  };
+};
 
 const Stack = createNativeStackNavigator<LibraryStackParams>();
 
 export const LibraryStack: FC = () => {
-  const theme = useTheme();
+  const screenOptions = useNativeStackNavigatorOptions();
   return (
-    <Stack.Navigator
-      id="LibraryStack"
-      screenOptions={{
-        headerStyle: {
-          backgroundColor: theme.colors.elevation.level2,
-        },
-        headerTintColor: theme.colors.onBackground,
-        headerTitleStyle: {
-          fontWeight: "bold",
-        },
-      }}
-    >
+    <Stack.Navigator id="LibraryStack" screenOptions={screenOptions}>
       <Stack.Screen
         name="List"
         component={ListSongs}

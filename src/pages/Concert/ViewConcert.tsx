@@ -2,17 +2,17 @@ import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { FC, useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { IconButton, Menu } from "react-native-paper";
+import { ConcertDisplay } from "../../components/ConcertDisplay";
 import { Page } from "../../components/Page";
-import { SongDisplay } from "../../components/SongDisplay";
+import { useConcertList } from "../../hooks/useConcertList";
 import { useEffectOnFocus } from "../../hooks/useEffectOnFocus";
-import { useSongList } from "../../hooks/useSongList";
-import { Song } from "../../types";
-import { LibraryTabScreenProps } from "../types";
-import { LibraryStackParams } from "./LibraryStack";
+import { Concert } from "../../types";
+import { ConcertTabScreenProps } from "../types";
+import { ConcertStackParams } from "./ConcertStack";
 
-export const ViewSongMenu: FC = () => {
-  const { deleteSong } = useSongList();
-  const route = useRoute<RouteProp<LibraryStackParams, "View">>();
+export const ViewConcertMenu: FC = () => {
+  const { deleteConcert } = useConcertList();
+  const route = useRoute<RouteProp<ConcertStackParams, "View">>();
   const navigation = useNavigation();
 
   const [visible, setVisible] = useState(false);
@@ -34,9 +34,9 @@ export const ViewSongMenu: FC = () => {
         leadingIcon="pencil"
         onPress={() => {
           setVisible(false);
-          navigation.navigate("Library", {
+          navigation.navigate("Concert", {
             screen: "Edit",
-            params: { song: route.params.song },
+            params: { concert: route.params.concert },
           });
         }}
         title="Modifica"
@@ -47,7 +47,7 @@ export const ViewSongMenu: FC = () => {
           setVisible(false);
           Alert.alert(
             "Conferma cancellazione",
-            "Vuoi davvero eliminare questo pezzo dal repertorio?",
+            "Vuoi davvero eliminare questo concerto dal repertorio?",
             [
               {
                 text: "Annulla",
@@ -57,8 +57,8 @@ export const ViewSongMenu: FC = () => {
                 text: "Elimina",
                 style: "destructive",
                 onPress: () =>
-                  deleteSong(route.params.song).then(() =>
-                    navigation.navigate("Library", { screen: "List" })
+                  deleteConcert(route.params.concert).then(() =>
+                    navigation.navigate("Concert", { screen: "List" })
                   ),
               },
             ]
@@ -70,21 +70,21 @@ export const ViewSongMenu: FC = () => {
   );
 };
 
-export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
-  const [currentSong, setCurrentSong] = useState<Song>();
-  const { getSong } = useSongList();
+export const ViewConcert: FC<ConcertTabScreenProps<"View">> = (props) => {
+  const [currentConcert, setCurrentConcert] = useState<Concert>();
+  const { getConcert } = useConcertList();
 
   const loader = useCallback(() => {
-    getSong(props.route.params.song).then(setCurrentSong);
-  }, [getSong, props.route.params.song]);
+    getConcert(props.route.params.concert).then(setCurrentConcert);
+  }, [getConcert, props.route.params.concert]);
 
   useEffectOnFocus(loader);
 
-  if (!currentSong) return null;
+  if (!currentConcert) return null;
 
   return (
     <Page>
-      <SongDisplay song={currentSong} />
+      <ConcertDisplay concert={currentConcert} />
     </Page>
   );
 };

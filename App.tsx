@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { MD3DarkTheme, PaperProvider } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
-import { Concert } from "./src/pages/Concert";
+import { ConcertStack } from "./src/pages/Concert/ConcertStack";
 import { LibraryStack } from "./src/pages/Library/LibraryStack";
 import { RootStackRoutes } from "./src/pages/types";
 
@@ -80,7 +80,7 @@ export default function App() {
           />
           <Tab.Screen
             name="Concert"
-            component={Concert}
+            component={ConcertStack}
             options={{
               tabBarIcon: "account-music",
               title: "Concerti",

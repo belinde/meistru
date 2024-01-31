@@ -31,5 +31,20 @@ export type Song = {
   initialNotes: InitialNoteMap;
   image?: string;
 };
+
 export type PentagramPreference = "high" | "low";
 
+export type ConcertPiece = {
+  id: string;
+  song: string;
+  title: string;
+  order: number;
+  played: boolean;
+};
+
+export type Concert = {
+  id: string;
+  title: string;
+  description: string;
+  pieces: Record<string, ConcertPiece>;
+};
