@@ -36,7 +36,7 @@ export const SectionSelector: FC<{
     (sect: Section) => (
       <Choice option={sect} currentValue={props.section} label={sect} />
     ),
-    [props.section, props.setSection]
+    [props.section]
   );
   return (
     <View>

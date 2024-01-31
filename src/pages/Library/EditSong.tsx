@@ -11,7 +11,7 @@ export const EditSong: FC<LibraryTabScreenProps<"Edit">> = (props) => {
   useEffect(() => {
     if (currentSong) return;
     getSong(props.route.params.song).then(setCurrentSong);
-  }, [getSong, props.route.params.song]);
+  }, [currentSong, getSong, props.route.params.song]);
   if (!currentSong) {
     return null;
   }

@@ -60,7 +60,6 @@ export const InitialNoteForm: FC<{
                   },
                 ]
               );
-              props.remove;
             }}
             mode="outlined"
           >
