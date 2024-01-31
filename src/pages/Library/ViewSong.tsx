@@ -1,9 +1,10 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { IconButton, Menu } from "react-native-paper";
 import { Page } from "../../components/Page";
 import { SongDisplay } from "../../components/SongDisplay";
+import { useEffectOnFocus } from "../../hooks/useEffectOnFocus";
 import { useSongList } from "../../hooks/useSongList";
 import { Song } from "../../types";
 import { LibraryTabScreenProps } from "../types";
@@ -73,10 +74,11 @@ export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
   const [currentSong, setCurrentSong] = useState<Song>();
   const { getSong } = useSongList();
 
-  useEffect(() => {
-    if (currentSong) return;
+  const loader = useCallback(() => {
     getSong(props.route.params.song).then(setCurrentSong);
-  }, [currentSong, getSong, props.route.params.song]);
+  }, [getSong, props.route.params.song]);
+
+  useEffectOnFocus(loader);
 
   if (!currentSong) return null;
 

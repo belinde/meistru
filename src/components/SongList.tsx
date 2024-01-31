@@ -1,15 +1,14 @@
-import { useFocusEffect } from "@react-navigation/native";
-import { FC, useCallback, useRef, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { FlatList } from "react-native";
 import { List } from "react-native-paper";
+import { useEffectOnFocus } from "../hooks/useEffectOnFocus";
 import { useSongList } from "../hooks/useSongList";
 import { Song } from "../types";
 
 export const SongList: FC<{ onPress: (song: Song) => void }> = (props) => {
   const { listSongs } = useSongList();
   const [songs, setSongs] = useState<Song[]>();
-  const [refreshing, setRefreshing] = useState(true);
-  const lastUpdate = useRef(0);
+  const [refreshing, setRefreshing] = useState(false);
 
   const refresh = useCallback(() => {
     setRefreshing(true);
@@ -17,15 +16,10 @@ export const SongList: FC<{ onPress: (song: Song) => void }> = (props) => {
       .then(setSongs)
       .finally(() => {
         setRefreshing(false);
-        lastUpdate.current = Date.now();
       });
   }, [listSongs]);
 
-  useFocusEffect(() => {
-    if (Date.now() - lastUpdate.current > 500) {
-      refresh();
-    }
-  });
+  useEffectOnFocus(refresh);
 
   console.debug("Rendering SongList");
 
