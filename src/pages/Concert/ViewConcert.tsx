@@ -73,8 +73,11 @@ export const ViewConcertMenu: FC = () => {
 };
 
 export const ViewConcert: FC<ConcertTabScreenProps<"View">> = (props) => {
-  const [currentConcert, setCurrentConcert] = useState<Concert>();
   const data = useDataContext();
+  const [currentConcert, setCurrentConcert] = useState<Concert>();
+  // const [concertoMode, setConcertoMode] = useState(() =>
+  //   data.settings.getConcertoMode()
+  // );
 
   const loader = useCallback(() => {
     setCurrentConcert(data.concerts.fetch(props.route.params.concert));
@@ -87,6 +90,16 @@ export const ViewConcert: FC<ConcertTabScreenProps<"View">> = (props) => {
   return (
     <Page>
       <ConcertDisplay concert={currentConcert} />
+      {/* {!concertoMode && (
+        <Button
+          onPress={() => {
+            setConcertoMode(currentConcert.id);
+            data.settings.setConcertoMode(currentConcert.id);
+          }}
+        >
+          Modalità concerto
+        </Button>
+      )} */}
     </Page>
   );
 };
