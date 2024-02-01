@@ -2,11 +2,11 @@ import { FC } from "react";
 import { ConcertForm } from "../../components/ConcertForm";
 import { Page } from "../../components/Page";
 import { createIdentifier } from "../../functions";
-import { useConcertList } from "../../hooks/useConcertList";
+import { useDataContext } from "../../hooks/useDataContext";
 import { LibraryTabScreenProps } from "../types";
 
 export const CreateConcert: FC<LibraryTabScreenProps<"Create">> = (props) => {
-  const { addConcert } = useConcertList();
+  const data = useDataContext();
   return (
     <Page>
       <ConcertForm
@@ -17,7 +17,7 @@ export const CreateConcert: FC<LibraryTabScreenProps<"Create">> = (props) => {
           pieces: {},
         }}
         persister={(concert) =>
-          addConcert(concert).then(() =>
+          data.concerts.add(concert).then(() =>
             props.navigation.navigate("Concert", {
               screen: "View",
               params: { concert: concert.id },

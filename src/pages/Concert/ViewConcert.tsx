@@ -4,14 +4,14 @@ import { Alert } from "react-native";
 import { IconButton, Menu } from "react-native-paper";
 import { ConcertDisplay } from "../../components/ConcertDisplay";
 import { Page } from "../../components/Page";
-import { useConcertList } from "../../hooks/useConcertList";
+import { useDataContext } from "../../hooks/useDataContext";
 import { useEffectOnFocus } from "../../hooks/useEffectOnFocus";
 import { Concert } from "../../types";
 import { ConcertTabScreenProps } from "../types";
 import { ConcertStackParams } from "./ConcertStack";
 
 export const ViewConcertMenu: FC = () => {
-  const { deleteConcert } = useConcertList();
+  const data = useDataContext();
   const route = useRoute<RouteProp<ConcertStackParams, "View">>();
   const navigation = useNavigation();
 
@@ -57,9 +57,11 @@ export const ViewConcertMenu: FC = () => {
                 text: "Elimina",
                 style: "destructive",
                 onPress: () =>
-                  deleteConcert(route.params.concert).then(() =>
-                    navigation.navigate("Concert", { screen: "List" })
-                  ),
+                  data.concerts
+                    .delete(route.params.concert)
+                    .then(() =>
+                      navigation.navigate("Concert", { screen: "List" })
+                    ),
               },
             ]
           );
@@ -72,11 +74,11 @@ export const ViewConcertMenu: FC = () => {
 
 export const ViewConcert: FC<ConcertTabScreenProps<"View">> = (props) => {
   const [currentConcert, setCurrentConcert] = useState<Concert>();
-  const { getConcert } = useConcertList();
+  const data = useDataContext();
 
   const loader = useCallback(() => {
-    getConcert(props.route.params.concert).then(setCurrentConcert);
-  }, [getConcert, props.route.params.concert]);
+    setCurrentConcert(data.concerts.fetch(props.route.params.concert));
+  }, [data.concerts, props.route.params.concert]);
 
   useEffectOnFocus(loader);
 

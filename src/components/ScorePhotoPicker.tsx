@@ -26,10 +26,10 @@ export const ScorePhotoPicker: FC<{
     });
 
     if (!result.canceled) {
-      const filename = `${documentDirectory}score_${props.songId}.jpeg`;
+      const filename = `score_${props.songId}.jpeg`;
       await moveAsync({
         from: result.assets[0].uri,
-        to: filename,
+        to: documentDirectory + filename,
       });
       props.getImageUrl(filename);
     }

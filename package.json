@@ -13,9 +13,11 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "babel-plugin-optional-require": "^0.3.1",
-    "expo": "~50.0.4",
+    "expo": "~50.0.5",
     "expo-av": "~13.10.4",
-    "expo-dev-client": "~3.3.7",
+    "expo-dev-client": "~3.3.8",
+    "expo-file-system": "~16.0.5",
+    "expo-image-picker": "~14.7.1",
     "expo-navigation-bar": "~2.8.1",
     "expo-status-bar": "~1.11.1",
     "expo-updates": "~0.24.9",
@@ -24,9 +26,7 @@
     "react-native-paper": "^5.12.1",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
-    "react-native-svg": "14.1.0",
-    "expo-image-picker": "~14.7.1",
-    "expo-file-system": "~16.0.5"
+    "react-native-svg": "14.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
@@ -36,6 +36,7 @@
     "@types/react-test-renderer": "^18.0.7",
     "eslint": "^8.56.0",
     "eslint-config-react-app": "^7.0.1",
+    "expo-module-scripts": "^3.4.0",
     "prettier": "^3.2.4",
     "typescript": "^5.3.3"
   },

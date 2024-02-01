@@ -1,12 +1,23 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { Page } from "../../components/Page";
 import { SongForm } from "../../components/SongForm";
 import { createIdentifier } from "../../functions";
-import { useSongList } from "../../hooks/useSongList";
+import { useDataContext } from "../../hooks/useDataContext";
+import { Song } from "../../types";
 import { LibraryTabScreenProps } from "../types";
 
 export const CreateSong: FC<LibraryTabScreenProps<"Create">> = (props) => {
-  const { addSong } = useSongList();
+  const data = useDataContext();
+  const persister = useCallback(
+    (song: Song) =>
+      data.songs.add(song).then(() =>
+        props.navigation.navigate("Library", {
+          screen: "View",
+          params: { song: song.id },
+        })
+      ),
+    [data.songs, props.navigation]
+  );
   return (
     <Page>
       <SongForm
@@ -17,14 +28,7 @@ export const CreateSong: FC<LibraryTabScreenProps<"Create">> = (props) => {
           annotations: "",
           initialNotes: {},
         }}
-        persister={(song) =>
-          addSong(song).then(() =>
-            props.navigation.navigate("Library", {
-              screen: "View",
-              params: { song: song.id },
-            })
-          )
-        }
+        persister={persister}
       />
     </Page>
   );

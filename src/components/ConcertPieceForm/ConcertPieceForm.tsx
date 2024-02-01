@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useState } from "react";
 import { Alert, FlatList } from "react-native";
 import { Button, Dialog, List, Portal, Searchbar } from "react-native-paper";
-import { useSongList } from "../../hooks/useSongList";
+import { useDataContext } from "../../hooks/useDataContext";
 import { ConcertPiece } from "../../types";
 
 export const ConcertPieceForm: FC<{
@@ -9,7 +9,7 @@ export const ConcertPieceForm: FC<{
   save: (changed: ConcertPiece) => void;
   remove: () => void;
 }> = (props) => {
-  const { listSongs } = useSongList();
+  const data = useDataContext();
   const [search, setSearch] = useState("");
   const [songs, setSongs] = useState<Record<string, string>>({});
 
@@ -28,16 +28,15 @@ export const ConcertPieceForm: FC<{
 
   useEffect(() => {
     console.debug("ConcertForm: useEffect");
-    listSongs()
-      .then((songs) =>
-        songs.reduce<Record<string, string>>(
-          (acc, s) => ({ ...acc, [s.id]: s.title }),
-          {}
-        )
+    const allSongs = data.songs.list();
+    setSongs(
+      allSongs.reduce<Record<string, string>>(
+        (acc, s) => ({ ...acc, [s.id]: s.title }),
+        {}
       )
-      .then(setSongs);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    );
+    // eslint -disable-next-line react-hooks/exhaustive-deps
+  }, [data.songs]);
 
   console.debug("rendering ConcertPieceForm");
 

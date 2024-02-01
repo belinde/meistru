@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { MD3DarkTheme, PaperProvider } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
+import { DataProvider } from "./src/hooks/useDataContext";
 import { ConcertStack } from "./src/pages/Concert/ConcertStack";
 import { LibraryStack } from "./src/pages/Library/LibraryStack";
 import { RootStackRoutes } from "./src/pages/types";
@@ -68,26 +69,28 @@ export default function App() {
   return (
     <PaperProvider theme={THEME}>
       <StatusBar backgroundColor={THEME.colors.elevation.level2} />
-      <NavigationContainer theme={THEME}>
-        <Tab.Navigator initialRouteName="Library" theme={THEME}>
-          <Tab.Screen
-            name="Library"
-            component={LibraryStack}
-            options={{
-              tabBarIcon: "folder-music",
-              title: "Repertorio",
-            }}
-          />
-          <Tab.Screen
-            name="Concert"
-            component={ConcertStack}
-            options={{
-              tabBarIcon: "account-music",
-              title: "Concerti",
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
+      <DataProvider>
+        <NavigationContainer theme={THEME}>
+          <Tab.Navigator initialRouteName="Library" theme={THEME}>
+            <Tab.Screen
+              name="Library"
+              component={LibraryStack}
+              options={{
+                tabBarIcon: "folder-music",
+                title: "Repertorio",
+              }}
+            />
+            <Tab.Screen
+              name="Concert"
+              component={ConcertStack}
+              options={{
+                tabBarIcon: "account-music",
+                title: "Concerti",
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </DataProvider>
     </PaperProvider>
   );
 }

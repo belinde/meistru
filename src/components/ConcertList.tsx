@@ -1,25 +1,26 @@
 import { FC, useCallback, useState } from "react";
 import { FlatList } from "react-native";
 import { List } from "react-native-paper";
-import { useConcertList } from "../hooks/useConcertList";
+import { useDataContext } from "../hooks/useDataContext";
 import { useEffectOnFocus } from "../hooks/useEffectOnFocus";
 import { Concert } from "../types";
 
 export const ConcertList: FC<{ onPress: (concert: Concert) => void }> = (
   props
 ) => {
-  const { listConcerts } = useConcertList();
+  const data = useDataContext();
   const [concerts, setConcerts] = useState<Concert[]>();
   const [refreshing, setRefreshing] = useState(false);
 
   const refresh = useCallback(() => {
     setRefreshing(true);
-    listConcerts()
+    data.concerts
+      .load()
       .then(setConcerts)
       .finally(() => {
         setRefreshing(false);
       });
-  }, [listConcerts]);
+  }, [data.concerts]);
 
   useEffectOnFocus(refresh);
 

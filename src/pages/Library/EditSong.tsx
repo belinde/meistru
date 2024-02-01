@@ -1,33 +1,45 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useCallback, useState } from "react";
+import { Text } from "react-native-paper";
 import { Page } from "../../components/Page";
 import { SongForm } from "../../components/SongForm";
-import { useSongList } from "../../hooks/useSongList";
+import { useDataContext } from "../../hooks/useDataContext";
+import { useEffectOnFocus } from "../../hooks/useEffectOnFocus";
 import { Song } from "../../types";
 import { LibraryTabScreenProps } from "../types";
 
 export const EditSong: FC<LibraryTabScreenProps<"Edit">> = (props) => {
-  const { getSong, editSong } = useSongList();
+  const data = useDataContext();
+
   const [currentSong, setCurrentSong] = useState<Song>();
-  useEffect(() => {
-    if (currentSong) return;
-    getSong(props.route.params.song).then(setCurrentSong);
-  }, [currentSong, getSong, props.route.params.song]);
+
+  const loader = useCallback(() => {
+    setCurrentSong(data.songs.fetch(props.route.params.song));
+  }, [data.songs, props.route.params.song]);
+
+  useEffectOnFocus(loader);
+
+  const persister = useCallback(
+    (song: Song) =>
+      data.songs.update(song).then(() =>
+        props.navigation.navigate("Library", {
+          screen: "View",
+          params: { song: song.id },
+        })
+      ),
+    [data.songs, props.navigation]
+  );
+
   if (!currentSong) {
-    return null;
+    return (
+      <Page>
+        <Text>Il brano richiesto non esiste</Text>
+      </Page>
+    );
   }
+
   return (
     <Page>
-      <SongForm
-        song={currentSong}
-        persister={(song) =>
-          editSong(song).then(() =>
-            props.navigation.navigate("Library", {
-              screen: "View",
-              params: { song: song.id },
-            })
-          )
-        }
-      />
+      <SongForm song={currentSong} persister={persister} />
     </Page>
   );
 };

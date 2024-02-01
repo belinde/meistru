@@ -1,17 +1,17 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { FC, useCallback, useState } from "react";
 import { Alert } from "react-native";
-import { IconButton, Menu } from "react-native-paper";
+import { IconButton, Menu, Text } from "react-native-paper";
 import { Page } from "../../components/Page";
 import { SongDisplay } from "../../components/SongDisplay";
+import { useDataContext } from "../../hooks/useDataContext";
 import { useEffectOnFocus } from "../../hooks/useEffectOnFocus";
-import { useSongList } from "../../hooks/useSongList";
 import { Song } from "../../types";
 import { LibraryTabScreenProps } from "../types";
 import { LibraryStackParams } from "./LibraryStack";
 
 export const ViewSongMenu: FC = () => {
-  const { deleteSong } = useSongList();
+  const data = useDataContext();
   const route = useRoute<RouteProp<LibraryStackParams, "View">>();
   const navigation = useNavigation();
 
@@ -57,9 +57,11 @@ export const ViewSongMenu: FC = () => {
                 text: "Elimina",
                 style: "destructive",
                 onPress: () =>
-                  deleteSong(route.params.song).then(() =>
-                    navigation.navigate("Library", { screen: "List" })
-                  ),
+                  data.songs
+                    .delete(route.params.song)
+                    .then(() =>
+                      navigation.navigate("Library", { screen: "List" })
+                    ),
               },
             ]
           );
@@ -71,16 +73,22 @@ export const ViewSongMenu: FC = () => {
 };
 
 export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
+  const data = useDataContext();
   const [currentSong, setCurrentSong] = useState<Song>();
-  const { getSong } = useSongList();
 
   const loader = useCallback(() => {
-    getSong(props.route.params.song).then(setCurrentSong);
-  }, [getSong, props.route.params.song]);
+    setCurrentSong(data.songs.fetch(props.route.params.song));
+  }, [data.songs, props.route.params.song]);
 
   useEffectOnFocus(loader);
 
-  if (!currentSong) return null;
+  if (!currentSong) {
+    return (
+      <Page>
+        <Text>Il brano richiesto non esiste</Text>
+      </Page>
+    );
+  }
 
   return (
     <Page>
