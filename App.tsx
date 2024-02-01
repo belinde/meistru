@@ -8,6 +8,7 @@ import { DataProvider } from "./src/hooks/useDataContext";
 import { ConcertStack } from "./src/pages/Concert/ConcertStack";
 import { LibraryStack } from "./src/pages/Library/LibraryStack";
 import { RootStackRoutes } from "./src/pages/types";
+import { Settings } from "./src/pages/Settings/Settings";
 
 const Tab = createMaterialBottomTabNavigator<RootStackRoutes>();
 
@@ -86,6 +87,14 @@ export default function App() {
               options={{
                 tabBarIcon: "account-music",
                 title: "Concerti",
+              }}
+            />
+            <Tab.Screen
+              name="Settings"
+              component={Settings}
+              options={{
+                tabBarIcon: "cog",
+                title: "Impostazioni",
               }}
             />
           </Tab.Navigator>

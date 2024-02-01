@@ -36,7 +36,7 @@ export const ConcertPiecesList: FC<{
           .map(([k, piece]) => (
             <View key={k} style={style.pieceRow}>
               <Text style={style.pieceSong}>
-                {piece.order}: {piece.title}
+                {1 + piece.order}) {piece.title}
               </Text>
               {props.renderAction(piece, k)}
             </View>

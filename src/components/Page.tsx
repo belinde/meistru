@@ -1,7 +1,9 @@
 import { FC, ReactNode } from "react";
 import { View } from "react-native";
 
-export const Page: FC<{ children: ReactNode }> = (props) => {
+export const Page: FC<{ children: ReactNode; additionalTopSpace?: number }> = (
+  props
+) => {
   // const insets = useSafeAreaInsets();
 
   return (
@@ -15,7 +17,7 @@ export const Page: FC<{ children: ReactNode }> = (props) => {
         // paddingLeft: 10 + insets.left,
         // paddingRight: 10 + insets.right,
 
-        paddingTop: 10,
+        paddingTop: 10 + (props.additionalTopSpace ?? 0),
         paddingBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,

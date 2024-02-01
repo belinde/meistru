@@ -11,6 +11,8 @@ export type Note = {
   octave: number;
 };
 
+export type NoteNameStyle = "english" | "latin";
+
 export type Section = (typeof SECTIONS)[number];
 
 export type Part = `${Section}${number}`;

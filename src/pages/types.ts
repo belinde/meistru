@@ -8,6 +8,7 @@ import { ConcertStackParams } from "./Concert/ConcertStack";
 import { LibraryStackParams } from "./Library/LibraryStack";
 
 export type RootStackRoutes = {
+  Settings: undefined;
   Library: NavigatorScreenParams<LibraryStackParams>;
   Concert: NavigatorScreenParams<ConcertStackParams>;
 };
