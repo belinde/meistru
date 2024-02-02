@@ -48,6 +48,7 @@ export const readJsonFile = async <T>(
 };
 
 export const writeJsonFile = async <T>(fileName: string, data: T) => {
+  console.debug("writeJsonFile", documentDirectory + fileName);
   await writeAsStringAsync(documentDirectory + fileName, JSON.stringify(data), {
     encoding: "utf8",
   }).catch((e) => {

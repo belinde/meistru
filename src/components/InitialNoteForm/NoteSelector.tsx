@@ -66,7 +66,13 @@ export const NoteSelector: FC<{
           value={props.note}
         >
           {[...NOTES].reverse().map((n) => (
-            <RadioButton.Item key={n} value={n} label={noteName(n)} />
+            <RadioButton.Item
+              style={{ padding: 0, margin: 0, height: 40 }}
+              position="leading"
+              key={n}
+              value={n}
+              label={noteName(n)}
+            />
           ))}
         </RadioButton.Group>
       </View>

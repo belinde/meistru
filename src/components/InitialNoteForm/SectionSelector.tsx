@@ -8,9 +8,13 @@ const style = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
+    gap: 20,
   },
   sectionColumn: {
     flexGrow: 1,
+  },
+  compact: {
+    height: 40,
   },
   subsections: {
     display: "flex",
@@ -42,14 +46,38 @@ export const SectionSelector: FC<{
       >
         <View style={style.sections}>
           <View style={style.sectionColumn}>
-            <RadioButton.Item value="tenori" label="Tenori" />
-            <RadioButton.Item value="baritoni" label="Baritoni" />
-            <RadioButton.Item value="bassi" label="Bassi" />
+            <RadioButton.Item
+              value="tenori"
+              label="Tenori"
+              style={style.compact}
+            />
+            <RadioButton.Item
+              value="baritoni"
+              label="Baritoni"
+              style={style.compact}
+            />
+            <RadioButton.Item
+              value="bassi"
+              label="Bassi"
+              style={style.compact}
+            />
           </View>
           <View style={style.sectionColumn}>
-            <RadioButton.Item value="soprani" label="Soprani" />
-            <RadioButton.Item value="mezzosoprani" label="Mezzosoprani" />
-            <RadioButton.Item value="contralti" label="Contralti" />
+            <RadioButton.Item
+              value="soprani"
+              label="Soprani"
+              style={style.compact}
+            />
+            <RadioButton.Item
+              value="mezzosoprani"
+              label="Mezzosoprani"
+              style={style.compact}
+            />
+            <RadioButton.Item
+              value="contralti"
+              label="Contralti"
+              style={style.compact}
+            />
           </View>
         </View>
       </RadioButton.Group>

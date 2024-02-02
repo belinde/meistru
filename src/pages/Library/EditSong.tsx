@@ -1,7 +1,7 @@
 import { FC, useCallback, useState } from "react";
 import { Text } from "react-native-paper";
 import { Page } from "../../components/Page";
-import { SongForm } from "../../components/SongForm";
+import { SongForm } from "../../components/SongForm/SongForm";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffectOnFocus } from "../../hooks/useEffectOnFocus";
 import { Song } from "../../types";

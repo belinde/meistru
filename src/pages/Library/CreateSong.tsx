@@ -1,6 +1,6 @@
 import { FC, useCallback } from "react";
 import { Page } from "../../components/Page";
-import { SongForm } from "../../components/SongForm";
+import { SongForm } from "../../components/SongForm/SongForm";
 import { createIdentifier } from "../../functions";
 import { useDataContext } from "../../hooks/useDataContext";
 import { Song } from "../../types";
