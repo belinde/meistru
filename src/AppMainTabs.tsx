@@ -1,9 +1,9 @@
 import { FC, useEffect, useState } from "react";
-import { Button, Text, useTheme } from "react-native-paper";
+import { useTheme } from "react-native-paper";
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
-import { Page } from "./components/Page";
 import { useDataContext } from "./hooks/useDataContext";
 import { ConcertStack } from "./pages/Concert/ConcertStack";
+import { ConcertMode } from "./pages/ConcertMode/ConcertMode";
 import { LibraryStack } from "./pages/Library/LibraryStack";
 import { SettingsStack } from "./pages/Settings/SettingsStack";
 import { RootStackRoutes } from "./pages/types";
@@ -23,12 +23,7 @@ export const AppMainTabs: FC = () => {
   }, [data.settings]);
 
   return concertMode ? (
-    <Page additionalTopSpace={30}>
-      <Text>Modalità concerto! ${concertMode}</Text>
-      <Button onPress={() => data.settings.setConcertMode(undefined)}>
-        Esci dalla modalità concerto
-      </Button>
-    </Page>
+    <ConcertMode concert={concertMode} />
   ) : (
     <Tab.Navigator initialRouteName="Library" theme={theme}>
       <Tab.Screen

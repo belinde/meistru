@@ -1,6 +1,5 @@
 import { FC, ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
-import { Card } from "react-native-paper";
 import { SECTIONS } from "../constants";
 import { InitialNote, InitialNoteMap, Part } from "../types";
 import { Pentagram } from "./Pentagram";
@@ -36,9 +35,8 @@ export const InitialNotesList: FC<{
   children?: ReactNode;
 }> = (props) => {
   return (
-    <Card style={style.card}>
-      <Card.Title title="Note iniziali" />
-      <Card.Content style={style.display}>
+    <View style={style.card}>
+      <View style={style.display}>
         <Pentagram notes={props.initialNotes} />
         <View style={style.initialNotes}>
           {Object.entries(props.initialNotes)
@@ -62,8 +60,8 @@ export const InitialNotesList: FC<{
               </View>
             ))}
         </View>
-      </Card.Content>
-      {props.children ? <Card.Actions>{props.children}</Card.Actions> : null}
-    </Card>
+      </View>
+      {props.children ? <View>{props.children}</View> : null}
+    </View>
   );
 };

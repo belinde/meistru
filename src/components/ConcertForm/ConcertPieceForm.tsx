@@ -21,7 +21,6 @@ export const ConcertPieceForm: FC<{
         id: props.piece.id,
         song: song.id,
         order: props.piece.order,
-        played: false,
       });
     },
     [props]

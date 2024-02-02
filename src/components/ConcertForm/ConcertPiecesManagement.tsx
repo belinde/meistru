@@ -21,7 +21,6 @@ export const ConcertPiecesManagement: FC<{
       id: createIdentifier(),
       song: "",
       order: findNextOrder(pieces),
-      played: false,
     });
   }, [pieces]);
 

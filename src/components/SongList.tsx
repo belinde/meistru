@@ -24,6 +24,7 @@ export const SongList: FC<{
       renderItem={(row) => (
         <List.Item
           title={row.item.title}
+          titleStyle={{ fontWeight: "bold" }}
           description={row.item.artist}
           left={() => <List.Icon icon="music" />}
           right={() => <List.Icon icon="chevron-right" />}

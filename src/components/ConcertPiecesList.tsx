@@ -30,6 +30,7 @@ export const ConcertPiecesList: FC<{
           <List.Item
             key={k}
             title={songs[piece.song]?.title}
+            titleStyle={{ fontWeight: "bold" }}
             description={songs[piece.song]?.artist}
             left={() => <Text variant="headlineSmall">{piece.order}</Text>}
             right={() => props.renderAction && props.renderAction(piece, k)}

@@ -40,7 +40,6 @@ export type ConcertPiece = {
   id: string;
   song: string;
   order: number;
-  played: boolean;
 };
 
 export type PieceMap = Record<string, ConcertPiece>;

@@ -1,6 +1,6 @@
 import { Audio } from "expo-av";
 import { FC, useEffect, useRef } from "react";
-import { Button } from "react-native-paper";
+import { IconButton } from "react-native-paper";
 import { NOTEFILES } from "../constants";
 import { Alteration, Note, NoteName, NoteResourceName } from "../types";
 
@@ -53,7 +53,7 @@ export const PlayNote: FC<{ note: Note }> = (props) => {
   }, [soundKey]);
 
   return (
-    <Button
+    <IconButton
       mode="outlined"
       icon="volume-high"
       onPressIn={() => {
@@ -62,8 +62,6 @@ export const PlayNote: FC<{ note: Note }> = (props) => {
       onPressOut={() => {
         sound.current?.stopAsync();
       }}
-    >
-      Suona
-    </Button>
+    />
   );
 };
