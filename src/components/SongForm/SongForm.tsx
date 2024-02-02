@@ -17,12 +17,12 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
   props
 ) => {
   const song = useRef(props.song);
-  console.debug("rendering SongForm");
+
   return (
     <>
       <ScrollView>
         <View style={style.container}>
-          <SongTextInput song={song} field="title" label="Titolo" />
+          <SongTextInput song={song} field="title" label="Titolo" mandatory />
           <SongTextInput song={song} field="artist" label="Artista" />
           <SongPhotoManagement song={song} />
           <SongTextInput

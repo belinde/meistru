@@ -28,8 +28,8 @@ export const SongInitialNotesManagement: FC<{
     (changed: InitialNote) => {
       if (!editing) return;
       const newNotes = { ...initialNotes };
-      const oldPart: Part = makePart(editing);
-      const newPart: Part = makePart(changed);
+      const oldPart = makePart(editing);
+      const newPart = makePart(changed);
       if (newPart !== oldPart) {
         delete newNotes[oldPart];
       }
@@ -45,12 +45,12 @@ export const SongInitialNotesManagement: FC<{
     if (editing) {
       const newNotes = { ...initialNotes };
       delete newNotes[makePart(editing)];
+      props.song.current.initialNotes = newNotes;
       setInitialNotes(newNotes);
       setEditing(undefined);
     }
-  }, [editing, initialNotes]);
+  }, [editing, initialNotes, props.song]);
 
-  console.debug("rendering SongInitialNotesManagement");
   return (
     <>
       <InitialNotesList

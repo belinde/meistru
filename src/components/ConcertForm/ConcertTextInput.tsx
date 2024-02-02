@@ -1,37 +1,38 @@
 import { FC, MutableRefObject, useCallback, useState } from "react";
 import { View } from "react-native";
 import { HelperText, TextInput } from "react-native-paper";
-import { Song } from "../../types";
+import { Concert } from "../../types";
 
-export const SongTextInput: FC<{
-  song: MutableRefObject<Song>;
-  field: "title" | "artist" | "annotations";
+export const ConcertTextInput: FC<{
+  concert: MutableRefObject<Concert>;
+  field: "title" | "description";
   label: string;
   multiline?: boolean;
   mandatory?: boolean;
 }> = (props) => {
-  const [value, setValue] = useState(() => props.song.current[props.field]);
+  const [value, setValue] = useState(() => props.concert.current[props.field]);
   const onChangeText = useCallback(
     (val: string) => {
-      props.song.current[props.field] = val;
+      props.concert.current[props.field] = val;
       setValue(val);
     },
-    [props.field, props.song]
+    [props.field, props.concert]
   );
+  const hasError = !!props.mandatory && !value;
 
   return (
     <View>
       <TextInput
         mode="outlined"
-        error={props.mandatory && !value}
+        error={hasError}
         label={props.label}
         value={value}
         onChangeText={onChangeText}
         multiline={props.multiline}
       />
-      <HelperText type="error" visible={!!props.mandatory && !value}>
-        Il campo è obbligatorio
-      </HelperText>
+      {hasError && (
+        <HelperText type="error">Il campo è obbligatorio</HelperText>
+      )}
     </View>
   );
 };

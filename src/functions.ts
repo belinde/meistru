@@ -23,7 +23,6 @@ export const noteSorter = (a: InitialNote, b: InitialNote) => {
 };
 
 export const deleteFile = async (fileName: string) => {
-  console.debug("deleteFile", documentDirectory + fileName);
   await deleteAsync(documentDirectory + fileName).catch((e) => {
     console.warn("Cannot delete file", fileName, e);
   });
@@ -33,7 +32,6 @@ export const readJsonFile = async <T>(
   fileName: string,
   defaultValue: T
 ): Promise<T> => {
-  console.debug("readJsonFile", documentDirectory + fileName);
   const info = await getInfoAsync(documentDirectory + fileName);
   if (!info.exists) {
     return defaultValue;
@@ -48,7 +46,6 @@ export const readJsonFile = async <T>(
 };
 
 export const writeJsonFile = async <T>(fileName: string, data: T) => {
-  console.debug("writeJsonFile", documentDirectory + fileName);
   await writeAsStringAsync(documentDirectory + fileName, JSON.stringify(data), {
     encoding: "utf8",
   }).catch((e) => {

@@ -1,26 +1,8 @@
 import { FC, ReactNode, useMemo } from "react";
-import { StyleSheet } from "react-native";
+import { View } from "react-native";
 import { List, Text } from "react-native-paper";
 import { useDataContext } from "../hooks/useDataContext";
 import { ConcertPiece } from "../types";
-
-const style = StyleSheet.create({
-  card: {
-    marginTop: 10,
-    marginBottom: 10,
-  },
-  pieceRow: {
-    paddingBottom: 5,
-    paddingLeft: 10,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  pieceSong: {
-    flexGrow: 1,
-  },
-});
 
 type SongMap = Record<string, { title: string; artist: string }>;
 
@@ -28,7 +10,6 @@ export const ConcertPiecesList: FC<{
   pieces: Record<string, ConcertPiece>;
   renderAction?: (note: ConcertPiece, key: string) => ReactNode;
 }> = (props) => {
-  console.debug("Rendering ConcertPiecesList");
   const data = useDataContext();
   const songs = useMemo(
     () =>
@@ -42,18 +23,18 @@ export const ConcertPiecesList: FC<{
     [data.songs]
   );
   return (
-    <>
+    <View>
       {Object.entries(props.pieces)
-        .sort(([_k1, a], [_k2, b]) => a.order - b.order)
+        .sort((a, b) => a[1].order - b[1].order)
         .map(([k, piece]) => (
           <List.Item
             key={k}
             title={songs[piece.song]?.title}
             description={songs[piece.song]?.artist}
-            left={() => <Text variant="headlineSmall">{1 + piece.order}</Text>}
+            left={() => <Text variant="headlineSmall">{piece.order}</Text>}
             right={() => props.renderAction && props.renderAction(piece, k)}
           />
         ))}
-    </>
+    </View>
   );
 };

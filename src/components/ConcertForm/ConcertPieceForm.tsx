@@ -9,6 +9,7 @@ export const ConcertPieceForm: FC<{
   piece: ConcertPiece;
   save: (changed: ConcertPiece) => void;
   remove: () => void;
+  dismiss: () => void;
 }> = (props) => {
   const data = useDataContext();
   const [search, setSearch] = useState("");
@@ -40,7 +41,23 @@ export const ConcertPieceForm: FC<{
     [data.songs]
   );
 
-  console.debug("rendering ConcertPieceForm");
+  const remove = useCallback(() => {
+    Alert.alert(
+      "Conferma cancellazione",
+      "Vuoi davvero togliere questo brano dal concerto?",
+      [
+        {
+          text: "Annulla",
+          style: "cancel",
+        },
+        {
+          text: "Rimuovi",
+          style: "destructive",
+          onPress: props.remove,
+        },
+      ]
+    );
+  }, [props.remove]);
 
   return (
     <Portal>
@@ -55,28 +72,11 @@ export const ConcertPieceForm: FC<{
           <SongList songs={songs} onPress={update} />
         </Dialog.Content>
 
-        <Dialog.Actions>
-          <Button
-            icon="delete"
-            onPress={() => {
-              Alert.alert(
-                "Conferma cancellazione",
-                "Vuoi davvero togliere questo brano dal concerto?",
-                [
-                  {
-                    text: "Annulla",
-                    style: "cancel",
-                  },
-                  {
-                    text: "Rimuovi",
-                    style: "destructive",
-                    onPress: props.remove,
-                  },
-                ]
-              );
-            }}
-            mode="outlined"
-          >
+        <Dialog.Actions style={{ display: "flex" }}>
+          <Button icon="close" onPress={props.dismiss} style={{ flexGrow: 1 }}>
+            Annulla
+          </Button>
+          <Button icon="delete" onPress={remove} style={{ flexGrow: 1 }}>
             Rimuovi
           </Button>
         </Dialog.Actions>

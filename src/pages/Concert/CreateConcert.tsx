@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { ConcertForm } from "../../components/ConcertForm";
+import { ConcertForm } from "../../components/ConcertForm/ConcertForm";
 import { Page } from "../../components/Page";
 import { createIdentifier } from "../../functions";
 import { useDataContext } from "../../hooks/useDataContext";

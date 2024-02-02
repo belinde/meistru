@@ -43,9 +43,11 @@ export type ConcertPiece = {
   played: boolean;
 };
 
+export type PieceMap = Record<string, ConcertPiece>;
+
 export type Concert = {
   id: string;
   title: string;
   description: string;
-  pieces: Record<string, ConcertPiece>;
+  pieces: PieceMap;
 };
