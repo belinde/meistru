@@ -1,7 +1,7 @@
 import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { FC, useCallback, useState } from "react";
 import { Alert } from "react-native";
-import { IconButton, Menu } from "react-native-paper";
+import { Button, IconButton, Menu } from "react-native-paper";
 import { ConcertDisplay } from "../../components/ConcertDisplay";
 import { Page } from "../../components/Page";
 import { useDataContext } from "../../hooks/useDataContext";
@@ -75,9 +75,6 @@ export const ViewConcertMenu: FC = () => {
 export const ViewConcert: FC<ConcertTabScreenProps<"View">> = (props) => {
   const data = useDataContext();
   const [currentConcert, setCurrentConcert] = useState<Concert>();
-  // const [concertoMode, setConcertoMode] = useState(() =>
-  //   data.settings.getConcertoMode()
-  // );
 
   const loader = useCallback(() => {
     setCurrentConcert(data.concerts.fetch(props.route.params.concert));
@@ -90,16 +87,15 @@ export const ViewConcert: FC<ConcertTabScreenProps<"View">> = (props) => {
   return (
     <Page>
       <ConcertDisplay concert={currentConcert} />
-      {/* {!concertoMode && (
-        <Button
-          onPress={() => {
-            setConcertoMode(currentConcert.id);
-            data.settings.setConcertoMode(currentConcert.id);
-          }}
-        >
-          Modalità concerto
-        </Button>
-      )} */}
+      <Button
+        mode="contained"
+        icon="human-capacity-increase"
+        onPress={() => {
+          data.settings.setConcertMode(currentConcert.id);
+        }}
+      >
+        Modalità concerto
+      </Button>
     </Page>
   );
 };

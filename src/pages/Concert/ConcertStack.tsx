@@ -20,19 +20,8 @@ export type ConcertStackParams = {
 const Stack = createNativeStackNavigator<ConcertStackParams>();
 
 export const ConcertStack: FC = () => {
-  // const data = useDataContext();
   const screenOptions = useNativeStackNavigatorOptions();
-  // const concertMode = data.settings.getConcertoMode();
-  // if (concertMode) {
-  //   return (
-  //     <Page additionalTopSpace={30}>
-  //       <Text variant="titleMedium">Modalità concerto attiva</Text>
-  //       <Button onPress={() => data.settings.setConcertoMode(undefined)}>
-  //         Esci dalla modalità concerto
-  //       </Button>
-  //     </Page>
-  //   );
-  // }
+
   return (
     <Stack.Navigator id="ConcertStack" screenOptions={screenOptions}>
       <Stack.Screen

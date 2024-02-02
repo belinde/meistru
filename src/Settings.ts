@@ -3,14 +3,22 @@ import { NoteNameStyle } from "./types";
 
 type SettingsProperties = {
   noteStyle: NoteNameStyle;
-  concertoMode?: string;
+  concertMode?: string;
 };
-const FIELDS: (keyof SettingsProperties)[] = ["noteStyle", "concertoMode"];
+const FIELDS: (keyof SettingsProperties)[] = ["noteStyle", "concertMode"];
 
 export class Settings {
   private static fileName = "settings.json";
   private noteStyle: NoteNameStyle = "latin";
-  private concertoMode?: string;
+  private concertMode?: string;
+  private subscribers: Set<() => void> = new Set();
+
+  public subscribe(callback: () => void) {
+    this.subscribers.add(callback);
+    return () => {
+      this.subscribers.delete(callback);
+    };
+  }
 
   public async load(): Promise<void> {
     const content = await readJsonFile<SettingsProperties>(
@@ -32,6 +40,7 @@ export class Settings {
 
   private async persist() {
     await writeJsonFile(Settings.fileName, this);
+    this.subscribers.forEach((callback) => callback());
   }
 
   getNoteStyle() {
@@ -43,12 +52,12 @@ export class Settings {
     await this.persist();
   }
 
-  getConcertoMode() {
-    return this.concertoMode;
+  getConcertMode() {
+    return this.concertMode;
   }
 
-  async setConcertoMode(value: string | undefined) {
-    this.concertoMode = value;
+  async setConcertMode(value: string | undefined) {
+    this.concertMode = value;
     await this.persist();
   }
 }
