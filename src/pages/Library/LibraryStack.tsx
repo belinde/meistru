@@ -4,7 +4,8 @@ import { useNativeStackNavigatorOptions } from "../../hooks/useNativeStackNaviga
 import { CreateSong } from "./CreateSong";
 import { EditSong } from "./EditSong";
 import { ListSongs } from "./ListSongs";
-import { ViewSong, ViewSongMenu } from "./ViewSong";
+import { ViewSong } from "./ViewSong";
+import { ViewSongMenu } from "./ViewSongMenu";
 
 export type LibraryStackParams = {
   List: undefined;

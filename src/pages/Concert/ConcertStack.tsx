@@ -4,7 +4,8 @@ import { useNativeStackNavigatorOptions } from "../../hooks/useNativeStackNaviga
 import { CreateConcert } from "./CreateConcert";
 import { EditConcert } from "./EditConcert";
 import { ListConcerts } from "./ListConcerts";
-import { ViewConcert, ViewConcertMenu } from "./ViewConcert";
+import { ViewConcert } from "./ViewConcert";
+import { ViewConcertMenu } from "./ViewConcertMenu";
 
 export type ConcertStackParams = {
   List: undefined;
