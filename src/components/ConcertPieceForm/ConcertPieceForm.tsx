@@ -1,8 +1,9 @@
-import { FC, useCallback, useEffect, useState } from "react";
-import { Alert, FlatList } from "react-native";
-import { Button, Dialog, List, Portal, Searchbar } from "react-native-paper";
+import { FC, useCallback, useState } from "react";
+import { Alert } from "react-native";
+import { Button, Dialog, Portal, Searchbar } from "react-native-paper";
 import { useDataContext } from "../../hooks/useDataContext";
-import { ConcertPiece } from "../../types";
+import { ConcertPiece, Song } from "../../types";
+import { SongList } from "../SongList";
 
 export const ConcertPieceForm: FC<{
   piece: ConcertPiece;
@@ -11,14 +12,13 @@ export const ConcertPieceForm: FC<{
 }> = (props) => {
   const data = useDataContext();
   const [search, setSearch] = useState("");
-  const [songs, setSongs] = useState<Record<string, string>>({});
+  const [songs, setSongs] = useState(() => data.songs.list());
 
   const update = useCallback(
-    (song: string, title: string) => {
+    (song: Song) => {
       props.save({
         id: props.piece.id,
-        song,
-        title,
+        song: song.id,
         order: props.piece.order,
         played: false,
       });
@@ -26,44 +26,33 @@ export const ConcertPieceForm: FC<{
     [props]
   );
 
-  useEffect(() => {
-    console.debug("ConcertForm: useEffect");
-    const allSongs = data.songs.list();
-    setSongs(
-      allSongs.reduce<Record<string, string>>(
-        (acc, s) => ({ ...acc, [s.id]: s.title }),
-        {}
-      )
-    );
-    // eslint -disable-next-line react-hooks/exhaustive-deps
-  }, [data.songs]);
+  const searchSongs = useCallback(
+    (searchText: string) => {
+      setSearch(searchText);
+      setSongs(
+        data.songs
+          .list()
+          .filter((song) =>
+            song.title.toLowerCase().includes(searchText.toLowerCase())
+          )
+      );
+    },
+    [data.songs]
+  );
 
   console.debug("rendering ConcertPieceForm");
 
   return (
     <Portal>
       <Dialog visible dismissable={false}>
-        <Dialog.Title>{props.piece.title}</Dialog.Title>
         <Dialog.Content>
           <Searchbar
+            mode="view"
             value={search}
-            onChangeText={setSearch}
+            onChangeText={searchSongs}
             placeholder="Cerca brano"
           />
-          <FlatList
-            data={Object.entries(songs).filter((val) =>
-              val[1].toLowerCase().includes(search.toLowerCase())
-            )}
-            renderItem={({ item }) => (
-              <List.Item
-                title={item[1]}
-                onPress={() => {
-                  update(item[0], item[1]);
-                }}
-              />
-            )}
-            keyExtractor={(item) => item[0]}
-          />
+          <SongList songs={songs} onPress={update} />
         </Dialog.Content>
 
         <Dialog.Actions>

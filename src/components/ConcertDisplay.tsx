@@ -8,10 +8,7 @@ export const ConcertDisplay: FC<{ concert: Concert }> = ({ concert }) => {
   return (
     <ScrollView>
       <Text variant="titleLarge">{concert.title}</Text>
-      <ConcertPiecesList
-        pieces={concert.pieces}
-        renderAction={(initial) => null}
-      />
+      <ConcertPiecesList pieces={concert.pieces} />
       <Text>{concert.description}</Text>
     </ScrollView>
   );

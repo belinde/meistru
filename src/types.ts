@@ -39,7 +39,6 @@ export type PentagramPreference = "high" | "low";
 export type ConcertPiece = {
   id: string;
   song: string;
-  title: string;
   order: number;
   played: boolean;
 };

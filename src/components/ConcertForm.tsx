@@ -50,26 +50,24 @@ export const ConcertForm: FC<{
                 <IconButton icon="pencil" onPress={() => setEditing(i)} />
               </>
             )}
+          />
+          <Button
+            onPress={() => {
+              const id = createIdentifier();
+              pieces[id] = {
+                id,
+                song: "",
+                order:
+                  Math.max(...Object.values(pieces).map((p) => p.order)) + 1,
+                played: false,
+              };
+              setEditing(id);
+            }}
+            mode="outlined"
+            icon="plus"
           >
-            <Button
-              onPress={() => {
-                const id = createIdentifier();
-                pieces[id] = {
-                  id,
-                  song: "",
-                  title: "",
-                  order:
-                    Math.max(...Object.values(pieces).map((p) => p.order)) + 1,
-                  played: false,
-                };
-                setEditing(id);
-              }}
-              mode="outlined"
-              icon="plus"
-            >
-              Aggiungi brano
-            </Button>
-          </ConcertPiecesList>
+            Aggiungi brano
+          </Button>
 
           {editing !== undefined ? (
             <ConcertPieceForm

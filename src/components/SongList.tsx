@@ -1,39 +1,33 @@
 import { FC, useCallback, useState } from "react";
 import { FlatList } from "react-native";
 import { List } from "react-native-paper";
-import { useDataContext } from "../hooks/useDataContext";
-import { useEffectOnFocus } from "../hooks/useEffectOnFocus";
 import { Song } from "../types";
 
-export const SongList: FC<{ onPress: (song: Song) => void }> = (props) => {
-  const data = useDataContext();
-  const [songs, setSongs] = useState<Song[]>();
+export const SongList: FC<{
+  songs: Song[];
+  onPress?: (song: Song) => void;
+  onRefresh?: () => Promise<void>;
+}> = (props) => {
   const [refreshing, setRefreshing] = useState(false);
 
-  const refresh = useCallback(() => {
+  const refresher = useCallback(() => {
+    if (!props.onRefresh) return;
     setRefreshing(true);
-    data.songs
-      .load()
-      .then(setSongs)
-      .finally(() => {
-        setRefreshing(false);
-      });
-  }, [data.songs]);
-
-  useEffectOnFocus(refresh);
+    props.onRefresh!().finally(() => setRefreshing(false));
+  }, [props.onRefresh]);
 
   return (
     <FlatList
-      data={songs}
+      data={props.songs}
       refreshing={refreshing}
-      onRefresh={refresh}
+      onRefresh={props.onRefresh ? refresher : undefined}
       renderItem={(row) => (
         <List.Item
           title={row.item.title}
           description={row.item.artist}
           left={() => <List.Icon icon="music" />}
           right={() => <List.Icon icon="chevron-right" />}
-          onPress={() => props.onPress(row.item)}
+          onPress={props.onPress ? () => props.onPress!(row.item) : undefined}
           titleNumberOfLines={2}
           descriptionNumberOfLines={1}
         />
