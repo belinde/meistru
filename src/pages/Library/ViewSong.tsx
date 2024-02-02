@@ -21,13 +21,9 @@ export const ViewSongMenu: FC = () => {
     <Menu
       visible={visible}
       onDismiss={() => setVisible(false)}
-      anchorPosition="top"
+      anchorPosition="bottom"
       anchor={
-        <IconButton
-          icon="dots-vertical"
-          mode="outlined"
-          onPress={() => setVisible(true)}
-        />
+        <IconButton icon="dots-vertical" onPress={() => setVisible(true)} />
       }
     >
       <Menu.Item

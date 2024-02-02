@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { StyleSheet, View } from "react-native";
 import { RadioButton, Text, ToggleButton } from "react-native-paper";
-import { NOTES, NOTE_NAMES } from "../../constants";
+import { NOTES } from "../../constants";
+import { useNoteName } from "../../hooks/useNoteName";
 import { Alteration, NoteName, Section } from "../../types";
-import { Choice } from "../Choice";
 import { Pentagram } from "../Pentagram";
 
 const style = StyleSheet.create({
@@ -24,6 +24,7 @@ export const NoteSelector: FC<{
   setOctave: (n: number) => void;
   setAlteration: (a?: Alteration) => void;
 }> = (props) => {
+  const noteName = useNoteName();
   return (
     <View style={style.container}>
       <Pentagram
@@ -65,12 +66,7 @@ export const NoteSelector: FC<{
           value={props.note}
         >
           {[...NOTES].reverse().map((n) => (
-            <Choice
-              key={n}
-              option={n}
-              currentValue={props.note}
-              label={NOTE_NAMES[n]}
-            />
+            <RadioButton.Item key={n} value={n} label={noteName(n)} />
           ))}
         </RadioButton.Group>
       </View>

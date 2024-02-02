@@ -1,14 +1,16 @@
-import { FC, useCallback } from "react";
+import { FC } from "react";
 import { StyleSheet, View } from "react-native";
 import { RadioButton, Text } from "react-native-paper";
 import { Section } from "../../types";
-import { Choice } from "../Choice";
 
 const style = StyleSheet.create({
   sections: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+  sectionColumn: {
+    flexGrow: 1,
   },
   subsections: {
     display: "flex",
@@ -32,12 +34,6 @@ export const SectionSelector: FC<{
   setSection: (s: Section) => void;
   setSubsection: (s: number) => void;
 }> = (props) => {
-  const choice = useCallback(
-    (sect: Section) => (
-      <Choice option={sect} currentValue={props.section} label={sect} />
-    ),
-    [props.section]
-  );
   return (
     <View>
       <RadioButton.Group
@@ -45,15 +41,15 @@ export const SectionSelector: FC<{
         onValueChange={(s) => props.setSection(s as Section)}
       >
         <View style={style.sections}>
-          <View>
-            {choice("tenori")}
-            {choice("baritoni")}
-            {choice("bassi")}
+          <View style={style.sectionColumn}>
+            <RadioButton.Item value="tenori" label="Tenori" />
+            <RadioButton.Item value="baritoni" label="Baritoni" />
+            <RadioButton.Item value="bassi" label="Bassi" />
           </View>
-          <View>
-            {choice("soprani")}
-            {choice("mezzosoprani")}
-            {choice("contralti")}
+          <View style={style.sectionColumn}>
+            <RadioButton.Item value="soprani" label="Soprani" />
+            <RadioButton.Item value="mezzosoprani" label="Mezzosoprani" />
+            <RadioButton.Item value="contralti" label="Contralti" />
           </View>
         </View>
       </RadioButton.Group>

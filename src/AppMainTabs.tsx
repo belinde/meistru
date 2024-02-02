@@ -5,7 +5,7 @@ import { Page } from "./components/Page";
 import { useDataContext } from "./hooks/useDataContext";
 import { ConcertStack } from "./pages/Concert/ConcertStack";
 import { LibraryStack } from "./pages/Library/LibraryStack";
-import { Settings } from "./pages/Settings/Settings";
+import { SettingsStack } from "./pages/Settings/SettingsStack";
 import { RootStackRoutes } from "./pages/types";
 
 const Tab = createMaterialBottomTabNavigator<RootStackRoutes>();
@@ -49,7 +49,7 @@ export const AppMainTabs: FC = () => {
       />
       <Tab.Screen
         name="Settings"
-        component={Settings}
+        component={SettingsStack}
         options={{
           tabBarIcon: "cog",
           title: "Impostazioni",

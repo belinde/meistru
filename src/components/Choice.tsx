@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { StyleSheet, View } from "react-native";
-import { RadioButton, Text } from "react-native-paper";
+import { RadioButton } from "react-native-paper";
 
 const style = StyleSheet.create({
   choice: {
@@ -22,11 +22,12 @@ type Comp<T> = FC<{
 export const Choice: Comp<any> = (props) => {
   return (
     <View style={style.choice}>
-      <RadioButton
+      <RadioButton.Item
+        label={props.label}
         value={props.option}
-        status={props.currentValue === props.option ? "checked" : "unchecked"}
+        // status={props.currentValue === props.option ? "checked" : "unchecked"}
       />
-      <Text style={style.choiceLabel}>{props.label}</Text>
+      {/* <Text style={style.choiceLabel}>{props.label}</Text> */}
     </View>
   );
 };
