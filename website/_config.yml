@@ -30,7 +30,7 @@ twitter_username:
 github_username:  belinde
 
 # Build settings
-theme: minima
+theme: jekyll-theme-midnight
 plugins:
   - jekyll-feed
 
