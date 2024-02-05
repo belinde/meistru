@@ -24,13 +24,14 @@ description: >- # this means to ignore newlines until "baseurl:"
   Meistru è un'applicazione Android per direttori di coro. Permette di gestire 
   gli accordi iniziali dei pezzi del repertorio, organizzare le scalette dei 
   concerti e suonare l'accordo iniziale.
-baseurl: "/" # the subpath of your site, e.g. /blog
+baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://meistru.belinde.click" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
 github_username:  belinde
 
 # Build settings
-theme: jekyll-theme-midnight
+# theme: minima
+remote_theme: jekyll/minima
 plugins:
   - jekyll-feed
 
@@ -53,3 +54,8 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+show_excerpts: true
+
+minima:
+  skin: solarized-dark
