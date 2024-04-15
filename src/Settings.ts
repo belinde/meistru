@@ -1,17 +1,26 @@
 import { readJsonFile, writeJsonFile } from "./functions";
-import { NoteNameStyle } from "./types";
+import { InitialNote, NoteNameStyle } from "./types";
+
+export type StandardSection = Pick<InitialNote, "section" | "subsection">;
 
 type SettingsProperties = {
   noteStyle: NoteNameStyle;
   concertMode?: string;
+  standardSections: StandardSection[];
 };
-const FIELDS: (keyof SettingsProperties)[] = ["noteStyle", "concertMode"];
+
+const FIELDS: (keyof SettingsProperties)[] = [
+  "noteStyle",
+  "concertMode",
+  "standardSections",
+];
 
 export class Settings {
   private static fileName = "settings.json";
   private noteStyle: NoteNameStyle = "latin";
   private concertMode?: string;
   private subscribers: Set<() => void> = new Set();
+  private standardSections: StandardSection[] = [];
 
   public subscribe(callback: () => void) {
     this.subscribers.add(callback);
@@ -29,7 +38,7 @@ export class Settings {
       }, {} as SettingsProperties)
     );
 
-    if (typeof content === "object" && "noteStyle" in content) {
+    if (typeof content === "object" && content !== null) {
       FIELDS.forEach((field) => {
         if (field in content) {
           this[field] = content[field] as any;
@@ -58,6 +67,15 @@ export class Settings {
 
   async setConcertMode(value: string | undefined) {
     this.concertMode = value;
+    await this.persist();
+  }
+
+  getStandardSections() {
+    return this.standardSections;
+  }
+
+  async setStandardSections(value: StandardSection[]) {
+    this.standardSections = value;
     await this.persist();
   }
 }

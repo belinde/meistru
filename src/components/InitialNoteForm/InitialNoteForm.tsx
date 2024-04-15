@@ -2,6 +2,7 @@ import { FC, useCallback, useState } from "react";
 import { Alert } from "react-native";
 import { Button, Dialog, Divider, Portal } from "react-native-paper";
 import { InitialNote } from "../../types";
+import { TextualSection } from "../TextualSection";
 import { NoteSelector } from "./NoteSelector";
 import { SectionSelector } from "./SectionSelector";
 
@@ -10,6 +11,7 @@ export const InitialNoteForm: FC<{
   save: (changed: InitialNote) => void;
   remove: () => void;
   dismiss: () => void;
+  canChange: boolean;
 }> = (props) => {
   const [section, setSection] = useState(() => props.initial.section);
   const [subsection, setSubsection] = useState(() => props.initial.subsection);
@@ -53,13 +55,23 @@ export const InitialNoteForm: FC<{
     <Portal>
       <Dialog visible onDismiss={props.dismiss}>
         <Dialog.Content>
-          <SectionSelector
-            section={section}
-            subsection={subsection}
-            setSection={setSection}
-            setSubsection={setSubsection}
-          />
-          <Divider bold style={{ marginBottom: 10 }} />
+          {props.canChange ? (
+            <>
+              <SectionSelector
+                section={section}
+                subsection={subsection}
+                setSection={setSection}
+                setSubsection={setSubsection}
+              />
+              <Divider bold style={{ marginBottom: 10 }} />
+            </>
+          ) : (
+            <TextualSection
+              section={section}
+              subsection={subsection}
+              variant="titleMedium"
+            />
+          )}
           <NoteSelector
             note={note}
             octave={octave}

@@ -6,7 +6,7 @@ import {
   writeAsStringAsync,
 } from "expo-file-system";
 import { SECTIONS } from "./constants";
-import { InitialNote } from "./types";
+import { InitialNote, Note, Section } from "./types";
 
 export const createIdentifier = () =>
   Math.floor(1000 * (Date.now() + Math.random())).toString(36) +
@@ -51,4 +51,21 @@ export const writeJsonFile = async <T>(fileName: string, data: T) => {
   }).catch((e) => {
     console.warn("Cannot write file", fileName, e);
   });
+};
+
+export const favoriteSectionNote = (section: Section): Note => {
+  switch (section) {
+    case "soprani":
+      return { note: "A", octave: 4 };
+    case "mezzosoprani":
+      return { note: "F", octave: 3 };
+    case "contralti":
+      return { note: "D", octave: 2 };
+    case "tenori":
+      return { note: "C", octave: 4 };
+    case "baritoni":
+      return { note: "F", octave: 2 };
+    case "bassi":
+      return { note: "A", octave: 1 };
+  }
 };

@@ -12,10 +12,12 @@ export const SongInitialNotesManagement: FC<{
     () => props.song.current.initialNotes
   );
   const [editing, setEditing] = useState<InitialNote>();
+  const [canChange, setCanChange] = useState(false);
 
   const addNewNote = useCallback(() => {
     const found = findUnusedPart(initialNotes);
     if (found) {
+      setCanChange(true);
       setEditing({
         section: found.section,
         subsection: found.subsection,
@@ -37,6 +39,7 @@ export const SongInitialNotesManagement: FC<{
       props.song.current.initialNotes = newNotes;
       setInitialNotes(newNotes);
       setEditing(undefined);
+      setCanChange(false);
     },
     [editing, initialNotes, props.song]
   );
@@ -48,6 +51,7 @@ export const SongInitialNotesManagement: FC<{
       props.song.current.initialNotes = newNotes;
       setInitialNotes(newNotes);
       setEditing(undefined);
+      setCanChange(false);
     }
   }, [editing, initialNotes, props.song]);
 
@@ -56,7 +60,13 @@ export const SongInitialNotesManagement: FC<{
       <InitialNotesList
         initialNotes={initialNotes}
         renderAction={(note) => (
-          <IconButton icon="pencil" onPress={() => setEditing(note)} />
+          <IconButton
+            icon="pencil"
+            onPress={() => {
+              setCanChange(false);
+              setEditing(note);
+            }}
+          />
         )}
       >
         <Button onPress={addNewNote} mode="outlined" icon="plus">
@@ -66,10 +76,14 @@ export const SongInitialNotesManagement: FC<{
 
       {editing && (
         <InitialNoteForm
-          dismiss={() => setEditing(undefined)}
+          dismiss={() => {
+            setCanChange(false);
+            setEditing(undefined);
+          }}
           initial={editing}
           save={saveNote}
           remove={removeNote}
+          canChange={canChange}
         />
       )}
     </>
