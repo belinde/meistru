@@ -18,8 +18,13 @@ export const ViewConcertMenu: FC = () => {
       onDismiss={() => setVisible(false)}
       anchorPosition="bottom"
       anchor={
-        <IconButton icon="dots-vertical" onPress={() => setVisible(true)} />
+        <IconButton
+          icon="dots-vertical"
+          onPress={() => setVisible(true)}
+          accessibilityLabel="Azioni"
+        />
       }
+      overlayAccessibilityLabel="Menu del concerto"
     >
       <Menu.Item
         leadingIcon="pencil"
@@ -31,6 +36,7 @@ export const ViewConcertMenu: FC = () => {
           });
         }}
         title="Modifica"
+        accessibilityLabel="Modifica il concerto"
       />
       <Menu.Item
         leadingIcon="delete"
@@ -58,6 +64,7 @@ export const ViewConcertMenu: FC = () => {
           );
         }}
         title="Elimina"
+        accessibilityLabel="Elimina il concerto dal repertorio"
       />
     </Menu>
   );

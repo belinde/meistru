@@ -6,7 +6,7 @@ import { LibraryTabScreenProps } from "../types";
 
 export const ListConcerts: FC<LibraryTabScreenProps<"List">> = (props) => {
   return (
-    <Page>
+    <Page accessibilityLabel="Elenco concerti">
       <ConcertList
         onPress={(concert) =>
           props.navigation.navigate("Concert", {

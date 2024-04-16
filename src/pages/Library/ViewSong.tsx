@@ -19,14 +19,14 @@ export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
 
   if (!currentSong) {
     return (
-      <Page>
+      <Page accessibilityLabel="Brano inesistente">
         <Text>Il brano richiesto non esiste</Text>
       </Page>
     );
   }
 
   return (
-    <Page>
+    <Page accessibilityLabel={`Brano selezionato: ${currentSong.title}`}>
       <SongDisplay song={currentSong} />
     </Page>
   );

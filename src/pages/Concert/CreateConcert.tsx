@@ -8,7 +8,7 @@ import { LibraryTabScreenProps } from "../types";
 export const CreateConcert: FC<LibraryTabScreenProps<"Create">> = (props) => {
   const data = useDataContext();
   return (
-    <Page>
+    <Page accessibilityLabel="Creazione nuovo concerto">
       <ConcertForm
         concert={{
           id: createIdentifier(),

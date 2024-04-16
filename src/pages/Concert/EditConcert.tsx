@@ -13,7 +13,9 @@ export const EditConcert: FC<ConcertTabScreenProps<"Edit">> = (props) => {
   }
 
   return (
-    <Page>
+    <Page
+      accessibilityLabel={`Modifica del concerto "${currentConcert.title}"`}
+    >
       <ConcertForm
         concert={currentConcert}
         persister={(concert) =>

@@ -20,7 +20,9 @@ export const ViewConcert: FC<ConcertTabScreenProps<"View">> = (props) => {
   if (!currentConcert) return null;
 
   return (
-    <Page>
+    <Page
+      accessibilityLabel={`Visualizza il concerto "${currentConcert.title}"`}
+    >
       <ConcertDisplay concert={currentConcert} />
       <Button
         mode="contained"

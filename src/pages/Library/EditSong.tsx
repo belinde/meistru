@@ -31,14 +31,14 @@ export const EditSong: FC<LibraryTabScreenProps<"Edit">> = (props) => {
 
   if (!currentSong) {
     return (
-      <Page>
+      <Page accessibilityLabel="Brano inesistente">
         <Text>Il brano richiesto non esiste</Text>
       </Page>
     );
   }
 
   return (
-    <Page>
+    <Page accessibilityLabel={`Modifica del brano "${currentSong.title}"`}>
       <SongForm song={currentSong} persister={persister} />
     </Page>
   );

@@ -18,7 +18,7 @@ export const ListSongs: FC<LibraryTabScreenProps<"List">> = (props) => {
   useEffectOnFocus(refresh);
 
   return (
-    <Page>
+    <Page accessibilityLabel="Repertorio">
       <SongList
         songs={songs}
         onRefresh={refresh}

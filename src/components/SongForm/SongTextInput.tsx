@@ -25,6 +25,7 @@ export const SongTextInput: FC<{
         mode="outlined"
         error={props.mandatory && !value}
         label={props.label}
+        accessibilityLabel={props.label}
         value={value}
         onChangeText={onChangeText}
         multiline={props.multiline}

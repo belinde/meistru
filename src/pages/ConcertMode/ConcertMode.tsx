@@ -14,7 +14,7 @@ export const ConcertMode: FC<{ concert: string }> = (props) => {
 
   if (!concert) {
     return (
-      <Page useSafeArea>
+      <Page useSafeArea accessibilityLabel="Modalità concerto">
         <Button onPress={() => data.settings.setConcertMode(undefined)}>
           Esci dalla modalità concerto
         </Button>
@@ -23,7 +23,7 @@ export const ConcertMode: FC<{ concert: string }> = (props) => {
   }
 
   return (
-    <Page useSafeArea>
+    <Page useSafeArea accessibilityLabel="Modalità concerto">
       <ScrollView>
         <Text variant="titleLarge">{concert.title}</Text>
         <Text>{concert.description}</Text>

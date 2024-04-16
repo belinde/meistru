@@ -26,7 +26,7 @@ export const CreateSong: FC<LibraryTabScreenProps<"Create">> = (props) => {
     [data.songs, props.navigation]
   );
   return (
-    <Page>
+    <Page accessibilityLabel="Inserimento di un nuovo brano">
       <SongForm
         song={{
           id: createIdentifier(),

@@ -51,7 +51,12 @@ export const NoteSelector: FC<{
           value={props.octave.toString()}
         >
           {[5, 4, 3, 2, 1].map((n) => (
-            <ToggleButton key={n} icon={`numeric-${n}`} value={n.toString()} />
+            <ToggleButton
+              key={n}
+              icon={`numeric-${n}`}
+              value={n.toString()}
+              accessibilityLabel={n.toString()}
+            />
           ))}
         </ToggleButton.Group>
       </View>
@@ -72,6 +77,7 @@ export const NoteSelector: FC<{
               key={n}
               value={n}
               label={noteName(n)}
+              accessibilityLabel={noteName(n)}
             />
           ))}
         </RadioButton.Group>
@@ -86,9 +92,17 @@ export const NoteSelector: FC<{
           }}
           value={props.alteration || "-"}
         >
-          <ToggleButton icon="minus" value="-" />
-          <ToggleButton icon="music-accidental-sharp" value="#" />
-          <ToggleButton icon="music-accidental-flat" value="b" />
+          <ToggleButton icon="minus" value="-" accessibilityLabel="-" />
+          <ToggleButton
+            icon="music-accidental-sharp"
+            value="#"
+            accessibilityLabel="diesis"
+          />
+          <ToggleButton
+            icon="music-accidental-flat"
+            value="b"
+            accessibilityLabel="bemolle"
+          />
         </ToggleButton.Group>
       </View>
     </View>

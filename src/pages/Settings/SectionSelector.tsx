@@ -23,14 +23,20 @@ const style = StyleSheet.create({
 });
 
 const SectionPart: FC<{
+  section: Section;
   subsection: number;
   status: "checked" | "unchecked";
   toggle: () => void;
 }> = (props) => {
+  const label = props.subsection ? props.subsection.toString() : "tutti";
   return (
     <View style={style.subsections}>
-      <Checkbox status={props.status} onPress={() => props.toggle()} />
-      <Text>{props.subsection || "tutti"}</Text>
+      <Checkbox.Item
+        status={props.status}
+        onPress={() => props.toggle()}
+        label={label}
+        accessibilityLabel={label}
+      />
     </View>
   );
 };
@@ -47,6 +53,7 @@ export const SectionSelector: FC<{
         {[0, 1, 2, 3, 4].map((sub) => (
           <SectionPart
             key={sub}
+            section={props.section}
             subsection={sub}
             status={
               props.parts.some((p) =>

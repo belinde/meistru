@@ -2,13 +2,17 @@ import { FC, ReactNode } from "react";
 import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export const Page: FC<{ children: ReactNode; useSafeArea?: boolean }> = (
-  props
-) => {
+export const Page: FC<{
+  children: ReactNode;
+  useSafeArea?: boolean;
+  accessibilityLabel: string;
+}> = (props) => {
   const insets = useSafeAreaInsets();
 
   return (
     <View
+      accessible
+      accessibilityLabel={props.accessibilityLabel}
       style={{
         flex: 1,
         rowGap: 16,

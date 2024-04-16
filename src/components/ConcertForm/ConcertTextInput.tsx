@@ -26,6 +26,7 @@ export const ConcertTextInput: FC<{
         mode="outlined"
         error={hasError}
         label={props.label}
+        accessibilityLabel={props.label}
         value={value}
         onChangeText={onChangeText}
         multiline={props.multiline}

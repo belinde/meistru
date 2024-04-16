@@ -29,7 +29,7 @@ export const Basic: FC = () => {
   );
 
   return (
-    <Page>
+    <Page accessibilityLabel="Impostazioni">
       <Text variant="titleMedium">Nomi delle note:</Text>
 
       <RadioButton.Group
@@ -38,8 +38,16 @@ export const Basic: FC = () => {
         }}
         value={style}
       >
-        <RadioButton.Item value="latin" label="Do, Re, Mi..." />
-        <RadioButton.Item value="english" label="A, B, C..." />
+        <RadioButton.Item
+          value="latin"
+          label="Do, Re, Mi..."
+          accessibilityLabel="Do, Re, Mi..."
+        />
+        <RadioButton.Item
+          value="english"
+          label="A, B, C..."
+          accessibilityLabel="A, B, C..."
+        />
       </RadioButton.Group>
 
       <Text variant="titleMedium">Reparti normalmente utilizzati:</Text>
