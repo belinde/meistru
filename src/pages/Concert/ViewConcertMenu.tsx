@@ -22,6 +22,7 @@ export const ViewConcertMenu: FC = () => {
           icon="dots-vertical"
           onPress={() => setVisible(true)}
           accessibilityLabel="Azioni"
+          aria-label="Azioni"
         />
       }
       overlayAccessibilityLabel="Menu del concerto"
@@ -37,6 +38,7 @@ export const ViewConcertMenu: FC = () => {
         }}
         title="Modifica"
         accessibilityLabel="Modifica il concerto"
+        aria-label="Modifica il concerto"
       />
       <Menu.Item
         leadingIcon="delete"
@@ -65,6 +67,7 @@ export const ViewConcertMenu: FC = () => {
         }}
         title="Elimina"
         accessibilityLabel="Elimina il concerto dal repertorio"
+        aria-label="Elimina il concerto dal repertorio"
       />
     </Menu>
   );

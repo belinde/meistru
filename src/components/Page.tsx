@@ -12,6 +12,7 @@ export const Page: FC<{
   return (
     <View
       accessible
+      aria-label={props.accessibilityLabel}
       accessibilityLabel={props.accessibilityLabel}
       style={{
         flex: 1,

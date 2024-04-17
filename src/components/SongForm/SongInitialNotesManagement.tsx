@@ -62,6 +62,7 @@ export const SongInitialNotesManagement: FC<{
         renderAction={(note) => (
           <IconButton
             icon="pencil"
+            aria-label="Modifica nota iniziale"
             accessibilityLabel="Modifica nota iniziale"
             onPress={() => {
               setCanChange(false);

@@ -36,6 +36,7 @@ const SectionPart: FC<{
         onPress={() => props.toggle()}
         label={label}
         accessibilityLabel={label}
+        aria-label={label}
       />
     </View>
   );

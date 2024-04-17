@@ -26,6 +26,7 @@ export const SongTextInput: FC<{
         error={props.mandatory && !value}
         label={props.label}
         accessibilityLabel={props.label}
+        aria-label={props.label}
         value={value}
         onChangeText={onChangeText}
         multiline={props.multiline}

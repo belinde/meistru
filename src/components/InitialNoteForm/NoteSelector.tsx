@@ -55,6 +55,7 @@ export const NoteSelector: FC<{
               key={n}
               icon={`numeric-${n}`}
               value={n.toString()}
+              aria-label={n.toString()}
               accessibilityLabel={n.toString()}
             />
           ))}
@@ -77,6 +78,7 @@ export const NoteSelector: FC<{
               key={n}
               value={n}
               label={noteName(n)}
+              aria-label={noteName(n)}
               accessibilityLabel={noteName(n)}
             />
           ))}

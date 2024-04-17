@@ -42,11 +42,13 @@ export const Basic: FC = () => {
           value="latin"
           label="Do, Re, Mi..."
           accessibilityLabel="Do, Re, Mi..."
+          aria-label="Do, Re, Mi..."
         />
         <RadioButton.Item
           value="english"
-          label="A, B, C..."
-          accessibilityLabel="A, B, C..."
+          label="C, D, E..."
+          accessibilityLabel="C, D, E..."
+          aria-label="C, D, E..."
         />
       </RadioButton.Group>
 
