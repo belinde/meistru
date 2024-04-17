@@ -1,0 +1,12 @@
+---
+permalink: /404.html
+layout: page
+---
+---
+## Pagina non trovata
+
+> Il mondo è cambiato.
+> 
+> Lo sento nell'acqua, lo sento nella terra, lo avverto nell'aria.
+>
+> Molto di ciò che era si è perduto, perché ora non vive nessuno che lo ricorda.

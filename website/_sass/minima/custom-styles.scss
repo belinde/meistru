@@ -1,0 +1,24 @@
+body {
+    background-image: url('/images/icon.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 60px 60px;
+}
+
+.wrapper {
+    background-color: #181818;
+}
+
+.preview {
+    width: 300px;
+    height: auto;
+    float: left;
+    margin: 10px 10px 10px 0;
+    padding: 1px;
+    box-shadow: #ddd 0 0 5px;
+}
+
+hr {
+    clear: both;
+    visibility: hidden;
+}

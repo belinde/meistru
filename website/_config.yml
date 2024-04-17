@@ -58,4 +58,11 @@ plugins:
 show_excerpts: true
 
 minima:
-  skin: solarized-dark
+  skin: dark
+  date_format: "%-d/%-m/%Y"
+
+header_pages:
+  - features.markdown
+  - bugs.markdown
+  - next.markdown
+  - privacy.markdown
