@@ -7,7 +7,7 @@ export const ScorePhoto: FC<{ source: string }> = (props) => {
 
   return (
     <Image
-      height={width / 4}
+      height={width / 5}
       width={width}
       resizeMode="contain"
       source={{
