@@ -15,7 +15,11 @@ export default function App() {
 
   return (
     <PaperProvider theme={THEME}>
-      <StatusBar backgroundColor={THEME.colors.elevation.level2} />
+      <StatusBar
+        backgroundColor={THEME.colors.elevation.level2}
+        // eslint-disable-next-line react/style-prop-object
+        style="auto"
+      />
       <DataProvider>
         <NavigationContainer theme={THEME}>
           <AppMainTabs />
