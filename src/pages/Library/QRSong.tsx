@@ -1,13 +1,17 @@
 import { FC, useCallback, useState } from "react";
+import { View, useWindowDimensions } from "react-native";
+import QRCode from "react-qr-code";
 import { Page } from "../../components/Page";
-import { SongDisplay } from "../../components/SongDisplay";
 import { useDataContext } from "../../hooks/useDataContext";
 import { useEffectOnFocus } from "../../hooks/useEffectOnFocus";
+import { serializeSong } from "../../serialization";
 import { Song } from "../../types";
 import { LibraryTabScreenProps } from "../types";
 import { UnexistingSong } from "./UnexistingSong";
 
-export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
+export const QRSong: FC<LibraryTabScreenProps<"QRView">> = (props) => {
+  const { width } = useWindowDimensions();
+
   const data = useDataContext();
   const [currentSong, setCurrentSong] = useState<Song>();
 
@@ -23,7 +27,15 @@ export const ViewSong: FC<LibraryTabScreenProps<"View">> = (props) => {
 
   return (
     <Page accessibilityLabel={`Brano selezionato: ${currentSong.title}`}>
-      <SongDisplay song={currentSong} />
+      <View
+        style={{
+          height: "auto",
+          backgroundColor: "white",
+          padding: 10,
+        }}
+      >
+        <QRCode size={width - 40} value={serializeSong(currentSong)} />
+      </View>
     </Page>
   );
 };

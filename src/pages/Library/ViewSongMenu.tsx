@@ -41,6 +41,19 @@ export const ViewSongMenu: FC = () => {
         aria-label="Modifica il pezzo"
       />
       <Menu.Item
+        leadingIcon="qrcode"
+        onPress={() => {
+          setVisible(false);
+          navigation.navigate("Library", {
+            screen: "QRView",
+            params: { song: route.params.song },
+          });
+        }}
+        title="Esporta"
+        accessibilityLabel="Esporta il pezzo come QR Code"
+        aria-label="Esporta il pezzo come QR Code"
+      />
+      <Menu.Item
         leadingIcon="delete"
         onPress={() => {
           setVisible(false);

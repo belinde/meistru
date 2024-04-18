@@ -5,6 +5,7 @@ import { useNativeStackNavigatorOptions } from "../../hooks/useNativeStackNaviga
 import { CreateSong } from "./CreateSong";
 import { EditSong } from "./EditSong";
 import { ListSongs } from "./ListSongs";
+import { QRSong } from "./QRSong";
 import { ViewSong } from "./ViewSong";
 import { ViewSongMenu } from "./ViewSongMenu";
 
@@ -12,6 +13,9 @@ export type LibraryStackParams = {
   List: undefined;
   Create: undefined;
   View: {
+    song: string;
+  };
+  QRView: {
     song: string;
   };
   Edit: {
@@ -50,6 +54,12 @@ export const LibraryStack: FC = () => {
           title: "Visualizza",
           headerRight: ViewSongMenu,
         }}
+        getId={({ params }) => params.song}
+      />
+      <Stack.Screen
+        name="QRView"
+        component={QRSong}
+        options={{ title: "QR code" }}
         getId={({ params }) => params.song}
       />
     </Stack.Navigator>
