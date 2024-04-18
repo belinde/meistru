@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { StyleSheet, View } from "react-native";
-import { RadioButton, Text } from "react-native-paper";
+import { RadioButton, ToggleButton } from "react-native-paper";
 import { Section } from "../../types";
 
 const style = StyleSheet.create({
@@ -14,21 +14,12 @@ const style = StyleSheet.create({
     flexGrow: 1,
   },
   compact: {
-    height: 40,
+    height: 38,
   },
   subsections: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    margin: 10,
-  },
-  choice: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
-  choiceLabel: {
-    textTransform: "capitalize",
   },
 });
 
@@ -82,19 +73,21 @@ export const SectionSelector: FC<{
         </View>
       </RadioButton.Group>
 
-      <RadioButton.Group
+      <ToggleButton.Group
         value={props.subsection.toString()}
         onValueChange={(s) => props.setSubsection(parseInt(s))}
       >
         <View style={style.subsections}>
           {[0, 1, 2, 3, 4].map((sub) => (
-            <View key={sub} style={style.choice}>
-              <RadioButton value={sub.toString()} />
-              <Text style={style.choiceLabel}>{sub || "—"}</Text>
-            </View>
+            <ToggleButton
+              key={sub}
+              value={sub.toString()}
+              icon={sub ? `numeric-${sub}` : "asterisk"}
+              accessibilityLabel={sub ? sub.toString() : "—"}
+            />
           ))}
         </View>
-      </RadioButton.Group>
+      </ToggleButton.Group>
     </View>
   );
 };

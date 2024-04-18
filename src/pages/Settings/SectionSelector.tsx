@@ -1,24 +1,23 @@
 import isEqual from "lodash/isEqual";
 import { FC } from "react";
 import { StyleSheet, View } from "react-native";
-import { Checkbox, Text } from "react-native-paper";
+import { Text, ToggleButton } from "react-native-paper";
 import { StandardSection } from "../../Settings";
 import { Section } from "../../types";
 
 const style = StyleSheet.create({
-  sections: {
+  block: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: "column",
+  },
+  sectionLabel: {
+    textTransform: "capitalize",
   },
   subsections: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  sectionLabel: {
-    textTransform: "capitalize",
+    justifyContent: "flex-start",
+    gap: 10,
   },
 });
 
@@ -28,17 +27,18 @@ const SectionPart: FC<{
   status: "checked" | "unchecked";
   toggle: () => void;
 }> = (props) => {
-  const label = props.subsection ? props.subsection.toString() : "tutti";
+  const description = props.subsection
+    ? `${props.section} ${props.subsection}`
+    : `tutti i ${props.section}`;
+
   return (
-    <View style={style.subsections}>
-      <Checkbox.Item
-        status={props.status}
-        onPress={() => props.toggle()}
-        label={label}
-        accessibilityLabel={label}
-        aria-label={label}
-      />
-    </View>
+    <ToggleButton
+      status={props.status}
+      onPress={() => props.toggle()}
+      icon={props.subsection ? `numeric-${props.subsection}` : "asterisk"}
+      accessibilityLabel={description}
+      aria-label={description}
+    />
   );
 };
 
@@ -48,9 +48,9 @@ export const SectionSelector: FC<{
   setParts: (parts: StandardSection[]) => void;
 }> = (props) => {
   return (
-    <View>
+    <View style={style.block}>
       <Text style={style.sectionLabel}>{props.section}</Text>
-      <View style={style.sections}>
+      <View style={style.subsections}>
         {[0, 1, 2, 3, 4].map((sub) => (
           <SectionPart
             key={sub}
@@ -67,7 +67,7 @@ export const SectionSelector: FC<{
                 : "unchecked"
             }
             toggle={() => {
-              const newParts = props.parts.filter(
+              let newParts = props.parts.filter(
                 (p) =>
                   !isEqual(p, {
                     section: props.section,
@@ -75,6 +75,15 @@ export const SectionSelector: FC<{
                   })
               );
               if (newParts.length === props.parts.length) {
+                if (sub === 0) {
+                  newParts = props.parts.filter(
+                    (p) => p.section !== props.section
+                  );
+                } else {
+                  newParts = props.parts.filter(
+                    (p) => p.section !== props.section || p.subsection !== 0
+                  );
+                }
                 newParts.push({
                   section: props.section,
                   subsection: sub,

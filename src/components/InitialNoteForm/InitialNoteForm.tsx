@@ -63,7 +63,7 @@ export const InitialNoteForm: FC<{
                 setSection={setSection}
                 setSubsection={setSubsection}
               />
-              <Divider bold style={{ marginBottom: 10 }} />
+              <Divider bold style={{ marginTop: 10, marginBottom: 10 }} />
             </>
           ) : (
             <TextualSection
