@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useState } from "react";
-import { Button, Text } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { Page } from "../../components/Page";
 import { SongList } from "../../components/SongList";
 import { useDataContext } from "../../hooks/useDataContext";
@@ -36,7 +36,6 @@ export const ListSongs: FC<LibraryTabScreenProps<"List">> = (props) => {
 
   return (
     <Page accessibilityLabel="Repertorio">
-      <Text>Ricerca: {data.search}</Text>
       <SongList
         songs={songs}
         onRefresh={refresh}
