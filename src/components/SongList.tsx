@@ -2,6 +2,7 @@ import { FC, useCallback, useState } from "react";
 import { FlatList } from "react-native";
 import { List } from "react-native-paper";
 import { Song } from "../types";
+import { EmptySearchableListElement } from "./EmptySearchableListElement";
 
 export const SongList: FC<{
   songs: Song[];
@@ -34,6 +35,7 @@ export const SongList: FC<{
         />
       )}
       keyExtractor={(song) => song.id}
+      ListEmptyComponent={EmptySearchableListElement}
     />
   );
 };

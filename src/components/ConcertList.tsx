@@ -1,9 +1,10 @@
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
 import { List } from "react-native-paper";
 import { useDataContext } from "../hooks/useDataContext";
 import { useEffectOnFocus } from "../hooks/useEffectOnFocus";
 import { Concert } from "../types";
+import { EmptySearchableListElement } from "./EmptySearchableListElement";
 
 export const ConcertList: FC<{ onPress: (concert: Concert) => void }> = (
   props
@@ -12,17 +13,33 @@ export const ConcertList: FC<{ onPress: (concert: Concert) => void }> = (
   const [concerts, setConcerts] = useState<Concert[]>();
   const [refreshing, setRefreshing] = useState(false);
 
+  const applyFilter = useCallback(
+    (s: Concert[]) => {
+      const filter = data.search.toLowerCase().trim();
+      setConcerts(
+        filter === ""
+          ? s
+          : s.filter((song) => song.title.toLowerCase().includes(filter))
+      );
+    },
+    [data.search]
+  );
+
   const refresh = useCallback(() => {
     setRefreshing(true);
     data.concerts
       .load()
-      .then(setConcerts)
+      .then(applyFilter)
       .finally(() => {
         setRefreshing(false);
       });
-  }, [data.concerts]);
+  }, [applyFilter, data.concerts]);
 
   useEffectOnFocus(refresh);
+
+  useEffect(() => {
+    applyFilter(data.concerts.list());
+  }, [applyFilter, data.concerts]);
 
   return (
     <FlatList
@@ -41,6 +58,7 @@ export const ConcertList: FC<{ onPress: (concert: Concert) => void }> = (
         />
       )}
       keyExtractor={(song) => song.id}
+      ListEmptyComponent={EmptySearchableListElement}
     />
   );
 };
