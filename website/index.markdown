@@ -12,7 +12,9 @@ title: Home
 
 ---
 ## Partecipa ai test della prossima versione!
-Secondo le regole del Google Play Store, prima di essere pubblicata un'applicazione deve essere testata da almeno 20 persone per 15 giorni. Se vuoi aiutare in questo processo, iscriviti al gruppo dei beta-tester mandando una mail all'indirizzo [meistru-testing+subscribe@googlegroups.com](mailto:meistru-testing+subscribe@googlegroups.com?subject=Candidatura%20ai%20test) e seguendo le istruzioni che arrivaranno via mail. Utilizza l'indirizzo che hai impostato sul tuo cellulare, perché solo da quell'account potrai accedere alle versioni non ancora pubblicate.
+Secondo le regole del Google Play Store, prima di essere pubblicata un'applicazione deve essere testata da almeno 20 persone per 15 giorni. Se vuoi aiutare in questo processo, [iscriviti al gruppo dei beta-tester](https://groups.google.com/g/meistru-testing) mandando una mail all'indirizzo [meistru-testing+subscribe@googlegroups.com](mailto:meistru-testing+subscribe@googlegroups.com?subject=Candidatura%20ai%20test) e seguendo le istruzioni che arrivaranno via mail. Utilizza l'indirizzo che hai impostato sul tuo cellulare, perché solo da quell'account potrai accedere alle versioni non ancora pubblicate.
+
+**Sei già registrato come tester?** Puoi scaricare l'applicazione [da questa pagina](https://play.google.com/apps/testing/click.belinde.meistru)!
 
 ---
 ## Le ultime notizie
