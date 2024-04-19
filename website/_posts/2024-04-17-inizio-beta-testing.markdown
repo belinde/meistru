@@ -11,4 +11,4 @@ Vuoi contribuire alla pubblicazione? [Iscriviti al gruppo dei beta-tester](https
 
 **Sei già registrato come tester?** Puoi scaricare l'applicazione [da questa pagina](https://play.google.com/apps/testing/click.belinde.meistru)!
 
-[![Scarica dal Play Store](/images/google-play-badge.png)](https://play.google.com/apps/testing/click.belinde.meistru)
+[<img src="/images/google-play-badge.png" width="300" alt="Scarica dal Play Store">](https://play.google.com/apps/testing/click.belinde.meistru)

@@ -1,24 +1,40 @@
 body {
-    background-image: url('/images/icon.png');
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: 60px 60px;
+  background-image: url("/images/icon.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 60px 60px;
 }
 
+body a {
+  color: #00aa00 !important;
+}
+
+body,
 .wrapper {
-    background-color: #181818;
+  background-color: #001800 !important;
 }
 
 .preview {
-    width: 300px;
-    height: auto;
-    float: left;
-    margin: 10px 10px 10px 0;
-    padding: 1px;
-    box-shadow: #ddd 0 0 5px;
+  width: 300px;
+  height: auto;
+  float: left;
+  margin: 10px 10px 10px 0;
+  padding: 1px;
+  box-shadow: #ddd 0 0 5px;
 }
 
+@media only screen and (max-width: 600px) {
+  .preview {
+    width: 50%;
+  }
+}
 hr {
-    clear: both;
-    visibility: hidden;
+  clear: both;
+  visibility: hidden;
+}
+header .site-title {
+  background-image: url("/images/icon.png");
+  background-repeat: no-repeat;
+  background-size: 50px 50px;
+  padding-left: 54px;
 }
