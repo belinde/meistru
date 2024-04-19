@@ -16,5 +16,7 @@ Secondo le regole del Google Play Store, prima di essere pubblicata un'applicazi
 
 **Sei già registrato come tester?** Puoi scaricare l'applicazione [da questa pagina](https://play.google.com/apps/testing/click.belinde.meistru)!
 
+[![Scarica dal Play Store](/images/google-play-badge.png)](https://play.google.com/apps/testing/click.belinde.meistru)
+
 ---
 ## Le ultime notizie
