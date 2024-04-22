@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FC } from "react";
-import { SearchMenu } from "../../components/SearchMenu";
 import { useNativeStackNavigatorOptions } from "../../hooks/useNativeStackNavigatorOptions";
 import { CreateConcert } from "./CreateConcert";
 import { EditConcert } from "./EditConcert";
@@ -29,7 +28,7 @@ export const ConcertStack: FC = () => {
       <Stack.Screen
         name="List"
         component={ListConcerts}
-        options={{ title: "Concerti", headerRight: SearchMenu }}
+        options={{ title: "Concerti" }}
       />
       <Stack.Screen
         name="Create"

@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect, useState } from "react";
-import { Button } from "react-native-paper";
+import { Button, Searchbar } from "react-native-paper";
 import { Page } from "../../components/Page";
 import { SongList } from "../../components/SongList";
 import { useDataContext } from "../../hooks/useDataContext";
@@ -9,6 +9,8 @@ import { LibraryTabScreenProps } from "../types";
 
 export const ListSongs: FC<LibraryTabScreenProps<"List">> = (props) => {
   const data = useDataContext();
+  const [text, setText] = useState(() => data.search);
+
   const [songs, setSongs] = useState(() => data.songs.list());
 
   const applyFilter = useCallback(
@@ -34,8 +36,26 @@ export const ListSongs: FC<LibraryTabScreenProps<"List">> = (props) => {
     applyFilter(data.songs.list());
   }, [applyFilter, data.songs]);
 
+  const search = useCallback(
+    (s: string) => {
+      setText(s);
+      data.setSearch(s);
+    },
+    [data]
+  );
+  const reset = useCallback(() => search(""), [search]);
+
   return (
     <Page accessibilityLabel="Repertorio">
+      <Searchbar
+        value={text}
+        onChangeText={search}
+        onIconPress={reset}
+        onClearIconPress={reset}
+        placeholder="Cerca..."
+        searchAccessibilityLabel="Cerca..."
+        aria-label="Cerca..."
+      />
       <SongList
         songs={songs}
         onRefresh={refresh}

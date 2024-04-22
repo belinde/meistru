@@ -1,5 +1,6 @@
 import { FC, useCallback, useState } from "react";
 import { View, useWindowDimensions } from "react-native";
+import { Text } from "react-native-paper";
 import QRCode from "react-qr-code";
 import { Page } from "../../components/Page";
 import { useDataContext } from "../../hooks/useDataContext";
@@ -36,6 +37,17 @@ export const QRSong: FC<LibraryTabScreenProps<"QRView">> = (props) => {
       >
         <QRCode size={width - 40} value={serializeSong(currentSong)} />
       </View>
+      <Text>
+        Usa questo QR Code per copiare rapidamente "{currentSong.title}" su un
+        altro dispositivo.
+      </Text>
+      {currentSong.image ? (
+        <Text>
+          Attenzione: la fotografia dello spartito non è inclusa. Per trasferire
+          tutte le informazioni devi utilizzare la funzione di esportazione
+          della libreria.
+        </Text>
+      ) : null}
     </Page>
   );
 };
