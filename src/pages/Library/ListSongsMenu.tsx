@@ -45,7 +45,7 @@ export const ListSongsMenu: FC = () => {
 
   return (
     <>
-      <IconButton icon="qrcode-plus" onPress={showScanner} />
+      <IconButton icon="qrcode-scan" onPress={showScanner} />
       <Portal>
         <Dialog visible={visible} onDismiss={() => setVisible(false)}>
           <Dialog.Title>Scansiona QR</Dialog.Title>
