@@ -4,6 +4,7 @@ import { useNativeStackNavigatorOptions } from "../../hooks/useNativeStackNaviga
 import { CreateSong } from "./CreateSong";
 import { EditSong } from "./EditSong";
 import { ListSongs } from "./ListSongs";
+import { ListSongsMenu } from "./ListSongsMenu";
 import { QRSong } from "./QRSong";
 import { ViewSong } from "./ViewSong";
 import { ViewSongMenu } from "./ViewSongMenu";
@@ -31,7 +32,7 @@ export const LibraryStack: FC = () => {
       <Stack.Screen
         name="List"
         component={ListSongs}
-        options={{ title: "Repertorio" }}
+        options={{ title: "Repertorio", headerRight: ListSongsMenu }}
       />
       <Stack.Screen
         name="Create"
