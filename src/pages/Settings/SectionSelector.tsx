@@ -3,6 +3,7 @@ import { FC } from "react";
 import { StyleSheet, View } from "react-native";
 import { Text, ToggleButton } from "react-native-paper";
 import { StandardSection } from "../../Settings";
+import { THEME } from "../../theme";
 import { Section } from "../../types";
 
 const style = StyleSheet.create({
@@ -38,6 +39,10 @@ const SectionPart: FC<{
       icon={props.subsection ? `numeric-${props.subsection}` : "asterisk"}
       accessibilityLabel={description}
       aria-label={description}
+      style={{
+        backgroundColor:
+          props.status === "checked" ? THEME.colors.primary : undefined,
+      }}
     />
   );
 };

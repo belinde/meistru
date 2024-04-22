@@ -1,4 +1,5 @@
 import { FC, useCallback, useEffect, useState } from "react";
+import { ScrollView } from "react-native";
 import { RadioButton, Text } from "react-native-paper";
 import { StandardSection } from "../../Settings";
 import { Page } from "../../components/Page";
@@ -30,59 +31,61 @@ export const Basic: FC = () => {
 
   return (
     <Page accessibilityLabel="Impostazioni">
-      <Text variant="titleMedium">Nomi delle note:</Text>
+      <ScrollView>
+        <Text variant="titleMedium">Nomi delle note:</Text>
 
-      <RadioButton.Group
-        onValueChange={(val) => {
-          data.settings.setNoteStyle(val as NoteNameStyle);
-        }}
-        value={style}
-      >
-        <RadioButton.Item
-          value="latin"
-          label="Do, Re, Mi..."
-          accessibilityLabel="Do, Re, Mi..."
-          aria-label="Do, Re, Mi..."
-        />
-        <RadioButton.Item
-          value="english"
-          label="C, D, E..."
-          accessibilityLabel="C, D, E..."
-          aria-label="C, D, E..."
-        />
-      </RadioButton.Group>
+        <RadioButton.Group
+          onValueChange={(val) => {
+            data.settings.setNoteStyle(val as NoteNameStyle);
+          }}
+          value={style}
+        >
+          <RadioButton.Item
+            value="latin"
+            label="Do, Re, Mi..."
+            accessibilityLabel="Do, Re, Mi..."
+            aria-label="Do, Re, Mi..."
+          />
+          <RadioButton.Item
+            value="english"
+            label="C, D, E..."
+            accessibilityLabel="C, D, E..."
+            aria-label="C, D, E..."
+          />
+        </RadioButton.Group>
 
-      <Text variant="titleMedium">Reparti normalmente utilizzati:</Text>
-      <SectionSelector
-        section="soprani"
-        parts={sections}
-        setParts={sectionsPersister}
-      />
-      <SectionSelector
-        section="mezzosoprani"
-        parts={sections}
-        setParts={sectionsPersister}
-      />
-      <SectionSelector
-        section="contralti"
-        parts={sections}
-        setParts={sectionsPersister}
-      />
-      <SectionSelector
-        section="tenori"
-        parts={sections}
-        setParts={sectionsPersister}
-      />
-      <SectionSelector
-        section="baritoni"
-        parts={sections}
-        setParts={sectionsPersister}
-      />
-      <SectionSelector
-        section="bassi"
-        parts={sections}
-        setParts={sectionsPersister}
-      />
+        <Text variant="titleMedium">Reparti normalmente utilizzati:</Text>
+        <SectionSelector
+          section="soprani"
+          parts={sections}
+          setParts={sectionsPersister}
+        />
+        <SectionSelector
+          section="mezzosoprani"
+          parts={sections}
+          setParts={sectionsPersister}
+        />
+        <SectionSelector
+          section="contralti"
+          parts={sections}
+          setParts={sectionsPersister}
+        />
+        <SectionSelector
+          section="tenori"
+          parts={sections}
+          setParts={sectionsPersister}
+        />
+        <SectionSelector
+          section="baritoni"
+          parts={sections}
+          setParts={sectionsPersister}
+        />
+        <SectionSelector
+          section="bassi"
+          parts={sections}
+          setParts={sectionsPersister}
+        />
+      </ScrollView>
     </Page>
   );
 };

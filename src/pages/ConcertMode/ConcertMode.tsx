@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import { Button, Dialog, Divider, Portal, Text } from "react-native-paper";
 import { ConcertPiecesList } from "../../components/ConcertPiecesList";
 import { Page } from "../../components/Page";
@@ -26,20 +26,22 @@ export const ConcertMode: FC<{ concert: string }> = (props) => {
     <Page useSafeArea accessibilityLabel="Modalità concerto">
       <ScrollView>
         <Text variant="titleLarge">{concert.title}</Text>
-        <Text>{concert.description}</Text>
+        {concert.description ? <Text>{concert.description}</Text> : null}
         <Divider bold style={{ marginTop: 10, marginBottom: 10 }} />
         <ConcertPiecesList
           pieces={concert.pieces}
           renderAction={(note) => (
-            <Button
-              icon="music-circle"
-              mode="contained-tonal"
-              onPress={() => {
-                setSong(data.songs.fetch(note.song));
-              }}
-            >
-              Note
-            </Button>
+            <View>
+              <Button
+                icon="music-circle"
+                mode="contained-tonal"
+                onPress={() => {
+                  setSong(data.songs.fetch(note.song));
+                }}
+              >
+                Note
+              </Button>
+            </View>
           )}
         />
         {song && (

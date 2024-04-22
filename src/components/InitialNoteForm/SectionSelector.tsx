@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { StyleSheet, View } from "react-native";
 import { RadioButton, ToggleButton } from "react-native-paper";
+import { THEME } from "../../theme";
 import { Section } from "../../types";
 
 const style = StyleSheet.create({
@@ -14,7 +15,7 @@ const style = StyleSheet.create({
     flexGrow: 1,
   },
   compact: {
-    height: 38,
+    maxHeight: 48,
   },
   subsections: {
     display: "flex",
@@ -84,6 +85,10 @@ export const SectionSelector: FC<{
               value={sub.toString()}
               icon={sub ? `numeric-${sub}` : "asterisk"}
               accessibilityLabel={sub ? sub.toString() : "—"}
+              style={{
+                backgroundColor:
+                  props.subsection === sub ? THEME.colors.primary : undefined,
+              }}
             />
           ))}
         </View>

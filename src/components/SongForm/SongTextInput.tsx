@@ -18,6 +18,7 @@ export const SongTextInput: FC<{
     },
     [props.field, props.song]
   );
+  const hasError = props.mandatory && !value;
 
   return (
     <View>
@@ -31,9 +32,11 @@ export const SongTextInput: FC<{
         onChangeText={onChangeText}
         multiline={props.multiline}
       />
-      <HelperText type="error" visible={!!props.mandatory && !value}>
-        Il campo è obbligatorio
-      </HelperText>
+      {hasError && (
+        <HelperText type="error" visible={!!props.mandatory && !value}>
+          Il campo è obbligatorio
+        </HelperText>
+      )}
     </View>
   );
 };

@@ -85,18 +85,23 @@ export const InitialNoteForm: FC<{
         </Dialog.Content>
 
         <Dialog.Actions style={{ display: "flex" }}>
-          <Button icon="close" onPress={props.dismiss} style={{ flexGrow: 1 }}>
+          <Button
+            icon="close"
+            compact
+            maxFontSizeMultiplier={1.2}
+            onPress={props.dismiss}
+          >
             Annulla
           </Button>
-          <Button icon="delete" onPress={remove} style={{ flexGrow: 1 }}>
+          <Button
+            icon="delete"
+            compact
+            maxFontSizeMultiplier={1.2}
+            onPress={remove}
+          >
             Elimina
           </Button>
-          <Button
-            icon="check-bold"
-            mode="contained"
-            onPress={save}
-            style={{ flexGrow: 2 }}
-          >
+          <Button icon="check-bold" mode="contained" onPress={save}>
             Applica
           </Button>
         </Dialog.Actions>

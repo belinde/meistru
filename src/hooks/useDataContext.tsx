@@ -16,7 +16,7 @@ const songs = new JsonCRUD<Song, "id">(
   "id",
   (a, b) => a.title.localeCompare(b.title),
   async (song) => {
-    if (song.image) {
+    if (song?.image) {
       await deleteFile(song.image).catch(() =>
         alert("Impossibile eliminare il brano.")
       );

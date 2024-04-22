@@ -54,7 +54,7 @@ export const InitialNotesList: FC<{
                     subsection={initNote.subsection}
                     variant="labelLarge"
                   />
-                  <TextualNote note={initNote.note} />
+                  <TextualNote variant="bodySmall" note={initNote.note} />
                 </View>
                 {props.renderAction(initNote, k as Part)}
               </View>

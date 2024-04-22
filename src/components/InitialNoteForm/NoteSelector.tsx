@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { RadioButton, Text, ToggleButton } from "react-native-paper";
+import { Button, Text, ToggleButton } from "react-native-paper";
 import { NOTES } from "../../constants";
 import { useNoteName } from "../../hooks/useNoteName";
+import { THEME } from "../../theme";
 import { Alteration, NoteName, Section } from "../../types";
 import { Pentagram } from "../Pentagram";
 
@@ -25,6 +26,8 @@ export const NoteSelector: FC<{
   setAlteration: (a?: Alteration) => void;
 }> = (props) => {
   const noteName = useNoteName();
+  const [note, setNote] = useState(props.note);
+
   return (
     <View style={style.container}>
       <Pentagram
@@ -42,7 +45,7 @@ export const NoteSelector: FC<{
       />
 
       <View>
-        <Text>Ottava</Text>
+        <Text variant="labelSmall">Ott.</Text>
         <ToggleButton.Group
           onValueChange={(value) => {
             const newVal = parseInt(value);
@@ -57,36 +60,35 @@ export const NoteSelector: FC<{
               value={n.toString()}
               aria-label={n.toString()}
               accessibilityLabel={n.toString()}
+              style={{
+                backgroundColor:
+                  props.octave === n ? THEME.colors.primary : undefined,
+              }}
             />
           ))}
         </ToggleButton.Group>
       </View>
 
       <View>
-        <Text>Nota</Text>
-        <RadioButton.Group
-          onValueChange={(val) => {
-            const newVal = val as NoteName;
-            props.setNote(newVal);
-          }}
-          value={props.note}
-        >
-          {[...NOTES].reverse().map((n) => (
-            <RadioButton.Item
-              style={{ padding: 0, margin: 0, height: 40 }}
-              position="leading"
-              key={n}
-              value={n}
-              label={noteName(n)}
-              aria-label={noteName(n)}
-              accessibilityLabel={noteName(n)}
-            />
-          ))}
-        </RadioButton.Group>
+        <Text variant="labelSmall">Nota</Text>
+        {[...NOTES].reverse().map((n) => (
+          <Button
+            key={n}
+            mode={note === n ? "contained" : "text"}
+            aria-label={noteName(n)}
+            accessibilityLabel={noteName(n)}
+            onPress={() => {
+              setNote(n);
+              props.setNote(n);
+            }}
+          >
+            {noteName(n)}
+          </Button>
+        ))}
       </View>
 
       <View>
-        <Text>Alter.</Text>
+        <Text variant="labelSmall">Alter.</Text>
         <ToggleButton.Group
           onValueChange={(value) => {
             const newVal = value !== "-" ? (value as Alteration) : undefined;
@@ -94,16 +96,33 @@ export const NoteSelector: FC<{
           }}
           value={props.alteration || "-"}
         >
-          <ToggleButton icon="minus" value="-" accessibilityLabel="-" />
+          <ToggleButton
+            icon="minus"
+            value="-"
+            accessibilityLabel="-"
+            style={{
+              backgroundColor: !props.alteration
+                ? THEME.colors.primary
+                : undefined,
+            }}
+          />
           <ToggleButton
             icon="music-accidental-sharp"
             value="#"
             accessibilityLabel="diesis"
+            style={{
+              backgroundColor:
+                props.alteration === "#" ? THEME.colors.primary : undefined,
+            }}
           />
           <ToggleButton
             icon="music-accidental-flat"
             value="b"
             accessibilityLabel="bemolle"
+            style={{
+              backgroundColor:
+                props.alteration === "b" ? THEME.colors.primary : undefined,
+            }}
           />
         </ToggleButton.Group>
       </View>

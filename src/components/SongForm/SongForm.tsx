@@ -19,29 +19,28 @@ export const SongForm: FC<{ song: Song; persister: (song: Song) => void }> = (
   const song = useRef(props.song);
 
   return (
-    <>
-      <ScrollView>
-        <View style={style.container}>
-          <SongTextInput song={song} field="title" label="Titolo" mandatory />
-          <SongTextInput song={song} field="artist" label="Artista" />
-          <SongPhotoManagement song={song} />
-          <SongTextInput
-            song={song}
-            field="annotations"
-            label="Annotazioni"
-            multiline
-          />
-          <SongInitialNotesManagement song={song} />
-        </View>
-      </ScrollView>
+    <ScrollView>
+      <View style={style.container}>
+        <SongTextInput song={song} field="title" label="Titolo" mandatory />
+        <SongTextInput song={song} field="artist" label="Artista" />
+        <SongPhotoManagement song={song} />
+        <SongInitialNotesManagement song={song} />
+        <SongTextInput
+          song={song}
+          field="annotations"
+          label="Annotazioni"
+          multiline
+        />
+      </View>
 
       <Button
         icon="content-save"
         mode="contained"
         onPress={() => props.persister(song.current)}
+        style={{ margin: 16 }}
       >
         Salva
       </Button>
-    </>
+    </ScrollView>
   );
 };

@@ -19,32 +19,31 @@ export const ConcertForm: FC<{
   const concert = useRef(props.concert);
 
   return (
-    <>
-      <ScrollView>
-        <View style={style.container}>
-          <ConcertTextInput
-            concert={concert}
-            field="title"
-            label="Titolo"
-            mandatory
-          />
-          <ConcertTextInput
-            concert={concert}
-            field="description"
-            label="Descrizione"
-            multiline
-          />
-          <ConcertPiecesManagement concert={concert} />
-        </View>
-      </ScrollView>
+    <ScrollView>
+      <View style={style.container}>
+        <ConcertTextInput
+          concert={concert}
+          field="title"
+          label="Titolo"
+          mandatory
+        />
+        <ConcertTextInput
+          concert={concert}
+          field="description"
+          label="Descrizione"
+          multiline
+        />
+        <ConcertPiecesManagement concert={concert} />
+      </View>
 
       <Button
         icon="content-save"
         mode="contained"
         onPress={() => props.persister(concert.current)}
+        style={{ margin: 16 }}
       >
         Salva
       </Button>
-    </>
+    </ScrollView>
   );
 };
