@@ -2,19 +2,26 @@ import { documentDirectory, moveAsync } from "expo-file-system";
 import {
   CameraType,
   MediaTypeOptions,
+  getCameraPermissionsAsync,
   launchCameraAsync,
-  useCameraPermissions,
+  requestCameraPermissionsAsync,
 } from "expo-image-picker";
 import { FC, useCallback } from "react";
 import { Button } from "react-native-paper";
+
+const recursiveRequestPermission = async () => {
+  let permission = await getCameraPermissionsAsync();
+  while (!permission.granted) {
+    permission = await requestCameraPermissionsAsync();
+  }
+};
 
 export const ScorePhotoPicker: FC<{
   songId: string;
   getImageUrl: (url: string) => void;
 }> = (props) => {
-  const [permission, requestPermission] = useCameraPermissions();
-
   const pickImage = useCallback(async () => {
+    await recursiveRequestPermission();
     let result = await launchCameraAsync({
       mediaTypes: MediaTypeOptions.Images,
       allowsEditing: true,
@@ -22,7 +29,6 @@ export const ScorePhotoPicker: FC<{
       cameraType: CameraType.back,
       exif: false,
       aspect: [5, 1],
-      quality: 0.5,
     });
 
     if (!result.canceled) {
@@ -35,14 +41,8 @@ export const ScorePhotoPicker: FC<{
     }
   }, [props]);
 
-  if (!permission) return null;
-
   return (
-    <Button
-      icon="camera"
-      mode="outlined"
-      onPress={permission.granted ? pickImage : requestPermission}
-    >
+    <Button icon="camera" mode="outlined" onPress={pickImage}>
       Scatta foto
     </Button>
   );
