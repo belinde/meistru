@@ -8,11 +8,12 @@ import {
 } from "react";
 import { JsonCRUD } from "../JsonCRUD";
 import { Settings } from "../Settings";
+import { FILENAME_CONCERTS, FILENAME_SONGS } from "../constants";
 import { deleteFile } from "../functions";
 import { Concert, Song } from "../types";
 
 const songs = new JsonCRUD<Song, "id">(
-  "songs.json",
+  FILENAME_SONGS,
   "id",
   (a, b) => a.title.localeCompare(b.title),
   async (song) => {
@@ -24,7 +25,7 @@ const songs = new JsonCRUD<Song, "id">(
   }
 );
 
-const concerts = new JsonCRUD<Concert, "id">("concerts.json", "id", (a, b) =>
+const concerts = new JsonCRUD<Concert, "id">(FILENAME_CONCERTS, "id", (a, b) =>
   a.title.localeCompare(b.title)
 );
 

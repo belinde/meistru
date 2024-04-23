@@ -33,7 +33,6 @@ export const readJsonFile = async <T>(
   defaultValue: T
 ): Promise<T> => {
   const file = DOCUMENT_DIRECTORY + fileName;
-  console.log("Reading file", file);
   const info = await getInfoAsync(file);
   if (!info.exists) {
     return defaultValue;
@@ -52,7 +51,6 @@ export const writeJsonFile = async <T>(fileName: string, data: T) => {
     (e) => console.warn("Cannot create directory", DOCUMENT_DIRECTORY, e)
   );
   const file = DOCUMENT_DIRECTORY + fileName;
-  console.log("Writing file", file);
   await writeAsStringAsync(file, JSON.stringify(data), {
     encoding: "utf8",
   }).catch((e) => console.warn("Cannot write file", fileName, e));

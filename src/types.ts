@@ -35,6 +35,18 @@ export type Song = {
   image?: string;
 };
 
+export const isSong = (item: any): item is Song => {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    "id" in item &&
+    "title" in item &&
+    "artist" in item &&
+    "annotations" in item &&
+    "initialNotes" in item
+  );
+};
+
 export type PentagramPreference = "high" | "low";
 
 export type ConcertPiece = {
@@ -50,4 +62,15 @@ export type Concert = {
   title: string;
   description: string;
   pieces: PieceMap;
+};
+
+export const isConcert = (item: any): item is Concert => {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    "id" in item &&
+    "title" in item &&
+    "description" in item &&
+    "pieces" in item
+  );
 };

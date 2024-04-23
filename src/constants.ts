@@ -3,6 +3,9 @@ import { PentagramPreference, Section } from "./types";
 
 export const DOCUMENT_DIRECTORY = `${documentDirectory}storage/`;
 export const SCORE_PHOTO_RATIO = 5;
+export const FILENAME_SONGS = "songs.json";
+export const FILENAME_CONCERTS = "concerts.json";
+export const FILENAME_SETTINGS = "settings.json";
 
 export const SECTIONS = [
   "tenori",

@@ -1,3 +1,4 @@
+import { FILENAME_SETTINGS } from "./constants";
 import { readJsonFile, writeJsonFile } from "./functions";
 import { InitialNote, NoteNameStyle } from "./types";
 
@@ -9,6 +10,15 @@ type SettingsProperties = {
   standardSections: StandardSection[];
 };
 
+export const isSettingsProperties = (item: any): item is SettingsProperties => {
+  return (
+    typeof item === "object" &&
+    item !== null &&
+    "noteStyle" in item &&
+    "standardSections" in item
+  );
+};
+
 const FIELDS: (keyof SettingsProperties)[] = [
   "noteStyle",
   "concertMode",
@@ -16,7 +26,6 @@ const FIELDS: (keyof SettingsProperties)[] = [
 ];
 
 export class Settings {
-  private static fileName = "settings.json";
   private noteStyle: NoteNameStyle = "latin";
   private concertMode?: string;
   private subscribers: Set<() => void> = new Set();
@@ -31,7 +40,7 @@ export class Settings {
 
   public async load(): Promise<void> {
     const content = await readJsonFile<SettingsProperties>(
-      Settings.fileName,
+      FILENAME_SETTINGS,
       FIELDS.reduce((acc, field) => {
         acc[field] = this[field] as any;
         return acc;
@@ -48,7 +57,7 @@ export class Settings {
   }
 
   private async persist() {
-    await writeJsonFile(Settings.fileName, this);
+    await writeJsonFile(FILENAME_SETTINGS, this);
     this.subscribers.forEach((callback) => callback());
   }
 

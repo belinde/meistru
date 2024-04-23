@@ -33,7 +33,9 @@
     "react-native-svg": "14.1.0",
     "react-native-zip-archive": "^6.1.0",
     "react-qr-code": "^2.0.12",
-    "expo-sharing": "~11.10.0"
+    "expo-sharing": "~11.10.0",
+    "expo-document-picker": "~11.10.1",
+    "expo-system-ui": "~2.9.4"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
