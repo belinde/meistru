@@ -17,7 +17,7 @@ const style = StyleSheet.create({
   subsections: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "space-evenly",
     gap: 10,
   },
 });
