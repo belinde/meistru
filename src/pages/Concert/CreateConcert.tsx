@@ -17,7 +17,7 @@ export const CreateConcert: FC<LibraryTabScreenProps<"Create">> = (props) => {
           pieces: {},
         }}
         persister={(concert) =>
-          data.concerts.add(concert).then(() =>
+          data.concerts.upsert(concert).then(() =>
             props.navigation.navigate("Concert", {
               screen: "View",
               params: { concert: concert.id },

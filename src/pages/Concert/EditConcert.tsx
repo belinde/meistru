@@ -19,7 +19,7 @@ export const EditConcert: FC<ConcertTabScreenProps<"Edit">> = (props) => {
       <ConcertForm
         concert={currentConcert}
         persister={(concert) =>
-          data.concerts.update(concert).then(() =>
+          data.concerts.upsert(concert).then(() =>
             props.navigation.navigate("Concert", {
               screen: "View",
               params: { concert: concert.id },

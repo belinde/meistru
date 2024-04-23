@@ -37,22 +37,22 @@ export class JsonCRUD<ObjType, KeyName extends string & keyof ObjType> {
     return this.data.find((i) => i[this.keyName] === key);
   }
 
-  public async add(item: ObjType) {
-    this.data.push(item);
-    await this.persist();
-  }
-
-  public async update(item: ObjType) {
+  public async upsert(item: ObjType) {
     const index = this.findIndex(item[this.keyName]);
     if (index !== -1) {
       this.data[index] = item;
-      await this.persist();
+    } else {
+      this.data.push(item);
     }
+    await this.persist();
   }
 
   public async delete(key: ObjType[KeyName]) {
-    const index = this.findIndex(key);
-    if (index !== -1) {
+    // to remove also eventual duplicates
+    while (true) {
+      const index = this.findIndex(key);
+      if (index === -1) break;
+
       this.data.splice(index, 1);
       await this.persist();
       if (this.onDelete) {

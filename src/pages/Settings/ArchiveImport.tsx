@@ -56,7 +56,7 @@ const FolderInspector: FC<{ close: () => void }> = (props) => {
       if (Array.isArray(songsJson)) {
         songsJson.forEach(async (s) => {
           if (isSong(s)) {
-            data.songs.add(s);
+            data.songs.upsert(s);
             if (s.image && files.includes(s.image)) {
               await moveAsync({
                 from: `${BACKUP_FOLDER}/${s.image}`,
@@ -73,7 +73,7 @@ const FolderInspector: FC<{ close: () => void }> = (props) => {
       if (Array.isArray(concertsJson)) {
         concertsJson.forEach(async (c) => {
           if (isConcert(c)) {
-            data.concerts.add(c);
+            data.concerts.upsert(c);
           }
         });
       }

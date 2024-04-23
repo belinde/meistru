@@ -16,7 +16,7 @@ export const CreateSong: FC<LibraryTabScreenProps<"Create">> = (props) => {
       if (Object.values(song.initialNotes).length === 0) {
         return alert("Inserisci almeno una nota iniziale.");
       }
-      data.songs.add(song).then(() =>
+      data.songs.upsert(song).then(() =>
         props.navigation.navigate("Library", {
           screen: "View",
           params: { song: song.id },

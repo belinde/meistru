@@ -32,7 +32,7 @@ export const ListSongsMenu: FC = () => {
       const maybeSong = unserializeSong(res.data);
       if (maybeSong && scanned.current !== maybeSong.id) {
         scanned.current = maybeSong.id;
-        songs.add(maybeSong);
+        songs.upsert(maybeSong);
         setVisible(false);
         navigation.navigate("Library", {
           screen: "View",

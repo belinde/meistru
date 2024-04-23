@@ -20,7 +20,7 @@ export const EditSong: FC<LibraryTabScreenProps<"Edit">> = (props) => {
 
   const persister = useCallback(
     (song: Song) =>
-      data.songs.update(song).then(() =>
+      data.songs.upsert(song).then(() =>
         props.navigation.navigate("Library", {
           screen: "View",
           params: { song: song.id },
