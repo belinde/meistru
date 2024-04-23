@@ -62,8 +62,16 @@ export const serializeSong = (song: Song): string => {
   return JSON.stringify(compressed);
 };
 
+const jsonParse = (data: string): unknown => {
+  try {
+    return JSON.parse(data);
+  } catch {
+    return null;
+  }
+};
+
 export const unserializeSong = (data: string): Song | null => {
-  const compressed = JSON.parse(data);
+  const compressed = jsonParse(data);
   if (!isCompressedSong(compressed)) return null;
   const song: Song = {
     id: compressed[0],

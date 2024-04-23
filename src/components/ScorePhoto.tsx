@@ -2,7 +2,7 @@ import { documentDirectory } from "expo-file-system";
 import { FC } from "react";
 import { Image, useWindowDimensions } from "react-native";
 
-export const ScorePhoto: FC<{ source: string }> = (props) => {
+export const ScorePhoto: FC<{ source: string; noCache?: number }> = (props) => {
   const { width } = useWindowDimensions();
 
   return (
@@ -11,7 +11,7 @@ export const ScorePhoto: FC<{ source: string }> = (props) => {
       width={width}
       resizeMode="contain"
       source={{
-        uri: `${documentDirectory}${props.source}?no-cache=${Date.now()}`,
+        uri: `${documentDirectory}${props.source}?no-cache=${props.noCache || Date.now()}`,
       }}
     />
   );
