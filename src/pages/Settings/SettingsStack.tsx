@@ -16,7 +16,7 @@ export const SettingsStack: FC = () => {
       <Stack.Screen
         name="Basic"
         component={Basic}
-        options={{ title: "Impostazioni di base" }}
+        options={{ title: "Impostazioni" }}
       />
     </Stack.Navigator>
   );

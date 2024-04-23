@@ -1,6 +1,6 @@
 import { FC, useRef } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { Button } from "react-native-paper";
+import { FAB } from "react-native-paper";
 import { Concert } from "../../types";
 import { ConcertPiecesManagement } from "./ConcertPiecesManagement";
 import { ConcertTextInput } from "./ConcertTextInput";
@@ -19,31 +19,31 @@ export const ConcertForm: FC<{
   const concert = useRef(props.concert);
 
   return (
-    <ScrollView>
-      <View style={style.container}>
-        <ConcertTextInput
-          concert={concert}
-          field="title"
-          label="Titolo"
-          mandatory
-        />
-        <ConcertTextInput
-          concert={concert}
-          field="description"
-          label="Descrizione"
-          multiline
-        />
-        <ConcertPiecesManagement concert={concert} />
-      </View>
+    <>
+      <ScrollView>
+        <View style={style.container}>
+          <ConcertTextInput
+            concert={concert}
+            field="title"
+            label="Titolo"
+            mandatory
+          />
+          <ConcertTextInput
+            concert={concert}
+            field="description"
+            label="Descrizione"
+            multiline
+          />
+          <ConcertPiecesManagement concert={concert} />
+        </View>
 
-      <Button
-        icon="content-save"
-        mode="contained"
-        onPress={() => props.persister(concert.current)}
-        style={{ margin: 16 }}
-      >
-        Salva
-      </Button>
-    </ScrollView>
+        <FAB
+          icon="content-save"
+          label="Salva"
+          onPress={() => props.persister(concert.current)}
+          style={{ position: "absolute", right: 16, top: 16 }}
+        />
+      </ScrollView>
+    </>
   );
 };
