@@ -1,11 +1,11 @@
 import {
   deleteAsync,
-  documentDirectory,
   getInfoAsync,
+  makeDirectoryAsync,
   readAsStringAsync,
   writeAsStringAsync,
 } from "expo-file-system";
-import { SECTIONS } from "./constants";
+import { DOCUMENT_DIRECTORY, SECTIONS } from "./constants";
 import { InitialNote, Note, Section } from "./types";
 
 export const createIdentifier = () =>
@@ -23,7 +23,7 @@ export const noteSorter = (a: InitialNote, b: InitialNote) => {
 };
 
 export const deleteFile = async (fileName: string) => {
-  await deleteAsync(documentDirectory + fileName).catch((e) => {
+  await deleteAsync(DOCUMENT_DIRECTORY + fileName).catch((e) => {
     console.warn("Cannot delete file", fileName, e);
   });
 };
@@ -32,11 +32,13 @@ export const readJsonFile = async <T>(
   fileName: string,
   defaultValue: T
 ): Promise<T> => {
-  const info = await getInfoAsync(documentDirectory + fileName);
+  const file = DOCUMENT_DIRECTORY + fileName;
+  console.log("Reading file", file);
+  const info = await getInfoAsync(file);
   if (!info.exists) {
     return defaultValue;
   }
-  const content = await readAsStringAsync(documentDirectory + fileName, {
+  const content = await readAsStringAsync(file, {
     encoding: "utf8",
   }).catch((e) => {
     console.warn("Cannot open file", fileName, e);
@@ -46,11 +48,14 @@ export const readJsonFile = async <T>(
 };
 
 export const writeJsonFile = async <T>(fileName: string, data: T) => {
-  await writeAsStringAsync(documentDirectory + fileName, JSON.stringify(data), {
+  await makeDirectoryAsync(DOCUMENT_DIRECTORY, { intermediates: true }).catch(
+    (e) => console.warn("Cannot create directory", DOCUMENT_DIRECTORY, e)
+  );
+  const file = DOCUMENT_DIRECTORY + fileName;
+  console.log("Writing file", file);
+  await writeAsStringAsync(file, JSON.stringify(data), {
     encoding: "utf8",
-  }).catch((e) => {
-    console.warn("Cannot write file", fileName, e);
-  });
+  }).catch((e) => console.warn("Cannot write file", fileName, e));
 };
 
 export const favoriteSectionNote = (section: Section): Note => {

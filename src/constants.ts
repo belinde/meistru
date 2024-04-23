@@ -1,4 +1,8 @@
+import { documentDirectory } from "expo-file-system";
 import { PentagramPreference, Section } from "./types";
+
+export const DOCUMENT_DIRECTORY = `${documentDirectory}storage/`;
+export const SCORE_PHOTO_RATIO = 5;
 
 export const SECTIONS = [
   "tenori",

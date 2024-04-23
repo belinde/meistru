@@ -31,6 +31,7 @@ export type Song = {
   artist: string;
   annotations: string;
   initialNotes: InitialNoteMap;
+  transpose?: number;
   image?: string;
 };
 

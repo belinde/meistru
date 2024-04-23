@@ -23,6 +23,7 @@ type CompressedSong = [
   string, // artist
   string, // annotations
   CompressedInitialNote[],
+  number | undefined, // transpose
 ];
 
 export const isCompressedSong = (data: unknown): data is CompressedSong =>
@@ -43,7 +44,8 @@ export const isCompressedSong = (data: unknown): data is CompressedSong =>
       note[2].length === 1 &&
       (note[3] === "" || note[3] === "#" || note[3] === "b") &&
       typeof note[4] === "number"
-  );
+  ) &&
+  (typeof data[5] === "undefined" || typeof data[5] === "number");
 
 export const serializeSong = (song: Song): string => {
   const compressed: CompressedSong = [
@@ -58,6 +60,7 @@ export const serializeSong = (song: Song): string => {
       note.note.alteration || "",
       note.note.octave,
     ]),
+    song.transpose || 0,
   ];
   return JSON.stringify(compressed);
 };
@@ -79,6 +82,7 @@ export const unserializeSong = (data: string): Song | null => {
     artist: compressed[2],
     annotations: compressed[3],
     initialNotes: {},
+    transpose: compressed[5] || undefined,
   };
 
   compressed[4].forEach((note) => {

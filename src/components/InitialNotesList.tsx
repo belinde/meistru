@@ -17,6 +17,10 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  penta: {
+    display: "flex",
+    flexDirection: "column",
+  },
   initialNotes: {
     flexGrow: 1,
   },
@@ -31,13 +35,18 @@ const style = StyleSheet.create({
 
 export const InitialNotesList: FC<{
   initialNotes: InitialNoteMap;
+  transpose?: number;
   renderAction: (note: InitialNote, key: Part) => ReactNode;
+  trasposeElement: ReactNode;
   children?: ReactNode;
 }> = (props) => {
   return (
     <View style={style.card}>
       <View style={style.display}>
-        <Pentagram notes={props.initialNotes} />
+        <View style={style.penta}>
+          <Pentagram notes={props.initialNotes} />
+          {props.trasposeElement}
+        </View>
         <View style={style.initialNotes}>
           {Object.entries(props.initialNotes)
             .sort(([_k1, a], [_k2, b]) => {

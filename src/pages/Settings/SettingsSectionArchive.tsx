@@ -1,8 +1,9 @@
-import { cacheDirectory, documentDirectory } from "expo-file-system";
+import { cacheDirectory, deleteAsync } from "expo-file-system";
 import { isAvailableAsync, shareAsync } from "expo-sharing";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Button, ProgressBar, Text } from "react-native-paper";
-import { zip } from "react-native-zip-archive";
+import { subscribe, zip } from "react-native-zip-archive";
+import { DOCUMENT_DIRECTORY } from "../../constants";
 import { SettingsSection } from "./SettingsSection";
 
 export const SettingsSectionArchive: FC = () => {
@@ -11,33 +12,34 @@ export const SettingsSectionArchive: FC = () => {
   const [progress, setProgress] = useState(0);
 
   const now = new Date();
-  const targetPath = `${cacheDirectory}/backup_${now.getFullYear()}-${now.getMonth()}-${now.getDate()}.meistru.zip`;
+  const targetPath = `${cacheDirectory}backup_${now.getFullYear()}-${now.getMonth()}-${now.getDate()}.meistru.zip`;
 
   useEffect(() => {
     isAvailableAsync().then(setCanShare);
   }, []);
 
-  //   useEffect(() => {
-  //     const observer = subscribe(
-  //       (evt) => evt.filePath === targetPath && setProgress(evt.progress)
-  //     );
-  //     return () => observer.remove();
-  //   }, [targetPath]);
+  useEffect(() => {
+    const observer = subscribe(
+      (evt) => evt.filePath === targetPath && setProgress(evt.progress)
+    );
+    return () => observer.remove();
+  }, [targetPath]);
 
   const doBackup = useCallback(async () => {
-    if (!canShare || !documentDirectory || !cacheDirectory) return;
+    if (!canShare || !cacheDirectory) return;
     setElaboratingBackup(true);
     setProgress(0);
 
     try {
-      console.log("Zipping...", { documentDirectory, targetPath });
-      await zip(documentDirectory + "cacca", targetPath);
+      await zip(DOCUMENT_DIRECTORY, targetPath);
       await shareAsync(targetPath, {
         mimeType: "application/zip",
         dialogTitle: "Esporta archivio",
       });
     } catch (err) {
       console.error(err);
+    } finally {
+      await deleteAsync(targetPath);
       setElaboratingBackup(false);
     }
   }, [canShare, targetPath]);
