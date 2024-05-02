@@ -1,8 +1,8 @@
 const NOTEREF = [
   "0GA",
-  "1A",
-  "1AB",
-  "1B",
+  "0A",
+  "0AB",
+  "0B",
   "1C",
   "1CD",
   "1D",
@@ -12,9 +12,9 @@ const NOTEREF = [
   "1FG",
   "1G",
   "1GA",
-  "2A",
-  "2AB",
-  "2B",
+  "1A",
+  "1AB",
+  "1B",
   "2C",
   "2CD",
   "2D",
@@ -24,9 +24,9 @@ const NOTEREF = [
   "2FG",
   "2G",
   "2GA",
-  "3A",
-  "3AB",
-  "3B",
+  "2A",
+  "2AB",
+  "2B",
   "3C",
   "3CD",
   "3D",
@@ -36,9 +36,9 @@ const NOTEREF = [
   "3FG",
   "3G",
   "3GA",
-  "4A",
-  "4AB",
-  "4B",
+  "3A",
+  "3AB",
+  "3B",
   "4C",
   "4CD",
   "4D",
@@ -48,9 +48,9 @@ const NOTEREF = [
   "4FG",
   "4G",
   "4GA",
-  "5A",
-  "5AB",
-  "5B",
+  "4A",
+  "4AB",
+  "4B",
   "5C",
   "5CD",
   "5D",
@@ -60,9 +60,9 @@ const NOTEREF = [
   "5FG",
   "5G",
   "5GA",
-  "6A",
-  "6AB",
-  "6B",
+  "5A",
+  "5AB",
+  "5B",
   "6C",
   "6CD",
   "6D",
@@ -72,11 +72,14 @@ const NOTEREF = [
   "6FG",
   "6G",
   "6GA",
+  "6A",
+  "6AB",
+  "6B",
 ];
 
 const { exec } = require("child_process");
 
-const START = 16;
+const START = 8;
 const END = 66;
 const FROMVOL = 0;
 const TOVOL = -20;
@@ -88,13 +91,12 @@ for (let n = START; n <= END; n++) {
       100 * (FROMVOL + ((TOVOL - FROMVOL) * (n - START)) / (END - START)),
       2
     ) / 100;
-  console.log(`"${NOTEREF[n]}": ${FREQ}  --> ${VOL}`);
+  // console.log(`"${NOTEREF[n]}": ${FREQ}  --> ${VOL}`);
   exec(
-    `sox -n ./assets/notes/${NOTEREF[n]}.mp3 synth 3 sin ${FREQ} trapezium ${FREQ} channels 1 vol ${VOL} dB`, // remix - rate 24000
-    (err, stdout, stderr) => {
-      console.log(NOTEREF[n], stdout);
-      stderr && console.error(stderr);
-      err && console.error(err);
+    `sox -n ./assets/notes/${NOTEREF[n]}.mp3 synth 2 pluck ${FREQ} channels 1 vol ${VOL} dB`,
+    (err, _, stderr) => {
+      stderr && console.error(NOTEREF[n], stderr);
+      err && console.error(NOTEREF[n], err);
     }
   );
 }
