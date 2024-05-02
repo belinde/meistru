@@ -78,6 +78,10 @@ export const SongPhotoManagement: FC<{
           deleteAsync(picture.uri);
         }
       })
+      .catch((e) => {
+        console.error(e);
+        setCapturing(false);
+      })
       .finally(() => setElaborating(false));
   }, [status, capturing, requestPermissions, width, height, props.song]);
 
