@@ -1,6 +1,6 @@
 import { FILENAME_SETTINGS } from "./constants";
 import { readJsonFile, writeJsonFile } from "./functions";
-import { InitialNote, NoteNameStyle } from "./types";
+import { InitialNote, Instrument, NoteNameStyle } from "./types";
 
 export type StandardSection = Pick<InitialNote, "section" | "subsection">;
 
@@ -30,6 +30,7 @@ export class Settings {
   private concertMode?: string;
   private subscribers: Set<() => void> = new Set();
   private standardSections: StandardSection[] = [];
+  private instrument: Instrument = "synth";
 
   public subscribe(callback: () => void) {
     this.subscribers.add(callback);
@@ -85,6 +86,15 @@ export class Settings {
 
   async setStandardSections(value: StandardSection[]) {
     this.standardSections = value;
+    await this.persist();
+  }
+
+  getInstrument() {
+    return this.instrument;
+  }
+
+  async setInstrument(value: Instrument) {
+    this.instrument = value;
     await this.persist();
   }
 }

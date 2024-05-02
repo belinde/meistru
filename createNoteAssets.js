@@ -79,24 +79,30 @@ const NOTEREF = [
 
 const { exec } = require("child_process");
 
-const START = 8;
+const launcher = (n, vol, folder, synth) => {
+  const file = `./assets/notes/${folder}/${NOTEREF[n]}.mp3`;
+  exec(
+    `sox -n ${file} synth ${synth} channels 1 vol ${vol} dB`,
+    (err, stdout, stderr) => {
+      stdout && console.log(NOTEREF[n], stdout);
+      stderr && console.error(NOTEREF[n], stderr);
+      err && console.error(NOTEREF[n], err);
+    }
+  );
+};
+const START = 3;
 const END = 66;
 const FROMVOL = 0;
 const TOVOL = -20;
 
 for (let n = START; n <= END; n++) {
-  const FREQ = 440 * Math.pow(2, (n - 49) / 12);
-  const VOL =
+  const Hz = 440 * Math.pow(2, (n - 49) / 12);
+  const vol =
     Math.round(
       100 * (FROMVOL + ((TOVOL - FROMVOL) * (n - START)) / (END - START)),
       2
     ) / 100;
-  // console.log(`"${NOTEREF[n]}": ${FREQ}  --> ${VOL}`);
-  exec(
-    `sox -n ./assets/notes/${NOTEREF[n]}.mp3 synth 2 pluck ${FREQ} channels 1 vol ${VOL} dB`,
-    (err, _, stderr) => {
-      stderr && console.error(NOTEREF[n], stderr);
-      err && console.error(NOTEREF[n], err);
-    }
-  );
+
+  launcher(n, vol, "pluck", `2 pluck ${Hz}`);
+  launcher(n, vol, "synth", `2 sin ${Hz} trapezium ${Hz}`);
 }

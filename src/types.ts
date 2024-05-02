@@ -11,6 +11,8 @@ export type Note = {
   octave: number;
 };
 
+export type Instrument = "synth" | "pluck";
+
 export type NoteNameStyle = "english" | "latin";
 
 export type Section = (typeof SECTIONS)[number];

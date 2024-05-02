@@ -1,8 +1,15 @@
 import { Audio } from "expo-av";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { IconButton } from "react-native-paper";
 import { NOTEFILES } from "../constants";
-import { Alteration, Note, NoteName, NoteResourceName } from "../types";
+import { useDataContext } from "../hooks/useDataContext";
+import {
+  Alteration,
+  Instrument,
+  Note,
+  NoteName,
+  NoteResourceName,
+} from "../types";
 
 const ResMap: Record<`${NoteName}${Alteration}`, [string, number]> = {
   Cb: ["B", -1],
@@ -21,23 +28,37 @@ const ResMap: Record<`${NoteName}${Alteration}`, [string, number]> = {
   "B#": ["C", 1],
 };
 
-const getResourceName = (note: Note): NoteResourceName | null => {
+const getResourceName = (
+  note: Note,
+  instrument: Instrument
+): NoteResourceName | null => {
   let resourceName: NoteResourceName =
-    `${note.octave}${note.note}` as NoteResourceName;
+    `${instrument}${note.octave}${note.note}` as NoteResourceName;
 
   if (note.alteration) {
     const [baseName, changeOctave] = ResMap[`${note.note}${note.alteration}`];
     const octave = note.octave + changeOctave;
-    resourceName = `${octave}${baseName}` as NoteResourceName;
+    resourceName = `${instrument}${octave}${baseName}` as NoteResourceName;
   }
 
   return resourceName in NOTEFILES ? resourceName : null;
 };
 
 export const PlayNote: FC<{ note: Note }> = (props) => {
+  const data = useDataContext();
+  const [instrument, setInstrument] = useState(() =>
+    data.settings.getInstrument()
+  );
+  useEffect(
+    () =>
+      data.settings.subscribe(() => {
+        setInstrument(data.settings.getInstrument());
+      }),
+    [data.settings]
+  );
   const sound = useRef<Audio.Sound>();
 
-  const soundKey = getResourceName(props.note);
+  const soundKey = getResourceName(props.note, instrument);
 
   useEffect(() => {
     if (soundKey) {
