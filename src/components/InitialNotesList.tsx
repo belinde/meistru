@@ -35,9 +35,7 @@ const style = StyleSheet.create({
 
 export const InitialNotesList: FC<{
   initialNotes: InitialNoteMap;
-  transpose?: number;
   renderAction: (note: InitialNote, key: Part) => ReactNode;
-  trasposeElement: ReactNode;
   children?: ReactNode;
 }> = (props) => {
   return (
@@ -45,7 +43,6 @@ export const InitialNotesList: FC<{
       <View style={style.display}>
         <View style={style.penta}>
           <Pentagram notes={props.initialNotes} />
-          {props.trasposeElement}
         </View>
         <View style={style.initialNotes}>
           {Object.entries(props.initialNotes)

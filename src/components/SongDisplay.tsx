@@ -38,12 +38,8 @@ export const SongDisplay: FC<{ song: Song }> = ({ song }) => {
       </View>
       {song.image && <ScorePhoto source={song.image} />}
       <InitialNotesList
-        transpose={song.transpose}
         initialNotes={song.initialNotes}
         renderAction={(initial) => <PlayNote note={initial.note} />}
-        trasposeElement={
-          <Text>Trasposto di {JSON.stringify(song.transpose)}</Text>
-        }
       />
       <Text>{song.annotations}</Text>
     </ScrollView>
