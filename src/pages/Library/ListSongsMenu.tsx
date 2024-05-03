@@ -45,10 +45,15 @@ export const ListSongsMenu: FC = () => {
 
   return (
     <>
-      <IconButton icon="qrcode-scan" onPress={showScanner} />
+      <IconButton
+        icon="qrcode-scan"
+        onPress={showScanner}
+        accessibilityLabel="Scansiona QR code"
+        aria-label="Scansiona QR code"
+      />
       <Portal>
         <Dialog visible={visible} onDismiss={() => setVisible(false)}>
-          <Dialog.Title>Scansiona QR</Dialog.Title>
+          <Dialog.Title>Scansiona QR code</Dialog.Title>
           <Dialog.Content style={{ height: width }}>
             <CameraView
               barcodeScannerSettings={{ barcodeTypes: ["qr"] }}

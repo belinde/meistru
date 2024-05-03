@@ -41,16 +41,19 @@ export const SectionSelector: FC<{
             <RadioButton.Item
               value="tenori"
               label="Tenori"
+              accessibilityLabel="Tenori"
               style={style.compact}
             />
             <RadioButton.Item
               value="baritoni"
               label="Baritoni"
+              accessibilityLabel="Baritoni"
               style={style.compact}
             />
             <RadioButton.Item
               value="bassi"
               label="Bassi"
+              accessibilityLabel="Bassi"
               style={style.compact}
             />
           </View>
@@ -58,16 +61,19 @@ export const SectionSelector: FC<{
             <RadioButton.Item
               value="soprani"
               label="Soprani"
+              accessibilityLabel="Soprani"
               style={style.compact}
             />
             <RadioButton.Item
               value="mezzosoprani"
               label="Mezzosoprani"
+              accessibilityLabel="Mezzosoprani"
               style={style.compact}
             />
             <RadioButton.Item
               value="contralti"
               label="Contralti"
+              accessibilityLabel="Contralti"
               style={style.compact}
             />
           </View>

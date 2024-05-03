@@ -77,6 +77,8 @@ export const PlayNote: FC<{ note: Note }> = (props) => {
     <IconButton
       mode="outlined"
       icon="volume-high"
+      aria-label="Suona nota"
+      accessibilityLabel="Suona nota"
       onPressIn={() => {
         sound.current?.playAsync();
       }}

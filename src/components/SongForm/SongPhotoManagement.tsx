@@ -42,7 +42,7 @@ export const SongPhotoManagement: FC<{
         skipProcessing: true,
       })
       .then(async (picture) => {
-        if (picture) {
+        if (picture && picture.height > 0 && picture.width > 0) {
           const cropped = await manipulateAsync(
             picture.uri,
             [
