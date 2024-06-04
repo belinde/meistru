@@ -43,17 +43,18 @@ export const SongPhotoManagement: FC<{
       })
       .then(async (picture) => {
         if (picture && picture.height > 0 && picture.width > 0) {
+          const originY = Math.floor(
+            picture.height / 2 - picture.width / (SCORE_PHOTO_RATIO * 2)
+          );
           const cropped = await manipulateAsync(
             picture.uri,
             [
               {
                 crop: {
                   originX: 0,
-                  originY:
-                    picture.height / 2 -
-                    picture.width / (SCORE_PHOTO_RATIO * 2),
+                  originY,
                   width: picture.width,
-                  height: picture.width / SCORE_PHOTO_RATIO,
+                  height: Math.floor(picture.width / SCORE_PHOTO_RATIO),
                 },
               },
               {

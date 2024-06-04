@@ -6,7 +6,9 @@
     "slug": "meistru",
     "owner": "belinde",
     "privacy": "unlisted",
-    "platforms": ["android"],
+    "platforms": [
+      "android"
+    ],
     "orientation": "portrait",
     "githubUrl": "https://github.com/belinde/meistru",
     "icon": "./assets/icon.png",
@@ -26,7 +28,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#242B1F"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
@@ -57,6 +61,9 @@
           }
         }
       ]
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "click.belinde.meistru"
+    }
   }
 }
